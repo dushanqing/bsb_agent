@@ -1,70 +1,66 @@
-const App = getApp()
-
+// pages/mcht/mchtBaseInfo/index.js
 Page({
-    data: {
 
-      userInfo: {},
-      // items: [
-      //   {
-      //     icon: '',
-      //     text: '所属商户',
-      //     path: '../detail/mchtMngNo/mchtMngNo'
-      //   },
-      // ],
+  /**
+   * 页面的初始数据
+   */
+  data: {
 
-
-      
-        showTopTips: false,
-
-        mchtLevs: ["连锁商户", "普通商户"],
-        mchtLevIndex: 0,
-
-        stores: ["是", "否"],
-        storeIndex: 0,
-
-        isAgree: false
-    },
-   
-  navigateTo(e) {
-    console.log("mchtlist");
-    const index = e.currentTarget.dataset.index
-    const path = e.currentTarget.dataset.path
-    App.WxService.navigateTo(path)
   },
 
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
 
-
-    showTopTips: function(){
-        var that = this;
-        this.setData({
-            showTopTips: true
-        });
-        setTimeout(function(){
-            that.setData({
-                showTopTips: false
-            });
-        }, 3000);
-    },
-   
-    bindMchtLevChange: function (e) {
-      console.log('picker mchtLev 商户类型-发生选择改变，携带值为', e.detail.value);
-      this.setData({
-        mchtLevIndex: e.detail.value
-      })
-    },
-
-    bindStoreChange: function (e) {
-      console.log('picker Store 是否门店-发生选择改变，携带值为', e.detail.value);
-      this.setData({
-        storeIndex: e.detail.value
-    });
   },
-  // 基本信息页面 下一步
-  mchtInfoNextStep(e) {
-    console.log("nextStep");
-    // const index = e.currentTarget.dataset.index
-    const path ="../mchtAcctInfo/mchtAcctInfo"
-    App.WxService.navigateTo(path)
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
   }
-
-});
+})
