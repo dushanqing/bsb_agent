@@ -1,0 +1,60 @@
+/* pages/login/login.wxss */
+
+/*!
+ * WeUI v1.1.1 (https://github.com/weui/weui-wxss)
+ * Copyright 2017 Tencent, Inc.
+ * Licensed under the MIT license
+ */
+@import "/style/weui.wxss";
+
+.login-input {
+  padding: 10px 15px;
+  position: relative;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.login-title-container {
+  height: 200px;
+  display: flex;
+  justify-content: flex-start;
+ 
+}
+
+.login-title-image {
+  height: 216rpx;
+  width: 750rpx;
+}
+
+.login-userName {
+  height: 48rpx;
+  width: 48rpx;
+}
+
+.login-passWord {
+  height: 48rpx;
+  width: 48rpx;
+}
+
+.login-image{
+  height: 100rpx;
+  width:600rpx;
+} 
+
+.login-button{
+  width: 250px;
+  background-color:#0099FF;
+ }
+
+.login-forget{
+  height: 50px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.login-input-padding{
+  padding-left: 25px;
+}

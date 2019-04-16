@@ -1,0 +1,156 @@
+<view class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
+  <view class="page__hd">
+    <view class="page__title">结算信息</view>
+    <view class="page__desc">页码图标</view>
+  </view>
+  <view class="page__bd">
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">结算方式</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="bindMchtLevChange" value="{{mchtLevIndex}}" range="{{mchtLevs}}">
+          <view class="weui-select weui-select_in-select-after">{{mchtLevs[mchtLevIndex]}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">结算周期</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="bindStoreChange" value="{{storeIndex}}" range="{{stores}}">
+          <view class="weui-select weui-select_in-select-after">{{stores[storeIndex]}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">是否行内</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="bindStoreChange" value="{{storeIndex}}" range="{{stores}}">
+          <view class="weui-select weui-select_in-select-after">{{stores[storeIndex]}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">联行号</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" placeholder="1851234****" />
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">账户类型</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="bindStoreChange" value="{{storeIndex}}" range="{{stores}}">
+          <view class="weui-select weui-select_in-select-after">{{stores[storeIndex]}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">银行账号</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" placeholder="1851234****" />
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">开户名称</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" placeholder="1851234****" />
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">账户证件类型</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="bindStoreChange" value="{{storeIndex}}" range="{{stores}}">
+          <view class="weui-select weui-select_in-select-after">{{stores[storeIndex]}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">账户证件号码</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" placeholder="1851234****" />
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">法人</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" placeholder="1851234****" />
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">手机号</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" placeholder="地址" />
+      </view>
+    </view>
+  
+   <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">合同生效日期</view>
+      </view>
+      <view class="weui-cell__bd">
+      <!-- <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+        <view class="picker">
+          {{date}}
+        </view>
+      </picker> -->
+    <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+            <!-- <view class="picker"> -->
+
+            <view class="weui-select weui-select_in-select-after">{{date}}</view>
+              
+            <!-- </view> -->
+
+       <!-- <picker bindchange="bindStoreChange" value="{{storeIndex}}" range="{{stores}}">
+          <view class="weui-select weui-select_in-select-after">{{stores[storeIndex]}}</view> -->
+        </picker> 
+    </view>
+   
+    </view>
+   <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">合同期限</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="bindStoreChange" value="{{storeIndex}}" range="{{stores}}">
+          <view class="weui-select weui-select_in-select-after">{{stores[storeIndex]}}</view>
+        </picker>
+      </view>
+    </view>
+
+    <!--  所属商户 
+                  
+                  <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{ items }}" wx:key="" data-path="{{ item.path }}" data-index="{{ index }}" bindtap="navigateTo">  
+                      
+                            <view class="weui-cell__bd">{{ item.text }}</view>
+                            <view class="weui-cell__ft weui-cell__ft_in-access">
+                              <text wx:if="{{ index === 2 }}">{{ item.path }}</text>
+                            </view>
+                  </view> -->
+
+  <!-- </view> -->
+
+  <view class="weui-btn-area">
+    <button class="weui-btn" type="primary" bindtap="mchtAcctNextStep">下一步</button>
+  </view>
+</view>
+</view>

@@ -1,0 +1,18 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/logs/logs",
+    "pages/mcht/mchtAcctInfo/mchtAcctInfo",
+    "pages/mcht/mchtPicInfo/mchtPicInfo",
+    "pages/mcht/mchtProdInfo/mchtProdInfo",
+    "pages/mcht/mchtBaseInfo/index",
+    "pages/forgetPassWordStep1/forgetPassWordStep1",
+    "pages/forgetPassWordStep2/forgetPassWordStep2"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "先生请加油",
+    "navigationBarTextStyle": "black"
+  }
+}

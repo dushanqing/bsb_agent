@@ -1,0 +1,22 @@
+<view class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
+    <view class="page__hd">
+      <view class="page__title">电子信息</view>
+      <view class="page__desc">页码图标</view>
+    </view>
+    <view class="page__bd">
+      <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">是否三证合一</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="bindStoreChange" value="{{storeIndex}}" range="{{stores}}">
+          <view class="weui-select weui-select_in-select-after">{{stores[storeIndex]}}</view>
+        </picker>
+      </view>
+    </view>
+    
+    <view class="weui-btn-area">
+      <button class="weui-btn" type="primary" bindtap="mchtPicNextStep">下一步</button>
+    </view>
+    </view>
+</view>
