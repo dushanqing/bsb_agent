@@ -2,7 +2,6 @@
   "pages": [
     "pages/login/login",
     "pages/logs/logs",
-    "pages/mcht/mchtBaseInfo/index",
     "pages/forgetPassWordStep1/forgetPassWordStep1",
     "pages/forgetPassWordStep2/forgetPassWordStep2"
   ],
