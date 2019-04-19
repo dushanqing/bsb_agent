@@ -4,8 +4,7 @@
     "pages/forgetPassWordStep2/forgetPassWordStep2",
     "pages/forgetPassWordStep1/forgetPassWordStep1",
     "pages/logs/logs",
-    "pages/forgetPassWordStep3/forgetPassWordStep3",
-    "pages/map"
+    "pages/forgetPassWordStep3/forgetPassWordStep3"
   ],
   "window": {
     "backgroundTextStyle": "light",
