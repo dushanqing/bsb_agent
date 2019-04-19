@@ -1,3 +1,5 @@
+const config = require('../config.js'); 
+
 const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -54,12 +56,37 @@ function sleep(numberMillis) {
       return true;
   }
 }
+
+function getOpenId(param){
+  let appid = config.config.appid;
+  let secret = config.config.secret;
+  wx.login({
+    success: function (loginCode) {
+      console.log(loginCode.code);
+      //调用request请求api转换登录凭证
+      wx.request({
+        url: 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appid + '&secret=' + secret + '&grant_type=authorization_code&js_code=' + loginCode.code,
+        header: {
+          'content-type': 'application/json'
+        },
+        success: function (res) {
+        
+          wx.setStorageSync('openId', res.data.openid)
+          console.log(res.data.openid);
+          console.log(res.data) //获取openid
+        }
+        
+      })
+    }
+  })
+}
 module.exports = {
   formatTime: formatTime,
   showLoading: showLoading,
   hideLoading: hideLoading,
   sleep: sleep,
   showToast: showToast,
+  getOpenId: getOpenId,
 }
 
 

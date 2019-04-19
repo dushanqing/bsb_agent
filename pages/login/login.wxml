@@ -7,21 +7,20 @@
 
   <!-- 登录输入框 -->
   <view class="login-input weui-cell_input">
-    <image class='login-userName' src='/images/userName.png'/>
-    <input class='login-input_padding' name='userName' placeholder="请输入账号"/>
+    <image class='login-userName' src='/images/mcht.png'/>
+    <input class='login-input-padding' name='userName' placeholder="请输入账号"/>
   </view>
   
   <!-- 密码输入框 -->
   <view class="weui-cell weui-cell_input weui-input">
       <image class='login-passWord' src='/images/passWord.png'></image>
-      <input class='login-input_padding' name='userPassWord' placeholder="请输入密码" password="true"/>
+      <input class='login-input-padding' name='userPassWord' placeholder="请输入密码" password="true"/>
   </view>
   <view class="weui-cell"></view>
 
   <view class="login-forget">
     <text bindtap='onForget'>忘记密码?</text>
   </view>
-
   <view class='login-login-container'>
     <button class='login-button' form-type='submit'>登录</button>
   </view>

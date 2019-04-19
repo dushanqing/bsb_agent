@@ -1,7 +1,4 @@
-// pages/forgetPassWord/forgetPassWord.js
-var app =getApp();
-const App = getApp()
-var util = require("../../utils/util.js");
+// pages/forgetPassWordStep3/forgetPassWordStep3.js
 Page({
 
   /**
@@ -65,21 +62,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-  onStep1: function(e){
-    console.log("this is forgetStep1");
-    var userName = e.detail.value.userName;
-    var mchtLicnNo = e.detail.value.mchtLicnNo;
-    var telPone = e.detail.value.telPone;
-    if (!userName){
-      util.showToast("请输入账号")
-      return;
-    }
-    /** 数据放入本地缓存 */
-    wx.setStorageSync('telPone', '15153746764')
-    wx.redirectTo({
-      url: '/pages/forgetPassWordStep2/forgetPassWordStep2',
-    })
-  },
-
+  }
 })

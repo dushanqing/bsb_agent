@@ -27,6 +27,7 @@
 .login-title-image {
   height: 216rpx;
   width: 750rpx;
+  
 }
 
 .login-userName {

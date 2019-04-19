@@ -1,5 +1,5 @@
 // pages/login/login.js
-const App = getApp()
+var app = getApp()
 var util = require("../../utils/util.js");
 Page({
 
@@ -70,24 +70,28 @@ Page({
    * 登录
    */
   onLogin: function(e){
-    console.log("this is onLogin");
-    // util.showLoading("登录中")
-    var userName = e.detail.value.userName;
-    var userPassword =e.detail.value.userName;
+
+    /** 验证参数登录 */
+    let userName = e.detail.value.userName;
+    let userPassWord = e.detail.value.userPassWord;
     if (!userName){
+      util.showToast('请输入账号')
+      return;
+    };
+    if (!userPassWord){
+      util.showToast('请输入密码');
+      return;
+    };
 
-    }
-    if (!userPassword){
-
-    }
-    console.log(e.detail.value);
-    // wx.request({
-    //   url: '',
+    /** 获取用户openId,放入本地缓存 */
+    util.getOpenId();
+   
+   
+    // wx.redirectTo({
+    //   url: '/pages/mcht/mchtBaseInfo/index',
     // })
-    wx.redirectTo({
-      url: '/pages/mcht/mchtBaseInfo/index',
-    })
   },
+
   onForget:function(){
     console.log("this is onForget");
     wx.redirectTo({
@@ -95,22 +99,14 @@ Page({
     })
   },
 
-
-
-    //函数命名
-    getInfo: function () {
-      //定义常量
-      const a = 1;
-
-      //定义变量
-      let imageContent = res.data
-      return '';
-    },
-
-    //私有函数
-    _getInfo: function () {
-      return '';
-    }
-  
+  getCenterLocation() {
+    this.mapCtx = wx.createMapContext('myMap')
+    this.mapCtx.getCenterLocation({
+      success(res) {
+        console.log(res.longitude)
+        console.log(res.latitude)
+      }
+    })
+  },
 
 })
