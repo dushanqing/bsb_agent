@@ -5,10 +5,9 @@ class HTTP {
   constructor() {
     this.baseRestUrl = config.base_url
   }
-
   //http 请求类, 当noRefech为true时，不做未授权重试机制
   request(params) {
-    var that = this
+    var that = this;
     var url = this.baseRestUrl + params.url;
 
     if (!params.method) {
@@ -35,7 +34,7 @@ class HTTP {
       },
       fail: function (err) {
         params.fail && params.fail(err)
-      }
+      },
     });
   }
 };

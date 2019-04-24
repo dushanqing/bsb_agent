@@ -1,0 +1,6 @@
+<!--map/index.wxml-->
+<!-- <text>map/index.wxml</text> -->
+ <view class='address' bindtap='onChangeAddress'>
+      {{address}}
+ </view>
+

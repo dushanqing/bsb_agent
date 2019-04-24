@@ -1,4 +1,6 @@
 const config = require('../config.js'); 
+import { HTTP } from 'http.js'
+let http = new HTTP();
 
 const formatTime = date => {
   const year = date.getFullYear()
@@ -64,17 +66,25 @@ function getOpenId(param){
     success: function (loginCode) {
       console.log(loginCode.code);
       //调用request请求api转换登录凭证
-      wx.request({
+    
+      http.request({
         url: 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appid + '&secret=' + secret + '&grant_type=authorization_code&js_code=' + loginCode.code,
-        header: {
-          'content-type': 'application/json'
-        },
+      
+      // wx.request({
+      //   url: 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appid + '&secret=' + secret + '&grant_type=authorization_code&js_code=' + loginCode.code,
+      //   header: {
+      //     'content-type': 'application/json'
+      //   },
+
         success: function (res) {
-        
-          wx.setStorageSync('openId', res.data.openid)
           console.log(res.data.openid);
-          console.log(res.data) //获取openid
+          wx.setStorageSync('openid', res.data.openid)
+        },
+
+        fail: function(err){
+          this.showToast('获取用户openid出错')
         }
+
         
       })
     }

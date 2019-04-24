@@ -1,0 +1,14 @@
+<view class='containner'>
+    <view class='errorTip'>
+        <view class='tip'>
+            <text>Sorry，页面已丢失！</text>
+        </view>
+        <image src='../error/images/u1522.png'></image>
+    </view>
+    <view class='errorImg'>
+        <image src='../error/images/u1520.png'></image>
+    </view>
+     <view bind:tap="onBack" class='back'>
+         <text>回到首页</text>
+    </view>
+</view>

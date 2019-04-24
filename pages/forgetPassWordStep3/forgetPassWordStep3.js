@@ -62,5 +62,12 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  onsubmit: function(){
+    wx.redirectTo({
+      url: '/pages/login/login',
+    })
   }
+
 })

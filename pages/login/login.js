@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    //
   },
 
   /**
@@ -86,26 +86,28 @@ Page({
     /** 获取用户openId,放入本地缓存 */
     util.getOpenId();
    
-   
+    console.log(wx.getStorageInfoSync('openid'))
     // wx.redirectTo({
     //   url: '/pages/mcht/mchtBaseInfo/index',
     // })
+    // Promise 对象 保存状态
+    const promise = new promise(function(res,ret){
+
+    });
+ 
+    const pro = new promise(()=>{
+
+    });
+    
   },
 
+  /**
+   * 忘记密码
+   */
   onForget:function(){
     console.log("this is onForget");
     wx.redirectTo({
       url: '/pages/forgetPassWordStep1/forgetPassWordStep1',
-    })
-  },
-
-  getCenterLocation() {
-    this.mapCtx = wx.createMapContext('myMap')
-    this.mapCtx.getCenterLocation({
-      success(res) {
-        console.log(res.longitude)
-        console.log(res.latitude)
-      }
     })
   },
 

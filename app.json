@@ -1,15 +1,24 @@
 {
   "pages": [
     "pages/login/login",
+    "pages/error/error",
+    "map/index",
+    "pages/map",
     "pages/forgetPassWordStep2/forgetPassWordStep2",
     "pages/forgetPassWordStep1/forgetPassWordStep1",
     "pages/logs/logs",
-    "pages/forgetPassWordStep3/forgetPassWordStep3"
+    "pages/forgetPassWordStep3/forgetPassWordStep3",
+    "map/position/position"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "先生请加油",
     "navigationBarTextStyle": "black"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
   }
 }

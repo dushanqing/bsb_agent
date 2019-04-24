@@ -7,8 +7,13 @@
  */
 @import "/style/weui.wxss";
 
+.container{
+    height: 100%;
+    width: 100%;
+}
+
 .login-input {
-  padding: 10px 15px;
+  padding: 20rpx 30rpx;
   position: relative;
   display: -webkit-flex;
   display: flex;
@@ -18,9 +23,10 @@
 }
 
 .login-title-container {
-  height: 200px;
+  height: 400rpx;
   display: flex;
   justify-content: flex-start;
+  
  
 }
 
@@ -46,16 +52,17 @@
 } 
 
 .login-button{
-  width: 250px;
+  width: 500rpx;
   background-color:#0099FF;
  }
 
 .login-forget{
-  height: 50px;
+  height: 100rpx;
   display: flex;
   justify-content: flex-end;
+  padding-right: 50rpx;
 }
 
 .login-input-padding{
-  padding-left: 25px;
+  padding-left: 50rpx;
 }
