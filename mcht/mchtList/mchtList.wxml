@@ -1,0 +1,38 @@
+<!-- 筛选 -->
+<view class="weui-cells weui-cells_after-title">
+  <view class="mcht-search">
+    <view class="weui-cell__bd">
+      <view class="search-input">
+        <input class="weui-input" id="mchtNameSearch" placeholder="请输入商户简称" />
+      </view>
+      <view style="height:20rpx;"></view>
+      <picker bindchange="bindMchtStatChange" value="{{mchtStatIndex}}" range="{{mchtStat}}">
+        <view class="search-input">
+          <input class="weui-input" id="mchtStatSearch" value="{{mchtStat[mchtStatIndex]}}" placeholder="请选择商户状态" />
+        </view>
+      </picker>
+    </view>
+    <view class="search-btn">
+      <button class="weui-btn" id="search-btn" type="primary" bindtap="mchtPicNextStep">查找</button>
+    </view>
+  </view>
+</view>
+
+<!-- 商户列表 -->
+<view class="weui-cells weui-cells_after-title">
+  <block wx:for="{{mchtList}}" wx:for-item="item" id="mchtList">
+    <view class="weui-cell weui-cell_input">
+      <navigator url="{{item.url}}" class="weui-cell weui-cell_access">
+        <view class="pic-flag">
+          <image src="{{item.picFlag}}" id="picFlag" />
+        </view>
+        <view class="weui-cell__hd">
+          <view class="weui-label" id="mchtName">{{item.mchtName}}</view>
+          <text id="crtDateTime">{{item.crtDateTime}}</text>
+        </view>
+        <view class="weui-cell__bd__d" id="mchtStat">{{item.mchtStat}}</view>
+        <!-- <view class="weui-cell__ft weui-cell__ft_in-access"></view> -->
+      </navigator>
+    </view>
+  </block>
+</view>

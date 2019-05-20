@@ -1,0 +1,67 @@
+<view class="page">
+  <include src="../../common/step-nav.wxml" />
+  <view class="page__bd">
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+        <view class="weui-label">是否三证合一</view>
+      </view>
+      <view class="weui-cell__bd__d" id="threeToOne">
+        <text class="weui-text" name="threeToOne">是</text>
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label" id="pic-desc">营业执照</view>
+      </view>
+      <view class="weui-cell__bd" bindtap='bindBigPicTap'>
+        <image class="pic" name="yyzz" data-text="营业执照" src="/images/no-pic.png"></image>
+      </view>
+
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label" id="pic-desc">组织结构代码证</view>
+      </view>
+      <view class="weui-cell__bd" bindtap='bindBigPicTap'>
+        <image class="pic" name="zzjg"  data-text="组织结构代码证"  src="/images/no-pic.png"></image>
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label" id="pic-desc">税务登记证</view>
+      </view>
+      <view class="weui-cell__bd" bindtap='bindBigPicTap'>
+        <image class="pic" name="swdj"  data-text="税务登记证"  src="/images/no-pic.png"></image>
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label" id="pic-desc">身份证正/反面</view>
+      </view>
+      <view class="weui-cell__bd" bindtap='bindBigPicTap'>
+        <image class="pic" name="sfzj"   data-text="身份证正/反面"   src="/images/no-pic.png"></image>
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label" id="pic-desc">商户协议</view>
+      </view>
+      <view class="weui-cell__bd" bindtap='bindBigPicTap'>
+        <image class="pic" name="shxy"   data-text="商户协议"   src="/images/no-pic.png"></image>
+      </view>
+    </view>
+
+    <modal title="{{modalPicName}}" hidden="{{modalHidden}}" bindconfirm="modalConfirm" bindcancel="modalCandel">
+      <view>
+        <image class="image"  src="/images/no-pic.png" mode='aspectFill'></image>
+      </view>
+    </modal>
+  </view>
+</view>
+</view>

@@ -1,0 +1,8 @@
+@import "../../style/mcht.wxss"
+
+.step-view #prod-num {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 25px;
+  background-color: #09f;
+}

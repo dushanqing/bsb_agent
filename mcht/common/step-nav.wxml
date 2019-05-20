@@ -1,0 +1,46 @@
+<view class="weui-cells weui-cells_after-title">
+    <view class="mcht-nav">
+      <view class="mcht-step">
+        <view class="mcht-info"> </view>
+        <!-- 基本信息 -->
+        <view class="mcht-step-view" bindtap="bindReturnStep">
+          <view class="step-view">
+            <view class="mcht-step-desc" id="base-num" data-text="1" >1</view>
+          </view>
+          <view class="mcht-step-desc">
+            <text class="step-text">\n基本信息</text>
+          </view>
+        </view>
+
+        <!-- 结算信息 -->
+        <view class="mcht-step-view" bindtap="bindReturnStep">
+          <view class="step-view">
+            <view class="mcht-step-desc" id="acct-num"  data-text="2">2</view>
+          </view>
+          <view class="mcht-step-desc">
+            <text class="step-text">\n结算信息</text>
+          </view>
+        </view>
+
+        <!-- 电子信息 -->
+        <view class="mcht-step-view" bindtap="bindReturnStep">
+          <view class="step-view">
+            <view class="mcht-step-desc" id="pic-num" data-text="3">3</view>
+          </view>
+          <view class="mcht-step-desc">
+            <text class="step-text">\n电子信息</text>
+          </view>
+        </view>
+
+        <!-- 支付产品 -->
+        <view class="mcht-step-view" bindtap="bindReturnStep">
+          <view class="step-view">
+            <view class="mcht-step-desc" id="prod-num" data-text="4">4</view>
+          </view>
+          <view class="mcht-step-desc">
+            <text class="step-text">\n支付产品</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
