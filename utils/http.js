@@ -1,39 +1,39 @@
 import { config } from '../config.js'
 
-
 class HTTP {
-  constructor() {
-    this.baseRestUrl = config.base_url
-  }
-  //http 请求类, 当noRefech为true时，不做未授权重试机制
-  request(params) {
-    var that = this;
-    var url = this.baseRestUrl + params.url;
+  request({url,data={},method='GET'}){
+    console.log(url);
+    return new Promise((resolve,reject)=>{
+      this._request(url,resolve,reject,data,method);
+    })
+  };
 
-    if (!params.method) {
-      params.method = 'GET';
-    }
+  _request(url, resolve,reject,data={},method='GET') {
+    // var that = this;
+    var url = config.baseRestUrl + url;
+    console.log(url);
     wx.request({
       url: url,
-      data: params.data,
-      method: params.method,
+      data: data,
+      method: method,
       header: {
         'content-type': 'application/json',
-        'openId': config.appkey
       },
       success: function (res) {
+        console.log(res);
         // 判断以2（2xx)开头的状态码为正确
         // 异常不要返回到回调中，就在request中处理，记录日志并showToast一个统一的错误即可
-        var code = res.statusCode.toString();
-        var startChar = code.charAt(0);
+        const code = res.statusCode.toString();
+        const startChar = code.charAt(0);
         if (startChar == '2') {
-          params.success && params.success(res.data);
+            resolve(res.data);
         } else {
-          params.error && params.error(res);
+          reject();
         }
       },
       fail: function (err) {
-        params.fail && params.fail(err)
+        console.log(err);
+        reject();
       },
     });
   }

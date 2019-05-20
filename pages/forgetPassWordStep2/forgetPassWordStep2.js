@@ -1,5 +1,7 @@
 // pages/forgetPassWordStep2/forgetPassWordStep2.js
 var util = require("../../utils/util.js");
+import { HTTP } from '../../utils/http.js'
+let http = new HTTP();
 Page({
 
   /**
@@ -7,17 +9,19 @@ Page({
    */
   data: {
    
-    telPone: wx.getStorageSync('telPone'),
     text: '获取验证码', //按钮文字
     currentTime: 61, //倒计时
-    disabled: false,  //按钮是否禁用   
+    disabled: true,  //按钮是否禁用   
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let telPhone =  wx.getStorageSync('telPhone')
+    this.setData({
+      telPhone: telPhone
+    })
   },
 
   /**
@@ -112,10 +116,43 @@ Page({
     }, 1000);
   },
 
-  onStep2:function(){
+  /** 登录验证,提交 */
+  onStep2:function(e){
+    let checkCode = e.detail.value.checkCode;
+    if (!checkCode) {
+      util.showToast("请输入验证码")
+      return;
+    }
     wx.redirectTo({
       url: '/pages/forgetPassWordStep3/forgetPassWordStep3',
     })
+  },
+
+  myEventListener:function(e){
+    //获取到组件的返回值，并将其打印
+    console.log('是否验证通过:' + e.detail.msg);
+    console.log(e);
+    if (e.detail.msg){
+      this.setData({
+        disabled:false
+      });
+    }else{
+      const info = http.request({
+        url: 'checkLoginInfo.do',
+        data: {
+          head: {
+            rsakey: 456789
+          },
+          body: {
+            phoneNo: phoneNo
+          }
+
+        },
+        method: 'POST'
+      }
+      );
+    }
+
   }
 
 })

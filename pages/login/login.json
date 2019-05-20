@@ -1,4 +1,9 @@
 {
   "navigationBarTitleText": "登录",
-  "enablePullDownRefresh": true
+  "enablePullDownRefresh": true,
+  
+  "usingComponents": {
+      "sliders": "/components/sliders/sliders"
+    }
+  
 }

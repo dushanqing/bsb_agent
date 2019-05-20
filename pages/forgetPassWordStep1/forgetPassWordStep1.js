@@ -1,7 +1,7 @@
 // pages/forgetPassWord/forgetPassWord.js
-var app =getApp();
-const App = getApp()
 var util = require("../../utils/util.js");
+import { HTTP } from '../../utils/http.js'
+let http = new HTTP();
 Page({
 
   /**
@@ -66,17 +66,40 @@ Page({
   onShareAppMessage: function () {
 
   },
+
+  /** 获取商户openId,登录商户信息验证, */
   onStep1: function(e){
+    // util.getOpenId('');
     console.log("this is forgetStep1");
-    var userName = e.detail.value.userName;
+    var userNo = e.detail.value.userName;
     var mchtLicnNo = e.detail.value.mchtLicnNo;
-    var telPone = e.detail.value.telPone;
-    if (!userName){
+    var phoneNo = e.detail.value.telPhone;
+    if (!userNo){
       util.showToast("请输入账号")
       return;
     }
+
+    const info = http.request({
+      url: 'checkLoginInfo.do',
+      data: {
+        head: {
+          rsakey: 456789
+        },
+        body: {
+          userNo: userNo,
+          mchtLicnNo: mchtLicnNo,
+          phoneNo: phoneNo
+        }
+
+      },
+      method: 'POST'
+    }
+    );
+
     /** 数据放入本地缓存 */
-    wx.setStorageSync('telPone', '15153746764')
+   
+    wx.setStorageSync('telPhone', phoneNo)
+    console.log(wx.getStorageSync('telPhone'))
     wx.redirectTo({
       url: '/pages/forgetPassWordStep2/forgetPassWordStep2',
     })

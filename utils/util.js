@@ -65,27 +65,35 @@ function getOpenId(param){
   wx.login({
     success: function (loginCode) {
       console.log(loginCode.code);
+      const code = loginCode.code;
       //调用request请求api转换登录凭证
-    
-      http.request({
-        url: 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appid + '&secret=' + secret + '&grant_type=authorization_code&js_code=' + loginCode.code,
-      
-      // wx.request({
+      // http.request({
       //   url: 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appid + '&secret=' + secret + '&grant_type=authorization_code&js_code=' + loginCode.code,
-      //   header: {
-      //     'content-type': 'application/json'
+      //    success: function (res) {
+      //     console.log(res.data.openid);
+      //     wx.setStorageSync('openid', res.data.openid)
       //   },
 
-        success: function (res) {
-          console.log(res.data.openid);
-          wx.setStorageSync('openid', res.data.openid)
+      //   fail: function(err){
+      //     this.showToast('获取用户openid出错')
+      //   }  
+      // })
+      const token = http.request({
+        url: 'exchangeOpenIdBycode.do',
+        data:{
+          head:{
+            rsakey:456789
+          },
+          body:{
+            jscode: code
+          }
+         
         },
-
-        fail: function(err){
-          this.showToast('获取用户openid出错')
+        method: 'POST'
         }
-
-        
+      );
+      token.then(res=>{
+        console.log(res);
       })
     }
   })

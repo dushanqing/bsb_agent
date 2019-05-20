@@ -1,11 +1,11 @@
 {
   "pages": [
+    "pages/forgetPassWordStep1/forgetPassWordStep1",
+    "pages/forgetPassWordStep2/forgetPassWordStep2",
     "pages/login/login",
     "pages/error/error",
     "map/index",
     "pages/map",
-    "pages/forgetPassWordStep2/forgetPassWordStep2",
-    "pages/forgetPassWordStep1/forgetPassWordStep1",
     "pages/logs/logs",
     "pages/forgetPassWordStep3/forgetPassWordStep3",
     "map/position/position"

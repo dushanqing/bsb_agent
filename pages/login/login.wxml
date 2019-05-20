@@ -25,7 +25,7 @@
     <view class="login-login-container">
       <button class="login-button" form-type="submit">登录</button>
     </view>
-
   </form>
 </view>
+
 
