@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "支付产品",
-  "enablePullDownRefresh": true,
-  "usingComponents": {
-    "show-modal": "../../../../components/show-modal/show-modal"
-  }
-}
