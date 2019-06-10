@@ -78,7 +78,7 @@ function decrypt_ecb(_content, _key) {
         padding: CryptJS.pad.Pkcs7
     })
     // debugger
-    console.log(decrypted)
+    // console.log(decrypted)
     return decrypted.toString(CryptJS.enc.Utf8);
 }
 

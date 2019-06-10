@@ -1,0 +1,12 @@
+<view class="weui-cells weui-cells_after-title">
+<checkbox-group bindchange="checkboxChange">
+  <label class="weui-cell weui-check__label" wx:for="{{checkboxItems}}" wx:key="prodId">
+    <checkbox class="weui-check" value="{{item.prodId}}" checked="{{item.prodChecked}}" />
+    <view class="weui-cell__hd weui-check__hd_in-checkbox">
+      <icon class="weui-icon-checkbox_circle" type="circle" color="#09f"  size="23" wx:if="{{!item.prodChecked}}"></icon>
+      <icon class="weui-icon-checkbox_success" color="#09f"  type="success" size="23" wx:if="{{item.prodChecked}}"></icon>
+    </view>
+    <view class="weui-cell__bd">{{item.productName}}</view>
+  </label>
+</checkbox-group>
+</view>

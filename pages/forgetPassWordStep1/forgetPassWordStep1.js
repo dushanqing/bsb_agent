@@ -15,6 +15,8 @@ Page({
     loading:false,
     loginStep1:true,
     loginStep2:true,
+    submitFlag: false, //避免重复提交
+
   },
 
   /**
@@ -31,6 +33,14 @@ Page({
           loginStep2: false,
           loading: true,
         })
+        let userNo = wx.getStorageSync('userNo');
+        let mchtLicnNo = wx.getStorageSync('mchtLicnNo');
+        let phoneNo = wx.getStorageSync('phoneNo');
+        this.setData({
+          phoneNo: phoneNo,
+          userNo: userNo,
+          mchtLicnNo: mchtLicnNo,
+        })
       }else{
         //用户未登录
         this.setData({
@@ -40,17 +50,6 @@ Page({
       }
     
     }
-
-    let userNo = wx.getStorageSync('userNo');
-    let mchtLicnNo = wx.getStorageSync('mchtLicnNo');
-    let phoneNo = wx.getStorageSync('phoneNo');
-
-
-    this.setData({
-      phoneNo: phoneNo,
-      userNo: userNo,
-      mchtLicnNo: mchtLicnNo,
-    })
   },
   /**
     * 生命周期函数--监听页面显示
@@ -109,10 +108,13 @@ Page({
       wx.setStorageSync('userNo', userNo)
       wx.setStorageSync('mchtLicnNo', mchtLicnNo)
       wx.setStorageSync('phoneNo', phoneNo)
-
       //数据验证成功,显示step2页面
       this.setData({
-        loginFlag: true,
+        phoneNo: phoneNo,
+        userNo: userNo,
+        mchtLicnNo: mchtLicnNo,
+        loginStep1: true,
+        loginStep2:false
       })
      
     })
@@ -168,8 +170,7 @@ Page({
    */
   getCheckCode: function() {
     var that = this;
-    var currentTime = that.data.currentTime
-
+    var currentTime = that.data.currentTime;
     //只要点击了按钮就让按钮禁用
     that.setData({
       disabled: 'true',
@@ -180,8 +181,8 @@ Page({
       url: 'getMesCode.do',
       data: {
         body: {
-          msgToken: this.data.msgToken,
-          phoneNo: this.data.phoneNo
+          msgToken: that.data.msgToken,
+          phoneNo: wx.getStorageSync('phoneNo')
         }
       },
       method: 'POST'
@@ -252,6 +253,7 @@ Page({
    * 登录验证,提交 
    */
   onStep2: function(e) {
+    var that = this;
 
     //验证码校验 必须为6位
     let vrfyCode = e.detail.value.checkCode;
@@ -264,22 +266,34 @@ Page({
       return;
     }
 
+    //避免重复提交
+    if (that.data.submitFlag) {
+      return;
+    }
+    that.setData({
+      submitFlag: true,
+    })
+
     const resBody = http.request({
       url: 'checkMesCode.do',
       data: {
         body: {
-          userNo: this.data.userNo,
-          phoneNo: this.data.phoneNo,
-          mchtLicnNo: this.data.mchtLicnNo,
-          taskId: this.data.taskId,
+          userNo: wx.getStorageSync('userNo'),
+          phoneNo: wx.getStorageSync('phoneNo'),
+          mchtLicnNo: wx.getStorageSync('mchtLicnNo'),
+          taskId: that.data.taskId,
           vrfyCode: vrfyCode,
-          reqSsn: this.data.reqSsn
+          reqSsn: that.data.reqSsn
         }
       },
       method: 'POST'
     });
 
     resBody.then(res => {
+      that.setData({
+        submitFlag: false,
+      })
+      console.log(res);
       const resCode = res.resCode;
       const resMessage = res.resMessage;
 
@@ -287,17 +301,26 @@ Page({
       if (resCode == 'REQ1015') {
         app.onLaunch();
       }
+      //用户验证身份失败 跳转到登录首页
+      if (resCode == '0026'){
+        //用户未登录
+        this.setData({
+          loginStep1: false,
+          loading: true,
+        })
+      }
 
       if (resCode != 'S') {
         util.showToast("短信验证失败");
         return;
       }
+      //登录成功以后userId放到本地缓存中
+      wx.setStorageSync('userId', res.userId)
       wx.redirectTo({
-        url: '/pages/index/index',
+        url: "/pages/loginShowInfo/loginShowInfo",
       })
     });
  
   },
-
 
 })

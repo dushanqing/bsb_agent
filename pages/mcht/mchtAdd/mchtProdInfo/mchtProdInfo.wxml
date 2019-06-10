@@ -1,0 +1,127 @@
+<include src="../../common/step-nav.wxml" />
+  <form bindsubmit="baseFormSubmit">
+<view class="page__bd">
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input" bindtap="bindCheckProd">
+      <view class="weui-cell__hd_prod">
+        <view class="weui-label_prod">可用产品(复选)</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" placeholder="{{ prodName }}" disabled="true" />
+      </view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </view>
+  </view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd_prod">
+        <view class="weui-label_prod">借记卡手续费(%)</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" type="digit"  name="jiejifee" value="{{jiejifee}}" maxlength="12" placeholder="0.00" bindblur='jiejifeekeepTwoDecimals' />
+      </view>
+    </view>
+  </view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd_prod">
+        <view class="weui-label_prod">借记卡费率封顶(元)</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" type="digit"  name="jiejitop" value="{{jiejitop}}" maxlength="12" placeholder="0.00" bindblur='jiejitopkeepTwoDecimals' />
+      </view>
+    </view>
+  </view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd_prod">
+        <view class="weui-label_prod">贷记卡手续费(%)</view>
+      </view>
+      <view class="weui-cell__bd">
+         <input class="weui-input" type="digit"  name="daijifee" value="{{daijifee}}" maxlength="12" placeholder="0.00" bindblur='daijifeekeepTwoDecimals' />
+      </view>
+    </view>
+  </view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd_prod">
+        <view class="weui-label_prod">贷记卡费率封顶(元)</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" type="digit"  name="daijitop" value="{{daijitop}}" maxlength="12" placeholder="0.00" bindblur='daijitopkeepTwoDecimals' />
+      </view>
+    </view>
+  </view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd_prod">
+        <view class="weui-label_prod">单笔最小限额(元)</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input"  type="digit"  name="limitMin" value="{{limitMin}}" maxlength="12" placeholder="0.00" bindblur='limitMinkeepTwoDecimals' />
+      </view>
+    </view>
+  </view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd_prod">
+        <view class="weui-label_prod">单笔最大限额(元)</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" type="digit"  name="limitOne" value="{{limitOne}}" maxlength="12" placeholder="0.00" bindblur='limitOnekeepTwoDecimals' />
+      </view>
+    </view>
+  </view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd_prod">
+        <view class="weui-label_prod">单日累计限额(元)</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input"  type="digit"  name="limitDay" value="{{limitDay}}" maxlength="12" placeholder="0.00" bindblur='limitDaykeepTwoDecimals' />
+      </view>
+    </view>
+  </view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd_prod">
+        <view class="weui-label_prod">月累计限额(元)</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" type="digit"  name="limitMonth" value="{{limitMonth}}" maxlength="12" placeholder="0.00" bindblur='limitMonthkeepTwoDecimals' />
+      </view>
+    </view>
+  </view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd_prod">
+        <view class="weui-label_prod">年累计限额(元)</view>
+      </view>
+      <view class="weui-cell__bd"> 
+        <input class="weui-input"  type="digit"  name="limitYear" value="{{limitYear}}" maxlength="12" placeholder="0.00" bindblur='limitYearkeepTwoDecimals' />
+      </view>
+    </view>
+  </view>
+
+  <!-- 可用产品选择-->
+  <show-modal title="可用产品(复选)" hidden="{{modalHidden}}" bindconfirm="modalConfirm" bindcancel="modalCancel" confirmText="确认">
+    <view class="weui-cells weui-cells_after-title">
+    </view>
+    <checkbox-group bindchange="checkboxChange" name="prodId">
+      <scroll-view scroll-y style="height: 700rpx;">
+        <label class="weui-cell weui-check__label" wx:for="{{checkboxItems}}" wx:key="prodId">
+          <checkbox class="weui-check" value="{{item.prodId}}"  checked="{{item.prodChecked}}" />
+          <view class="weui-cell__hd weui-check__hd_in-checkbox">
+            <icon class="weui-icon-checkbox_circle" type="circle" color="#09f" size="23" wx:if="{{!item.prodChecked}}"></icon>
+            <icon class="weui-icon-checkbox_success" color="#09f" type="success" size="23" wx:if="{{item.prodChecked}}"></icon>
+          </view>
+          <view class="weui-cell__bd" style="color:black">{{item.productName}}</view>
+        </label>
+      </scroll-view>
+    </checkbox-group>
+  </show-modal>
+  <view class="weui-btn-area">
+    <button class="weui-btn" id="step-btn" type="primary" form-type="submit">提交审核</button>
+  </view>
+</view>
+</form>

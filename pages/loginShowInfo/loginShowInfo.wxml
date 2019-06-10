@@ -1,0 +1,65 @@
+<!--pages/loginShowInfo/loginShowInfo.wxml-->
+<view class="containner">
+
+  <view class="title">
+    <image class="title-image" src="/images/bsbt.jpg"></image>
+    <view class="title-item">
+    <text>{{agname}}</text>
+    <text>{{userNm}}</text>
+    </view>
+  </view>
+
+  <view class="center">
+    <navigator url="/pages/userInfo/userInfo">
+      <view class="center-mchts" url="/pages/userInfo/userInfo">
+          <image  src="/images/mchts.png" class="center-mchts-image"></image>
+          <text>进件商户</text>
+      </view>
+    </navigator>
+    <navigator url= "/pages/mcht/mchtList/mchtList">
+      <view class="center-mchts">
+        <image src="/images/mchtList.png" class="center-mchts-image"></image>
+        <text>商户列表</text>
+      </view>
+    </navigator>
+  </view>
+  <view class='solid'/>
+  <view class="count-text">
+      <text>总进件商户数（户）</text>
+      <text>{{totalCount}}</text>
+  </view>
+  <view class="count-text">
+      <text>审核通过商户数（户）</text>
+      <text>{{passCount}}</text>
+  </view>
+  <view class="count-text">
+      <text>审核拒绝商户数（户）</text>
+      <text >{{refuseCount}}</text>
+  </view>
+  <view class="count-text">
+      <text>审核中商户数（户）</text>
+      <text>{{inReviewCount}}</text>
+  </view>
+  <view class='solid'/>
+  <view class="count-text">
+      <text>今日进件（户）</text>
+      <text>{{dayCount}}</text>
+  </view>
+  <view class="count-text">
+      <text>近一周进件（户）</text>
+      <text>{{weekCount}}</text>
+  </view>
+  <view class='solid'/>
+
+  <view class="root">
+    <navigator url= "/pages/mcht/mchtList/mchtList">
+      <text>首页</text>
+    </navigator>
+    <navigator url= "/pages/userInfo/userInfo">
+      <text>我的</text>
+    </navigator>
+    <navigator url= "/pages/index/index">
+      <text>更多</text>
+    </navigator>
+  </view>
+</view>

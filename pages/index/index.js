@@ -1,77 +1,66 @@
-const App = getApp()
-import { HTTP } from '../../utils/http.js'
-const http = new HTTP();
+var adds = {};
 Page({
   data: {
-    items: [
-      {
-        icon: '',
-        text: '进件商户',
-        path: '/pages/mcht/mchtAdd/mchtBaseInfo/mchtBaseInfo'
-      },
-      {
-        icon: '',
-        text: '商户列表',
-        path: '/pages/mcht/mchtList/mchtList'
-      },
-    ]
+    img_arr: [],
+    formdata: '',
   },
-  onLoad() {
-    this.getStorageInfo()
+  formSubmit: function (e) {
+    var id = e.target.id
+    // adds = e.detail.value;
+    // adds.program_id = app.jtappid
+    // adds.openid = app._openid
+    // adds.zx_info_id = this.data.zx_info_id
+    this.upload()
   },
-  test :function(){
-    const resBody = http.request({
-      url: 'editMerchant.do',
-      data: {
-        body: {
-          mchtId: '8201904230000002'
+
+  upload: function () {
+    var that = this
+    for (var i = 0; i < this.data.img_arr.length; i++) {
+      console.log("11111111111111111111111+" + wx.getStorageSync('sessionId'));
+      wx.uploadFile({
+        url: 'http://ydsd.bsb.com.cn/ifsp-gateway/agent/ocrRecognize.do',
+        filePath: that.data.img_arr[i],
+        name: "file",
+        header: {
+          "Content-Type": "multipart/form-data"
+        },
+        formData: {
+          sessionId: wx.getStorageSync('sessionId'),
+          type:'01'
+        },
+        success: function (res) {
+          console.log(res)
+          if (res) {
+            wx.showToast({
+              title: '已提交发布！',
+              duration: 3000
+            });
+          }
         }
-      },
-      method: 'POST',
-    });
+      })
+    }
+    this.setData({
+      formdata: ''
+    })
   },
-  navigateTo(e) {
-   
-    
-    const index = e.currentTarget.dataset.index
-    const path = e.currentTarget.dataset.path
-
-    switch (index) {
-      case 2:
-        App.WxService.makePhoneCall({
-          phoneNumber: path
-        })
-        break
-      default:
-        App.WxService.navigateTo(path)
+  upimg: function () {
+    var that = this;
+    if (this.data.img_arr.length < 3) {
+      wx.chooseImage({
+        sizeType: ['original', 'compressed'],
+        success: function (res) {
+          that.setData({
+            img_arr: that.data.img_arr.concat(res.tempFilePaths)
+          })
+        }
+      })
+    } else {
+      wx.showToast({
+        title: '最多上传三张图片',
+        icon: 'loading',
+        duration: 3000
+      });
     }
   },
-  getUserInfo() {
-    const userInfo = App.globalData.userInfo
 
-    if (userInfo) {
-      this.setData({
-        userInfo: userInfo
-      })
-      return
-    }
-
-    App.getUserInfo()
-      .then(data => {
-        console.log(data)
-        this.setData({
-          userInfo: data
-        })
-      })
-  },
-  getStorageInfo() {
-    App.WxService.getStorageInfo()
-      .then(data => {
-        console.log(data)
-        this.setData({
-          'settings[0].path': `${data.currentSize}KB`
-        })
-      })
-  },
-
-})
+});

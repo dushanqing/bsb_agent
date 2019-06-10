@@ -1,12 +1,18 @@
-
-	<view class="info_list">
-		<view class="weui-cells">
-			<view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{ items }}" wx:key="" data-path="{{ item.path }}" data-index="{{ index }}" bindtap="navigateTo">
-                <view class="weui-cell__bd">{{ item.text }}</view>
-                <view class="weui-cell__ft weui-cell__ft_in-access">
-                	<text wx:if="{{ index === 2 }}">{{ item.path }}</text>
-                </view>
-            </view>
+<form bindsubmit="formSubmit" id='1' bindreset="formReset">    
+<input style='display:none' name='program_id' value='{{program_id}}'></input>    
+      <view class='caigou_centent'>描述说明(选填)</view>    
+   
+      <view class="big-logos">
+        <view class='big-logos_img'>
+           <image bindtap="upimg" src=''></image> 
+           <image bindtap="upimg" src=''></image> 
+          <image bindtap="upimg" src=''></image>   
         </view>
-        <button bindtap='test'>54646</button>
-    </view>
+        <block wx:for="{{img_arr}}" wx:key="{{index}}"> 
+            <view class='logoinfo'>    
+              <image src='{{item}}'></image>    
+            </view>  
+        </block>    
+      </view>    
+      <button class='btn' formType="submit">发布</button>    
+</form>  

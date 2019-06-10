@@ -1,7 +1,0 @@
-/* pages/ocr/ocr.wxss */
-.view_show{
-  display:block;
-}
-.view_hide{
-  display:none;
-}

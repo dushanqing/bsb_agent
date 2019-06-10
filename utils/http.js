@@ -1,6 +1,7 @@
 import { config } from '../config.js';
 var aesUtil = require("aesUtil.js");
 var rsaUtil = require("rsaUtil.js");
+var util = require("util.js");
 var aesKey;
 
 class HTTP {
@@ -64,12 +65,18 @@ _request(url, resolve, reject, data = {}, method = 'GET', contentType = 'applica
         const code = res.statusCode.toString();
         const startChar = code.charAt(0);
         if (startChar == '2') {
-          //返回报文解密
-          let aesResBody = res.data.body.aesBody
-          aesResBody = aesResBody.replace(/\r\n/g, "").replace(/\n/g, "");
-          let resBody = aesUtil.decrypt_ecb(aesResBody, aesKey);
-          resBody = JSON.parse(resBody);
-          resolve(resBody);
+          let resCode = res.data.body.resCode;
+          if ("" == resCode || null == resCode || undefined == resCode) {
+            //返回报文解密
+            let aesResBody = res.data.body.aesBody
+            aesResBody = aesResBody.replace(/\r\n/g, "").replace(/\n/g, "");
+            let resBody = aesUtil.decrypt_ecb(aesResBody, aesKey);
+            resBody = JSON.parse(resBody);
+            resolve(resBody);
+          }else{
+            resolve(res.data.body);
+       
+          }
         } else {
           reject();
         }

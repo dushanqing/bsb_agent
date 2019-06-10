@@ -1,0 +1,9 @@
+@import "../../style/mcht.wxss";
+
+
+.step-view #acct-num {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50rpx;
+  background-color: #09f;
+}

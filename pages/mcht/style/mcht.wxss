@@ -2,14 +2,14 @@
   font-family: 'Arial Normal', 'Arial';
   font-weight: 400;
   font-style: normal;
-  font-size: 14px;
+  font-size: 28rpx;
 }
 
 .weui-cell__bd {
   font-family: 'Arial Normal', 'Arial';
   font-weight: 400;
   font-style: normal;
-  font-size: 14px;
+  font-size: 28rpx;
 }
 
 .mcht-nav {
@@ -52,14 +52,14 @@
 .step-view #base_num {
   width: 72rpx;
   height: 72rpx;
-  border-radius: 25px;
+  border-radius: 50rpx;
   background-color: #09f;
 }
 
 .step-view .mcht-step-desc {
   width: 72rpx;
   height: 72rpx;
-  border-radius: 25px;
+  border-radius: 50rpx;
   background-color: #f7f7f7;
 }
 
@@ -82,7 +82,7 @@
   position: absolute;
   display: flex;
   background-color: #f7f7f7;
-  margin-top: 5%;
+  margin-top: 4%;
 }
 
 #step-btn {
@@ -90,7 +90,7 @@
 }
 
 .weui-label {
-  width: 105px;
+  width: 210rpx;
   word-wrap: break-word;
   word-break: break-all;
   font-family: 'Arial Normal', 'Arial';
@@ -105,7 +105,12 @@
   line-height: 2.58823529em;
   text-align: right;
   margin-right: 5%;
+  font-size: 28rpx;
   -webkit-box-flex: 1;
   -webkit-flex: 1;
   flex: 1;
+}
+
+.img {
+  width: 80%;
 }

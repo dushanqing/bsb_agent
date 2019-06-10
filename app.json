@@ -2,8 +2,8 @@
   "pages": [
     "pages/forgetPassWordStep1/forgetPassWordStep1",
     "pages/loginShowInfo/loginShowInfo",
-    "pages/userInfo/userInfo",
     "pages/mcht/mchtAdd/mchtAcctInfo/mchtAcctInfo",
+    "pages/userInfo/userInfo",
     "pages/mcht/mchtList/mchtList",
     "pages/rsa/rsa",
     "pages/forgetPassWordStep2/forgetPassWordStep2",
