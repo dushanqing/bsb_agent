@@ -77,6 +77,19 @@ Component({
         succeedMsg: this.data.succeedMsg,
         cssAnimation: this.data.cssAnimation
       })
+    },
+    //刷新事件
+    onUpdate : function(){
+      this.setData({
+        hint: '右滑验证',//默认提示语
+        sysW: wx.getSystemInfoSync().windowWidth,//获取屏幕宽度
+        xAxial: 0,//X轴的初始值
+        x: 0,//触摸时X轴的值
+        w: (wx.getSystemInfoSync().windowWidth * 0.9) - 48,//滑块可移动的X轴范围
+        cssAnimation: 'translate3d(0, 0, 0)',//CSS动画的初始值
+        succeedMsg: '',//验证成功提示信息的默认值
+        pullStatus: true,//是否允许验证成功后继续滑动
+      })
     }
   }
 })

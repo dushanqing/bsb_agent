@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    address: "",
+    mchtContAddr: "",
     src: ""
   },
   /**
@@ -15,10 +15,10 @@ Page({
   onLoad: function (options) {
     /*判断是第一次加载还是从position页面返回
     如果从position页面返回，会传递用户选择的地点*/
-    if (options.address != null && options.address != '') {
+    if (options.mchtContAddr != null && options.mchtContAddr != '') {
       //设置变量 address 的值
       this.setData({
-        address: options.address
+        mchtContAddr: options.mchtContAddr
       });
     } else {
       // 实例化API核心类
@@ -32,7 +32,7 @@ Page({
         success: function (res) {
           console.log(res);
           that.setData({
-            address: res.result.address
+            mchtContAddr: res.result.address
           });
         },
         fail: function (res) {

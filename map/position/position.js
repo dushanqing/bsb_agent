@@ -19,10 +19,10 @@ Page({
     var that = this;
     wx.chooseLocation({
       success: function (res) {
-        console.log(res.name);
+        console.log("res.name:"+res.name);
         //选择地点之后返回到原来页面
         wx.navigateTo({
-          url: "/map/index?address=" + res.name
+          url: "/pages/mcht/mchtAdd/mchtBaseInfo/mchtBaseInfo?mchtContAddr=" + res.name
         });
       },
       fail: function (err) {

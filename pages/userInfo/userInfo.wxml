@@ -1,0 +1,12 @@
+<view class="user-containner"> 
+
+    <image class="user-image" src="/images/mySelf.png"></image>
+    <view class="user-pagent">{{agname}}</view>
+    <view class="user-agent">{{userNm}}</view>
+    <view class='user-solid'> </view>
+    <view class='user-type'> 角色</view>
+    <view class='user-t'>客户经理</view>
+    <view class='user-phone'>手机号</view>
+    <view class='user-p'>{{phoneNo}}</view>
+
+</view>

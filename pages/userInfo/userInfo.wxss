@@ -1,0 +1,61 @@
+/* pages/userInfo/userInfo.wxss */
+@import "/style/weui.wxss";
+
+.user-containner{
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  display:flex;
+  flex-direction:column;
+}
+.user-title{
+  position: fixed;
+  width: 100%;
+  height: 350rpx;
+  flex-direction:column;
+}
+.user-image{
+  position: fixed;
+  top: 100rpx;
+  left: 100rpx;
+  height:180rpx;
+  width: 180rpx;
+}
+.user-pagent{
+  position: fixed;
+  top: 130rpx;
+  right: 100rpx;
+}
+.user-agent{
+  position: fixed;
+  top: 190rpx;
+  right: 100rpx;
+}
+.user-solid{
+  position: fixed;
+  width: 90%;
+  top: 400rpx;
+  right:40rpx;
+  border-bottom:1px solid #221b4e;
+}
+.user-type{
+  position: fixed;
+  top: 450rpx;
+  left: 80rpx;
+}
+.user-t{
+  position: fixed;
+  top: 450rpx;
+   right: 80rpx;
+}
+
+.user-phone{
+  position: fixed;
+  top: 500rpx;
+  left: 80rpx;
+}
+.user-p{
+  position: fixed;
+  top: 500rpx;
+  right: 80rpx;
+}

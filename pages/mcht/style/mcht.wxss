@@ -1,0 +1,111 @@
+.page {
+  font-family: 'Arial Normal', 'Arial';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+}
+
+.weui-cell__bd {
+  font-family: 'Arial Normal', 'Arial';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+}
+
+.mcht-nav {
+  width: 100%;
+  height: 168rpx;
+  padding-top: 30rpx;
+  flex-direction: row;
+  display: flex;
+  justify-content: center;
+}
+
+.mcht-search {
+  width: 100%;
+  height: 118px;
+  /* padding-top: 30rpx; */
+  flex-direction: row;
+  display: flex;
+  justify-content: center;
+}
+
+
+.mcht-step {
+  width: 80%;
+  position: absolute;
+  flex-direction: row;
+  display: flex;
+  justify-content: space-around;
+}
+
+.mcht-step-view {
+  width: 100%;
+  height: 105rpx;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 0;
+}
+
+.step-view #base_num {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 25px;
+  background-color: #09f;
+}
+
+.step-view .mcht-step-desc {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 25px;
+  background-color: #f7f7f7;
+}
+
+.mcht-step-desc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.step-text {
+  font-size: 25rpx;
+  color: #333;
+}
+
+.mcht-info {
+  width: 100%;
+  height: 15rpx;
+  position: absolute;
+  display: flex;
+  background-color: #f7f7f7;
+  margin-top: 5%;
+}
+
+#step-btn {
+  background-color: #09f;
+}
+
+.weui-label {
+  width: 105px;
+  word-wrap: break-word;
+  word-break: break-all;
+  font-family: 'Arial Normal', 'Arial';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 28rpx;
+}
+
+.weui-cell__bd__d {
+  height: 2.58823529em;
+  min-height: 2.58823529em;
+  line-height: 2.58823529em;
+  text-align: right;
+  margin-right: 5%;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+}

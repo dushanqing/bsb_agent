@@ -1,108 +1,303 @@
 // pages/forgetPassWord/forgetPassWord.js
+const app = getApp();
 var util = require("../../utils/util.js");
-import { HTTP } from '../../utils/http.js'
-let http = new HTTP();
+import { HTTP} from '../../utils/http.js'
+const http = new HTTP();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    text: '获取验证码', //按钮文字
+    currentTime: 61, //倒计时
+    disabled: true, //按钮是否禁用
+    loading:false,
+    loginStep1:true,
+    loginStep2:true,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
 
+    app.loginCallback = loginFlag => {
+      console.log(loginFlag)
+     
+      if (loginFlag){
+         //用户已经登录过
+        this.setData({
+          loginStep2: false,
+          loading: true,
+        })
+      }else{
+        //用户未登录
+        this.setData({
+          loginStep1: false,
+          loading: true,
+        })
+      }
+    
+    }
+
+    let userNo = wx.getStorageSync('userNo');
+    let mchtLicnNo = wx.getStorageSync('mchtLicnNo');
+    let phoneNo = wx.getStorageSync('phoneNo');
+
+
+    this.setData({
+      phoneNo: phoneNo,
+      userNo: userNo,
+      mchtLicnNo: mchtLicnNo,
+    })
   },
-
   /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
+    * 生命周期函数--监听页面显示
+    */
   onShow: function () {
-
+    this.selectComponent("#test").onUpdate();
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
+  /** 
+   * onStep1登录商户信息(客户经理编号,营业执照号,手机号) 
    */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
-
-  /** 获取商户openId,登录商户信息验证, */
-  onStep1: function(e){
-    // util.getOpenId('');
+  onStep1: function(e) {
     console.log("this is forgetStep1");
-    var userNo = e.detail.value.userName;
-    var mchtLicnNo = e.detail.value.mchtLicnNo;
-    var phoneNo = e.detail.value.telPhone;
-    if (!userNo){
+    let sessionId = wx.getStorageSync("sessionId");
+    let userNo = e.detail.value.userName;
+    let mchtLicnNo = e.detail.value.mchtLicnNo;
+    let phoneNo = e.detail.value.telPhone;
+    if (util.strIsEmpty(userNo)) {
       util.showToast("请输入账号")
       return;
     }
-
-    const info = http.request({
+    if (util.strIsEmpty(mchtLicnNo)) {
+      util.showToast("请输入营业执照号")
+      return;
+    }
+    if (util.strIsEmpty(phoneNo)) {
+      util.showToast("请输入手机号")
+      return;
+    }
+    const resBody = http.request({
       url: 'checkLoginInfo.do',
       data: {
-        head: {
-          rsakey: 456789
-        },
         body: {
           userNo: userNo,
           mchtLicnNo: mchtLicnNo,
-          phoneNo: phoneNo
+          phoneNo: phoneNo,
         }
-
       },
       method: 'POST'
-    }
-    );
+    });
+    resBody.then(res => {
+      const resCode = res.resCode
+      const resMessage = res.resMessage
+      
+      //session 过期处理 按照首次登录处理
+      if (resCode == 'REQ1015') {
+        app.onLaunch();
+      }
 
-    /** 数据放入本地缓存 */
-   
-    wx.setStorageSync('telPhone', phoneNo)
-    console.log(wx.getStorageSync('telPhone'))
-    wx.redirectTo({
-      url: '/pages/forgetPassWordStep2/forgetPassWordStep2',
+      //验证请求状态不是成功直接暴露异常
+      if (resCode != 'S') {
+        util.showToast(resMessage)
+        return;
+      }
+
+      //数据放入本地缓存
+      wx.setStorageSync('userNo', userNo)
+      wx.setStorageSync('mchtLicnNo', mchtLicnNo)
+      wx.setStorageSync('phoneNo', phoneNo)
+
+      //数据验证成功,显示step2页面
+      this.setData({
+        loginFlag: true,
+      })
+     
     })
   },
+
+  /** 
+   * 图形验证,成功到后台获取验证码
+   */
+  myEventListener: function(e) {
+    //图形验证成功调用后台返回随机数
+    if (e.detail.msg) {
+      const resBody = http.request({
+        url: 'getCapCode.do',
+        data: {
+          body: {}
+        },
+        method: 'POST',
+      });
+      resBody.then(res => {
+        //回调结果处理
+        const resCode = res.resCode
+        const resMessage = res.resMessage
+
+        //session 过期处理 按照首次登录处理
+        if (resCode == 'REQ1015') {
+          console.log('sessionId过期')
+          app.onLaunch();
+        }
+
+        //验证请求状态不是成功直接暴露异常
+        if (resCode != 'S') {
+          util.showToast(resMessage);
+          this.onShow();
+          that.setData({
+            disabled: 'true',
+          })
+          return;
+        }
+        let msgToken = res.msgToken;
+        this.setData({
+          msgToken: msgToken
+        });
+        //获取图形验证成功,显示获取验证码
+        this.setData({
+          disabled: false
+        });
+      })
+    }
+  },
+
+  /** 
+   * 获取短信验证码 
+   */
+  getCheckCode: function() {
+    var that = this;
+    var currentTime = that.data.currentTime
+
+    //只要点击了按钮就让按钮禁用
+    that.setData({
+      disabled: 'true',
+    })
+
+    //调用服务端发送短信验证
+    const resBody = http.request({
+      url: 'getMesCode.do',
+      data: {
+        body: {
+          msgToken: this.data.msgToken,
+          phoneNo: this.data.phoneNo
+        }
+      },
+      method: 'POST'
+    });
+    resBody.then(res => {
+      const resCode = res.resCode;
+      const resMessage = res.resMessage;
+
+      //session 过期处理 按照首次登录处理
+      if (resCode == 'REQ1015') {
+        app.onLaunch();
+      }
+
+      //图片验证随机数过期处理 失败直接刷新
+      if (resCode == 'REQ1001') {
+        console.log(resCode);
+        util.showToast('图形验证码过期,请重新验证');
+        this.onShow();
+        return;
+      }
+
+      //验证请求状态不是成功直接暴露异常
+      if (resCode != 'S') {
+        util.showToast("短信验证码发送失败,请重新发送短信验证码");
+        this.onShow();
+        return;
+      }
+
+      util.showToast("短信验证码已发送");
+      let taskId = res.taskId;
+      let reqSsn = res.reqSsn;
+      this.setData({
+        taskId: taskId,
+        reqSsn: reqSsn
+      });
+      // 设置一分钟的倒计时
+      var interval = setInterval(function() {
+
+        currentTime--; //每执行一次让倒计时秒数减一
+
+        that.setData({
+
+          text: currentTime + 's', //按钮文字变成倒计时对应秒数
+
+        })
+        if (currentTime <= 0){
+          that.onShow();
+        }
+        //如果当秒数小于等于0时 停止计时器 且按钮文字变成重新发送 且按钮变成可用状态 
+        //倒计时的秒数也要恢复成默认秒数 即让获取验证码的按钮恢复到初始化状态只改变按钮文字
+     
+        if (currentTime <= 0) {
+          clearInterval(interval)
+          that.setData({
+            text: '重新发送',
+            currentTime: 61,
+            disabled: true,
+            color: 'red'
+          })
+
+        }
+    
+      }, 1000);
+    });
+  },
+
+  /** 
+   * 登录验证,提交 
+   */
+  onStep2: function(e) {
+
+    //验证码校验 必须为6位
+    let vrfyCode = e.detail.value.checkCode;
+    if (util.strIsEmpty(vrfyCode)) {
+      util.showToast("请输入验证码");
+      return;
+    }
+    if (util.getLength(vrfyCode) != 6) {
+      util.showToast("验证码格式不正确");
+      return;
+    }
+
+    const resBody = http.request({
+      url: 'checkMesCode.do',
+      data: {
+        body: {
+          userNo: this.data.userNo,
+          phoneNo: this.data.phoneNo,
+          mchtLicnNo: this.data.mchtLicnNo,
+          taskId: this.data.taskId,
+          vrfyCode: vrfyCode,
+          reqSsn: this.data.reqSsn
+        }
+      },
+      method: 'POST'
+    });
+
+    resBody.then(res => {
+      const resCode = res.resCode;
+      const resMessage = res.resMessage;
+
+      //session 过期处理 按照首次登录处理
+      if (resCode == 'REQ1015') {
+        app.onLaunch();
+      }
+
+      if (resCode != 'S') {
+        util.showToast("短信验证失败");
+        return;
+      }
+      wx.redirectTo({
+        url: '/pages/index/index',
+      })
+    });
+ 
+  },
+
 
 })
