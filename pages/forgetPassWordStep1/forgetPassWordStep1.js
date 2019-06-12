@@ -25,8 +25,6 @@ Page({
   onLoad: function(options) {
 
     app.loginCallback = loginFlag => {
-      console.log(loginFlag)
-     
       if (loginFlag){
          //用户已经登录过
         this.setData({
@@ -36,6 +34,7 @@ Page({
         let userNo = wx.getStorageSync('userNo');
         let mchtLicnNo = wx.getStorageSync('mchtLicnNo');
         let phoneNo = wx.getStorageSync('phoneNo');
+        
         this.setData({
           phoneNo: phoneNo,
           userNo: userNo,
@@ -233,7 +232,6 @@ Page({
         }
         //如果当秒数小于等于0时 停止计时器 且按钮文字变成重新发送 且按钮变成可用状态 
         //倒计时的秒数也要恢复成默认秒数 即让获取验证码的按钮恢复到初始化状态只改变按钮文字
-     
         if (currentTime <= 0) {
           clearInterval(interval)
           that.setData({
@@ -242,9 +240,7 @@ Page({
             disabled: true,
             color: 'red'
           })
-
         }
-    
       }, 1000);
     });
   },
