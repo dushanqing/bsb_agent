@@ -302,11 +302,13 @@ Page({
       }
       //用户验证身份失败 跳转到登录首页
       if (resCode == '0026'){
+        util.showToast("用户手机号更改,请重新登录");
         //用户未登录
         this.setData({
           loginStep1: false,
-          loading: true,
+          loginStep2: true,
         })
+        return;
       }
 
       if (resCode != 'S') {
