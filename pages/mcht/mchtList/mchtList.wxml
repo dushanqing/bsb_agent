@@ -9,7 +9,7 @@
         <view style="height:20rpx;"></view>
         <picker bindchange="bindMchtStatChange" value="{{mchtStat[mchtStatIndex]}}" range="{{mchtStat}}" name="mchtStat" range-key="mchtStatName">
           <view class="search-input">
-            <input class="weui-input" name="mchtStatSearch" value="{{mchtStat[mchtStatIndex].mchtStatName}}" placeholder="请选择商户状态" />
+            <input class="weui-input" name="mchtStatSearch" value="{{mchtStat[mchtStatIndex].mchtStatName}}" placeholder="请选择商户状态" disabled="true"/>
           </view>
         </picker>
       </view>

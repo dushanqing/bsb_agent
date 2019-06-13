@@ -1,6 +1,7 @@
 // pages/forgetPassWord/forgetPassWord.js
 const app = getApp();
 var util = require("../../utils/util.js");
+var reg = require("../../utils/reg.js");
 import { HTTP} from '../../utils/http.js'
 const http = new HTTP();
 Page({
@@ -66,16 +67,18 @@ Page({
     let mchtLicnNo = e.detail.value.mchtLicnNo;
     let phoneNo = e.detail.value.telPhone;
     if (util.strIsEmpty(userNo)) {
-      util.showToast("请输入账号")
+      util.showToast('请输入账号')
       return;
     }
     if (util.strIsEmpty(mchtLicnNo)) {
-      util.showToast("请输入营业执照号")
+      util.showToast('请输入营业执照号')
       return;
     }
-    if (util.strIsEmpty(phoneNo)) {
-      util.showToast("请输入手机号")
-      return;
+    if (util.strIsNotEmpty(setlPhone)) {
+      if (!reg.pattern.test(phoneNo)) {
+        util.showToast('手机号格式不正确')
+        return;
+      }
     }
     const resBody = http.request({
       url: 'checkLoginInfo.do',
