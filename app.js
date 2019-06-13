@@ -1,8 +1,3 @@
-import WxValidate from './components/plugins/wx-validate/WxValidate'
-import WxService from './components/plugins/wx-service/WxService'
-import HttpResource from './components/plugins/wx-helpers/HttpResource'
-import HttpService from './components/plugins/wx-helpers/HttpService'
-import __config from './components/plugins/etc/config'
 import Util from '/utils/util'
 import {
   HTTP
@@ -134,16 +129,10 @@ App({
     userInfo: null
   },
   renderImage(path) {
-    if (!path) return ''
-    if (path.indexOf('http') !== -1) return path
-    return `${this.__config.domain}${path}`
-  },
-  WxValidate: (rules, messages) => new WxValidate(rules, messages),
-  HttpResource: (url, paramDefaults, actions, options) => new HttpResource(url, paramDefaults, actions, options).init(),
-  HttpService: new HttpService({
-    baseURL: __config.basePath,
-  }),
-  WxService: new WxService,
-  __config,
-  Util,
+      if (!path) return ''
+      if (path.indexOf('http') !== -1) return path
+      return `${this.__config.domain}${path}`
+    },
+    Util,
 })
+

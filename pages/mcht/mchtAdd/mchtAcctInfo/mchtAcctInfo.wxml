@@ -43,7 +43,7 @@
           <view class="weui-label">联行号</view>
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" type="number" name="setlAcctInstitute" value="{{setlAcctInstitute}}" maxlength="12" placeholder="请输入联行号" bindblur="blurSetlAcctInstitute" />
+          <input class="weui-input" type="number" name="setlAcctInstitute" value="{{setlAcctInstitute}}" maxlength="12" placeholder="请输入联行号" bindblur="blurSetlAcctInstitute" bindfocus="focusSetlAcctInstitute"/>
         </view>
       </view>
       <!-- 开户网点 -->

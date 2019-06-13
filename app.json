@@ -1,15 +1,34 @@
 {
   "pages": [
     "pages/forgetPassWordStep1/forgetPassWordStep1",
-    "pages/userInfo/userInfo",
     "pages/loginShowInfo/loginShowInfo",
-    "pages/mcht/mchtList/mchtList",
-    "pages/rsa/rsa",
+    "pages/index/index",
     "pages/login/login",
-    "pages/error/error",
+    "pages/userInfo/userInfo",
+    "pages/mcht/mchtList/mchtList",
+    "pages/mcht/mchtAdd/mchtBaseInfo/mchtBaseInfo",
+    "pages/mcht/mchtAdd/mchtAcctInfo/mchtAcctInfo",
+    "pages/mcht/mchtDetail/mchtPicInfoDetail/mchtPicInfoDetail",
+    "pages/mcht/mchtDetail/mchtProdListDetail/mchtProdListDetail",
+    "pages/mcht/mchtDetail/mchtBaseInfoDetail/mchtBaseInfoDetail",
+    "pages/mcht/mchtAdd/mchtProdInfo/mchtProdInfo",
+    "pages/mcht/mchtAdd/mchtPicInfo/mchtPicInfo",
+    "pages/mcht/mchtDetail/mchtAuditRejectDetail/mchtAuditRejectDetail",
+    "pages/mcht/mchtAdd/detail/mchtProdCheck/mchtProdCheck",
+    "pages/mcht/mchtDetail/detail/prodDetail/prodDetail",
+    "pages/rsa/rsa",
     "map/index",
-    "pages/logs/logs",
-    "map/position/position"
+    "pages/error/error",
+    "map/position/position",
+    "pages/forgetPassWordStep2/forgetPassWordStep2",
+    "pages/forgetPassWordStep3/forgetPassWordStep3",
+    "pages/mcht/mchtDetail/mchtAcctInfoDetail/mchtAcctInfoDetail",
+    "pages/mcht/mchtAdd/detail/mchtArea/city/city",
+    "pages/mcht/mchtAdd/detail/mchtArea/province/province",
+    "pages/mcht/mchtAdd/detail/mchtArea/area/area",
+    "pages/mcht/mchtAdd/detail/mchtBigType/mchtBigType",
+    "pages/mcht/mchtAdd/detail/mchtAddResult/mchtAddResult",
+    "pages/logs/logs"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -21,5 +40,6 @@
     "scope.userLocation": {
       "desc": "你的位置信息将用于小程序位置接口的效果展示"
     }
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

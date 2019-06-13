@@ -1,5 +1,5 @@
 const config = {
-  baseRestUrl: 'https://ydsd.bsb.com.cn/ifsp-gateway/agent/'
+  baseRestUrl: 'http://ydsd.bsb.com.cn/ifsp-gateway/agent/'
 }
 
 export { config }
