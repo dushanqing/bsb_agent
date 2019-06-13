@@ -1,0 +1,32 @@
+<!-- <view class="weui-cell__ft weui-cell__ft_in-access"></view> -->
+<view class="page">
+  <include src="../../common/step-nav.wxml" />
+  <view class="page__bd">
+    <view class="content flex-item">
+      <view class="weui-cells weui-cells_after-title">
+      
+        <view class="weui-cell weui-cell_input" >
+          <view class="weui-cell__hd">
+            <view class="weui-label">产品名称</view>
+          </view>
+          <view class="weui-cell__bd__d">
+              <view class="weui-text">产品状态</view>
+          </view>
+        </view>
+
+        <view class="weui-cell weui-cell_input" wx:for="{{prodList}}" wx:key="productId" wx:for-item="item" bindtap="bindProductDetail"  data-id="{{item.productId}}">
+          <view class="weui-cell__hd">
+            <view class="weui-label" >{{item.productName}}</view>
+          </view>
+          <view class="weui-cell__bd__d">
+            <text class="weui-label" name="prod-state" wx:if="{{item.dataState == '99'}}">停用</text>
+            <text class="weui-label" name="prod-state" wx:if="{{item.dataState == '98'}}">停用未生效</text>
+            <text class="weui-label" name="prod-state" wx:if="{{item.dataState == '01'}}">启用未生效</text>
+            <text class="weui-label" name="prod-state" wx:if="{{item.dataState == '00'}}">正常</text>
+          </view>
+          <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

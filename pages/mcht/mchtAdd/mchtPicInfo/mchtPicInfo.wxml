@@ -1,0 +1,72 @@
+<form bindsubmit="picFormSubmit">
+<include src="../../common/step-nav.wxml" />
+<view class="weui-cells weui-cells_after-title">
+  <view class="page__bd">
+    <!-- 是否三证合一 -->
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">是否三证合一</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="bindThreeToOneChange" range="{{threeToOne}}" name="threeToOne" value="{{threeToOneIndex}}" range-key="threeToOneName">
+          <view class="weui-select weui-select_in-select-after">{{threeToOne[threeToOneIndex].threeToOneName}}</view>
+        </picker>
+      </view>
+    </view>
+    <!-- 营业执照 -->
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label" id="pic-desc">营业执照</view>
+      </view>
+      <view class="weui-cell__bd">
+        <image class="pic" name="yyzz" src="{{yyzz}}" bindtap="bindYyzzImg"></image>
+      </view>
+    </view>
+    <!-- 组织结构代码证 -->
+    <view class="weui-cell weui-cell_select" style="">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label" id="pic-desc">组织结构代码证</view>
+      </view>
+      <view class="weui-cell__bd">
+        <image class="pic" name="zzjg" src="{{zzjg}}" bindtap="bindZzjgImg"></image>
+      </view>
+    </view>
+    <!-- 税务登记证 -->
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label" id="pic-desc">税务登记证</view>
+      </view>
+      <view class="weui-cell__bd">
+        <image class="pic" name="swdj" src="{{swdj}}" bindtap="bindSwdjImg"></image>
+      </view>
+    </view>
+    <!-- 身份证正/反面 -->
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label" id="pic-desc">身份证正/反面</view>
+      </view>
+      <view class="weui-cell__bd">
+        <image class="pic" name="sfzj" src="{{sfzj}}" bindtap="bindSfzjImg"></image>
+      </view>
+    </view>
+    <!-- 商户协议 -->
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label" id="pic-desc">商户协议</view>
+      </view>
+      <view class="weui-cell__bd">
+        <image class="pic" name="shxy" src="{{shxy}}" bindtap="bindShxyImg"></image>
+      </view>
+    </view>
+
+    <!-- 图片预览 -->
+    <show-modal title="标题" hidden="{{modalHidden}}" bindconfirm="modalConfirm" bindcancel="modalCancel" confirmText="确认">
+      <image class="img" style="width:100%;height:340px;" src="{{tempFilePaths}}"></image>
+    </show-modal>
+    <!-- 下一步 -->
+    <view class="weui-btn-area">
+      <button class="weui-btn" id="step-btn" type="primary" form-type="submit" >下一步</button>
+    </view>
+  </view>
+</view>
+</form>

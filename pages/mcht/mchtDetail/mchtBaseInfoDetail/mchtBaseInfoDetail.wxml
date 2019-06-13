@@ -1,0 +1,135 @@
+<view class="page">
+  <include src="../../common/step-nav.wxml" />
+  <view class="page__bd">
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">商户名称</view>
+        </view>
+        <view class="weui-cell__bd__d">
+          <text class="weui-text" name="mchtName">{{mchtName}}</text>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">商户简称</view>
+        </view>
+        <view class="weui-cell__bd__d">
+          <text class="weui-text" name="mchtSimpleName">{{mchtSimpleName}}</text>
+        </view>
+      </view>
+       <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">是否小微商户</view>
+        </view>
+        <view class="weui-cell__bd__d">
+          <text class="weui-text" name="isXiaoWei">{{isXiaoWei}}</text>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">营业执照号码</view>
+        </view>
+        <view class="weui-cell__bd__d">
+            <text class="weui-text" name="mchtLicnNo">{{mchtLicnNo}}</text>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">商户类型</view>
+        </view>
+        <view class="weui-cell__bd__d">
+          <text class="weui-text" name="mchtLev">{{mchtLev}}</text>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_select"  hidden='{{storeHidden}}'>
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">是否门店</view>
+        </view>
+        <view class="weui-cell__bd__d">
+           <text class="weui-text" name="isStore">{{isStore}}</text>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_select"  hidden='{{mchtMngNoHidden}}'>
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">所属商户</view>
+        </view>
+        <view class="weui-cell__bd__d">
+            <text class="weui-text" name="mchtMngNo">{{mchtMngNo}}</text>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">行业类别</view>
+        </view>
+        <view class="weui-cell__bd__d">
+            <text class="weui-text" name="mchtBigType">{{mchtBigType}}</text>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">经营类型</view>
+        </view>
+        <view class="weui-cell__bd__d">
+           <text class="weui-text" name="mchtType">{{mchtType}}</text>
+        </view>
+      </view>
+       <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">所属地区</view>
+        </view>
+        <view class="weui-cell__bd__d">
+           <text class="weui-text" name="mchtAreaNo">{{mchtAreaNo}}</text>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">详细地址</view>
+        </view>
+        <view class="weui-cell__bd__d">
+           <text class="weui-text" name="mchtContAddr">{{mchtContAddr}}</text>
+        </view>
+      </view>
+       <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">联系人</view>
+        </view>
+        <view class="weui-cell__bd__d">
+           <text class="weui-text" name="mchtPersonName">{{mchtPersonName}}</text>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">联系电话</view>
+        </view>
+        <view class="weui-cell__bd__d">
+           <text class="weui-text" name="mchtPhone">{{mchtPhone}}</text>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">邮箱</view>
+        </view>
+        <view class="weui-cell__bd__d">
+          <text class="weui-text" name="mchtEmail">{{mchtEmail}}</text>
+        </view>
+      </view>
+        <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">经度</view>
+        </view>
+        <view class="weui-cell__bd__d">
+          <text class="weui-text" name="longitude">{{longitude}}</text>
+        </view>
+      </view>
+        <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">纬度</view>
+        </view>
+        <view class="weui-cell__bd__d">
+          <text class="weui-text" name="latitude">{{latitude}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,129 @@
+<view class="page">
+  <include src="../../common/step-nav.wxml" />
+  <view class="page__bd">
+    <view class="weui-cells weui-cells_after-title">
+    <!-- 结算方式 -->
+      <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">结算方式</view>
+      </view>
+      <view class="weui-cell__bd__d">
+         <text class="weui-text" name="setlType">{{setlType}}</text>
+      </view>
+    </view>
+    <!-- 结算周期 -->
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">结算周期</view>
+      </view>
+      <view class="weui-cell__bd__d">
+         <text class="weui-text" name="setlCycle">{{setlCycle}}</text>
+      </view>
+    </view>
+    <!-- 是否行内 -->
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">是否行内</view>
+      </view>
+      <view class="weui-cell__bd__d">
+         <text class="weui-text" name="setlAcctType">{{setlAcctType}}</text>
+      </view>
+    </view>
+    <!-- 联行号 -->
+    <view class="weui-cell weui-cell_input" hidden='{{setlAcctInstituteHidden}}'>
+      <view class="weui-cell__hd">
+        <view class="weui-label">联行号</view>
+      </view>
+      <view class="weui-cell__bd__d">
+        <text class="weui-text" name="setlAcctInstitute">{{setlAcctInstitute}}</text>
+      </view>
+    </view>
+    <!-- 开户网点 -->
+     <view class="weui-cell weui-cell_input"  hidden='{{setlAcctInstituteHidden}}'>
+      <view class="weui-cell__hd">
+        <view class="weui-label">开户网点</view>
+      </view>
+      <view class="weui-cell__bd__d">
+        <text class="weui-text" name="lianhangwangdian">{{lianhangwangdian}}</text>
+      </view>
+    </view>
+    <!-- 账户类型 -->
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">账户类型</view>
+      </view>
+      <view class="weui-cell__bd__d">
+        <text class="weui-text" name="userType">{{userType}}</text>
+      </view>
+    </view>
+    <!-- 银行账号 -->
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">银行账号</view>
+      </view>
+      <view class="weui-cell__bd__d">
+        <text class="weui-text" name="setlAcctNo">{{setlAcctNo}}</text>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">开户名称</view>
+      </view>
+      <view class="weui-cell__bd__d">
+        <text class="weui-text" name="setlAcctName">{{setlAcctName}}</text>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">账户证件类型</view>
+      </view>
+      <view class="weui-cell__bd__d">
+        <text class="weui-text" name="setlCertType">{{setlCertType}}</text>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">账户证件号码</view>
+      </view>
+      <view class="weui-cell__bd__d">
+         <text class="weui-text" name="setlCertNo">{{setlCertNo}}</text>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">法人</view>
+      </view>
+      <view class="weui-cell__bd__d">
+         <text class="weui-text" name="legalPersonName">{{legalPersonName}}</text>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">手机号</view>
+      </view>
+      <view class="weui-cell__bd__d">
+        <text class="weui-text" name="setlMobile">{{setlMobile}}</text>
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">合同生效日期</view>
+      </view>
+      <view class="weui-cell__bd__d">
+        <text class="weui-text" name="startDate">{{startDate}}</text>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">合同期限</view>
+      </view>
+      <view class="weui-cell__bd__d">
+        <text class="weui-text" name="conTerm">{{conTerm}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+</view>
+
+

@@ -1,0 +1,66 @@
+<view class="page">
+  <include src="../../common/step-nav.wxml" />
+  <view class="page__bd">
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+        <view class="weui-label">是否三证合一</view>
+      </view>
+      <view class="weui-cell__bd__d" id="threeToOne">
+        <text class="weui-text" name="threeToOne">{{isThreeInOne}}</text>
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label" id="pic-desc">营业执照</view>
+      </view>
+      <view class="weui-cell__bd" bindtap="bindYyzzImg">
+        <image class="pic" name="yyzz"  src="{{yyzz}}" bindtap="bindYyzzImg"></image>
+      </view>
+
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label" id="pic-desc">组织结构代码证</view>
+      </view>
+      <view class="weui-cell__bd" bindtap='bindBigPicTap'>
+      <image class="pic" name="zzjg" src="{{zzjg}}" bindtap="bindZzjgImg"></image>
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label" id="pic-desc">税务登记证</view>
+      </view>
+      <view class="weui-cell__bd" bindtap='bindBigPicTap'>
+        <image class="pic" name="swdj" src="{{swdj}}" bindtap="bindSwdjImg"></image>
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label" id="pic-desc">身份证正/反面</view>
+      </view>
+      <view class="weui-cell__bd" bindtap='bindBigPicTap'>
+       <image class="pic" name="sfzj" src="{{sfzj}}" bindtap="bindSfzjImg"></image>
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label" id="pic-desc">商户协议</view>
+      </view>
+      <view class="weui-cell__bd" bindtap='bindBigPicTap'>
+      <image class="pic" name="shxy" src="{{shxy}}" bindtap="bindShxyImg"></image>
+      </view>
+    </view>
+
+    <!-- 图片预览 -->
+    <show-modal title="标题" hidden="{{modalHidden}}" bindconfirm="modalConfirm" bindcancel="modalCancel" confirmText="确认">
+      <image class="img" style="width:100%;height:340px;" src="{{tempFilePaths}}"></image>
+    </show-modal>
+  </view>
+</view>
+</view>

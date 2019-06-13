@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "结算信息",
+  "usingComponents": {
+    "show-modal": "../../../../components/show-modal/show-modal"
+  }
+}

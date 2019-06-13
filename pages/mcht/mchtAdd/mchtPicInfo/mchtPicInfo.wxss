@@ -1,0 +1,20 @@
+@import "../../style/mcht.wxss";
+
+
+.step-view #pic-num {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50rpx;
+  background-color: #09f;
+}
+#pic-desc{
+ font-weight: bold
+}
+.pic {
+  width:270rpx;
+  height:106rpx;
+  padding-top: 30rpx;
+  bottom: 30rpx;
+  display: flex;
+  align-items: center;
+}
