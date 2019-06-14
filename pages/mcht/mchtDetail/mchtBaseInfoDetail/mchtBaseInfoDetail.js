@@ -13,8 +13,13 @@ Page({
   },
 
   showData: function (options) {
+    console.log(options)
     var that = this;
-
+    if (JSON.stringify(options) == "{}"){
+      var mchtDeatilData = wx.getStorageSync('mchtDeatil');
+      that.packData(mchtDeatilData);
+      return;
+    }
     const resBody = http.request({
       url: 'editMerchant.do',
       data: {
@@ -38,101 +43,102 @@ Page({
         return;
       }
       //成功
+      console.log(res);
       wx.setStorageSync("mchtDeatil", res);
-      console.log("res:"+res.mcht);
-      var mcht = res.mcht;
-      var mchtLev = mcht.mchtLev,
-        mchtName = "",
-        mchtSimpleName = "",
-        isXiaoWei,
-        mchtLicnNo = "",
-        isStore,
-        mchtMngNo,
-        storeHidden,
-        mchtMngNoHidden,
-        mchtType,
-        mchtBigType = mcht.mchtBigType,
-        mchtAreaNo = mcht.mchtAreaNo,
-        mchtContAddr = "",
-        mchtPersonName = "",
-        mchtPhone = "",
-        mchtEmail = "",
-        longitude = "",
-        latitude = "";
-
-      if (util.strIsNotEmpty(mcht.mchtName)) {
-        mchtName = mcht.mchtName;
-      }
-      if (util.strIsNotEmpty(mcht.mchtSimpleName)) {
-        mchtSimpleName = mcht.mchtSimpleName;
-      }
-      if ("01" == mcht.isXiaoWei) {
-        isXiaoWei = "是";
-      } else if ("00" == mcht.isXiaoWei) {
-        isXiaoWei = "否";
-      }
-      if (util.strIsNotEmpty(mcht.mchtLicnNo)) {
-        mchtLicnNo = mcht.mchtLicnNo;
-      }
-      if ("01" == mchtLev) {
-        mchtLev = "连锁商户";
-        storeHidden = false;
-      } else if ("02" == mchtLev) {
-        mchtLev = "普通商户";
-        isStore = "";
-        mchtMngNo = "";
-        storeHidden = true;
-        mchtMngNoHidden = true;
-      }
-      if ("01" == mcht.mchtType) {
-        mchtType = "实体";
-      } else if ("02" == mcht.mchtType) {
-        mchtType = "虚体";
-      }
-      if (util.strIsNotEmpty(mcht.mchtContAddr)) {
-        mchtContAddr = mcht.mchtContAddr;
-      }
-      if (util.strIsNotEmpty(mcht.mchtPersonName)) {
-        mchtPersonName = mcht.mchtPersonName;
-      }
-      if (util.strIsNotEmpty(mcht.mchtPhone)) {
-        mchtPhone = mcht.mchtPhone;
-      }
-      if (util.strIsNotEmpty(mcht.mchtEmail)) {
-        mchtEmail = mcht.mchtEmail;
-      }
-      if (util.strIsNotEmpty(mcht.longitude)) {
-        longitude = mcht.longitude;
-      }
-      if (util.strIsNotEmpty(mcht.latitude)) {
-        latitude = mcht.latitude;
-      }
-      that.setData({
-        mchtName: mchtName,
-        mchtSimpleName: mchtSimpleName,
-        mchtLicnNo: mchtLicnNo,
-        isXiaoWei: isXiaoWei,
-        mchtLev: mchtLev,
-        isStore: isStore,
-        mchtMngNo: mchtMngNo,
-        storeHidden: storeHidden,
-        mchtMngNoHidden: mchtMngNoHidden,
-        mchtType: mchtType,
-        mchtContAddr: mchtContAddr,
-        mchtPersonName: mchtPersonName,
-        mchtPhone: mchtPhone,
-        mchtEmail: mchtEmail,
-        longitude: longitude,
-        latitude: latitude,
-        mchtAreaNo: mchtAreaNo,
-      })
-     
-      
-      that.queryAgencyInfo(mchtBigType);
+      that.packData(res);
+      that.queryAgencyInfo(res.mcht.mchtBigType);
       
     })
   },
+packData:function(res){
+  var that =this;
+  var mcht = res.mcht;
+  var mchtLev = mcht.mchtLev,
+    mchtName = "",
+    mchtSimpleName = "",
+    isXiaoWei,
+    mchtLicnNo = "",
+    isStore,
+    mchtMngNo,
+    storeHidden,
+    mchtMngNoHidden,
+    mchtType,
+    mchtBigType = mcht.mchtBigType,
+    mchtAreaNo = mcht.mchtAreaNo,
+    mchtContAddr = "",
+    mchtPersonName = "",
+    mchtPhone = "",
+    mchtEmail = "",
+    longitude = "",
+    latitude = "";
 
+  if (util.strIsNotEmpty(mcht.mchtName)) {
+    mchtName = mcht.mchtName;
+  }
+  if (util.strIsNotEmpty(mcht.mchtSimpleName)) {
+    mchtSimpleName = mcht.mchtSimpleName;
+  }
+  if ("01" == mcht.isXiaoWei) {
+    isXiaoWei = "是";
+  } else if ("00" == mcht.isXiaoWei) {
+    isXiaoWei = "否";
+  }
+  if (util.strIsNotEmpty(mcht.mchtLicnNo)) {
+    mchtLicnNo = mcht.mchtLicnNo;
+  }
+  if ("01" == mchtLev) {
+    mchtLev = "连锁商户";
+    storeHidden = false;
+  } else if ("02" == mchtLev) {
+    mchtLev = "普通商户";
+    isStore = "";
+    mchtMngNo = "";
+    storeHidden = true;
+    mchtMngNoHidden = true;
+  }
+  if ("01" == mcht.mchtType) {
+    mchtType = "实体";
+  } else if ("02" == mcht.mchtType) {
+    mchtType = "虚体";
+  }
+  if (util.strIsNotEmpty(mcht.mchtContAddr)) {
+    mchtContAddr = mcht.mchtContAddr;
+  }
+  if (util.strIsNotEmpty(mcht.mchtPersonName)) {
+    mchtPersonName = mcht.mchtPersonName;
+  }
+  if (util.strIsNotEmpty(mcht.mchtPhone)) {
+    mchtPhone = mcht.mchtPhone;
+  }
+  if (util.strIsNotEmpty(mcht.mchtEmail)) {
+    mchtEmail = mcht.mchtEmail;
+  }
+  if (util.strIsNotEmpty(mcht.longitude)) {
+    longitude = mcht.longitude;
+  }
+  if (util.strIsNotEmpty(mcht.latitude)) {
+    latitude = mcht.latitude;
+  }
+  that.setData({
+    mchtName: mchtName,
+    mchtSimpleName: mchtSimpleName,
+    mchtLicnNo: mchtLicnNo,
+    isXiaoWei: isXiaoWei,
+    mchtLev: mchtLev,
+    isStore: isStore,
+    mchtMngNo: mchtMngNo,
+    storeHidden: storeHidden,
+    mchtMngNoHidden: mchtMngNoHidden,
+    mchtType: mchtType,
+    mchtContAddr: mchtContAddr,
+    mchtPersonName: mchtPersonName,
+    mchtPhone: mchtPhone,
+    mchtEmail: mchtEmail,
+    longitude: longitude,
+    latitude: latitude,
+    mchtAreaNo: mchtAreaNo,
+  })
+},
 
   // 行业类别
   queryAgencyInfo: function(mchtBigType) {

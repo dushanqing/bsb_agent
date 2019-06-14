@@ -70,45 +70,7 @@ function sleep(numberMillis) {
   }
 }
 
-function getOpenId(param){
-  let appid = config.config.appid;
-  let secret = config.config.secret;
-  wx.login({
-    success: function (loginCode) {
-      console.log(loginCode.code);
-      const code = loginCode.code;
-      //调用request请求api转换登录凭证
-      // http.request({
-      //   url: 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appid + '&secret=' + secret + '&grant_type=authorization_code&js_code=' + loginCode.code,
-      //    success: function (res) {
-      //     console.log(res.data.openid);
-      //     wx.setStorageSync('openid', res.data.openid)
-      //   },
 
-      //   fail: function(err){
-      //     this.showToast('获取用户openid出错')
-      //   }  
-      // })
-      const token = http.request({
-        url: 'exchangeOpenIdBycode.do',
-        data:{
-          head:{
-            rsakey:456789
-          },
-          body:{
-            jscode: code
-          }
-         
-        },
-        method: 'POST'
-        }
-      );
-      token.then(res=>{
-        console.log(res);
-      })
-    }
-  })
-}
 // 获取字符串长度
 function getLength (str) {
   if (str == null) return 0;
@@ -188,7 +150,6 @@ module.exports = {
   hideLoading: hideLoading,
   sleep: sleep,
   showToast: showToast,
-  getOpenId: getOpenId,
   getLength: getLength,
   strIsNotEmpty: strIsNotEmpty,
   strIsEmpty: strIsEmpty,

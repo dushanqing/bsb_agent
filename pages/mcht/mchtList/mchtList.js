@@ -20,33 +20,33 @@ Page({
       mchtStatName: "全部",
     },
     {
-        mchtStatId: "00",
-        mchtStatName: "正常",
-        picFlag: "/images/u892.png",
+      mchtStatId: "00",
+      mchtStatName: "正常",
+      picFlag: "/images/u892.png",
     }, 
     {
-        mchtStatId: "01",
-        mchtStatName: "冻结"
+      mchtStatId: "01",
+      mchtStatName: "冻结"
     },
     {
-        mchtStatId: "02",
-        mchtStatName: "注销",
-        picFlag: "/images/u917.png", 
+      mchtStatId: "02",
+      mchtStatName: "注销",
+      picFlag: "/images/u917.png", 
     },
     {
-        mchtStatId: "03",
-        mchtStatName: "新增待审核",
-        picFlag: "/images/u936.png",  
+      mchtStatId: "03",
+      mchtStatName: "新增待审核",
+      picFlag: "/images/u936.png",  
     }, 
     {
-        mchtStatId: "04",
-        mchtStatName: "修改待审核",
-        picFlag: "/images/u936.png",  
+      mchtStatId: "04",
+      mchtStatName: "修改待审核",
+      picFlag: "/images/u936.png",  
 
     },
     {
-        mchtStatId: "05",
-        mchtStatName: "冻结待审核",
+      mchtStatId: "05",
+      mchtStatName: "冻结待审核",
       picFlag: "/images/u936.png",  
 
     },
@@ -62,21 +62,37 @@ Page({
 
     },
     {
-        mchtStatId: "08",
-        mchtStatName: "新增被拒绝",
-        picFlag: "/images/u917.png",  
+      mchtStatId: "08",
+      mchtStatName: "新增被拒绝",
+      picFlag: "/images/u917.png",  
     },
     {
-        mchtStatId: "12",
-        mchtStatName: "暂存",
-        picFlag: "/images/u936.png",  
+      mchtStatId: "12",
+      mchtStatName: "暂存",
+      picFlag: "/images/u936.png",  
    
     }
     ],
     mchtStatIndex: 0,
   },
   onLoad: function() {
-    // this.getData();
+    var that = this;
+    let mchtStat = { 
+      mchtStat:that.data.mchtStat[0],
+      mchtNameSearch:""
+      } 
+    console.log(mchtStat)
+    this.setData({
+      searchData: mchtStat,
+      pageNo: 1,   //第一次加载，设置1  
+      mchtListData: [],  //放置返回数据的数组,设为空  
+      isFromSearch: true,  //第一次加载，设置true  
+      searchLoading: true,  //把"上拉加载"的变量设为true，显示  
+      searchLoadingComplete: false //把“没有数据”设为false，隐藏  
+    })
+    
+    this.fetchSearchList();
+
   },
 
   bindMchtStatChange: function(e) {
@@ -97,7 +113,6 @@ Page({
     that.setData({
       searchFlag: true,
     })
-
     this.setData({
       searchData: e.detail.value,
       pageNo: 1,   //第一次加载，设置1  
