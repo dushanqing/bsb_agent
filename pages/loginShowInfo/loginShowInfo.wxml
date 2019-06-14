@@ -12,13 +12,10 @@
   <view class="center">
     <navigator url="/pages/mcht/mchtAdd/mchtBaseInfo/mchtBaseInfo">
       <view class="center-mchts">
-      <view class="center-mchts" url="/pages/mcht/mchtAdd/mchtBaseInfo/mchtBaseInfo">
           <image  src="/images/mchts.png" class="center-mchts-image"></image>
           <text>进件商户</text>
       </view>
-     </view>
-    </navigator>
-    
+    </navigator>    
     <navigator url= "/pages/mcht/mchtList/mchtList">
       <view class="center-mchts">
         <image src="/images/mchtList.png" class="center-mchts-image"></image>
