@@ -1,7 +1,8 @@
 // pages/forgetPassWord/forgetPassWord.js
 const app = getApp();
 var util = require("../../utils/util.js");
-import { HTTP} from '../../utils/http.js'
+var reg = require("../../utils/reg.js");
+import { HTTP } from '../../utils/http.js'
 const http = new HTTP();
 Page({
 
@@ -12,9 +13,9 @@ Page({
     text: '获取验证码', //按钮文字
     currentTime: 61, //倒计时
     disabled: true, //按钮是否禁用
-    loading:false,
-    loginStep1:true,
-    loginStep2:true,
+    loading: false,
+    loginStep1: true,
+    loginStep2: true,
     submitFlag: false, //避免重复提交
 
   },
@@ -22,13 +23,11 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
 
     app.loginCallback = loginFlag => {
-      console.log(loginFlag)
-     
-      if (loginFlag){
-         //用户已经登录过
+      if (loginFlag) {
+        //用户已经登录过
         this.setData({
           loginStep2: false,
           loading: true,
@@ -36,19 +35,20 @@ Page({
         let userNo = wx.getStorageSync('userNo');
         let mchtLicnNo = wx.getStorageSync('mchtLicnNo');
         let phoneNo = wx.getStorageSync('phoneNo');
+
         this.setData({
           phoneNo: phoneNo,
           userNo: userNo,
           mchtLicnNo: mchtLicnNo,
         })
-      }else{
+      } else {
         //用户未登录
         this.setData({
           loginStep1: false,
           loading: true,
         })
       }
-    
+
     }
   },
   /**
@@ -60,23 +60,25 @@ Page({
   /** 
    * onStep1登录商户信息(客户经理编号,营业执照号,手机号) 
    */
-  onStep1: function(e) {
+  onStep1: function (e) {
     console.log("this is forgetStep1");
     let sessionId = wx.getStorageSync("sessionId");
     let userNo = e.detail.value.userName;
     let mchtLicnNo = e.detail.value.mchtLicnNo;
     let phoneNo = e.detail.value.telPhone;
     if (util.strIsEmpty(userNo)) {
-      util.showToast("请输入账号")
+      util.showToast('请输入账号')
       return;
     }
     if (util.strIsEmpty(mchtLicnNo)) {
-      util.showToast("请输入营业执照号")
+      util.showToast('请输入营业执照号')
       return;
     }
-    if (util.strIsEmpty(phoneNo)) {
-      util.showToast("请输入手机号")
-      return;
+    if (util.strIsNotEmpty(setlPhone)) {
+      if (!reg.pattern.test(phoneNo)) {
+        util.showToast('手机号格式不正确')
+        return;
+      }
     }
     const resBody = http.request({
       url: 'checkLoginInfo.do',
@@ -92,7 +94,7 @@ Page({
     resBody.then(res => {
       const resCode = res.resCode
       const resMessage = res.resMessage
-      
+
       //session 过期处理 按照首次登录处理
       if (resCode == 'REQ1015') {
         app.onLaunch();
@@ -114,16 +116,16 @@ Page({
         userNo: userNo,
         mchtLicnNo: mchtLicnNo,
         loginStep1: true,
-        loginStep2:false
+        loginStep2: false
       })
-     
+
     })
   },
 
   /** 
    * 图形验证,成功到后台获取验证码
    */
-  myEventListener: function(e) {
+  myEventListener: function (e) {
     //图形验证成功调用后台返回随机数
     if (e.detail.msg) {
       const resBody = http.request({
@@ -168,7 +170,7 @@ Page({
   /** 
    * 获取短信验证码 
    */
-  getCheckCode: function() {
+  getCheckCode: function () {
     var that = this;
     var currentTime = that.data.currentTime;
     //只要点击了按钮就让按钮禁用
@@ -219,7 +221,7 @@ Page({
         reqSsn: reqSsn
       });
       // 设置一分钟的倒计时
-      var interval = setInterval(function() {
+      var interval = setInterval(function () {
 
         currentTime--; //每执行一次让倒计时秒数减一
 
@@ -228,12 +230,11 @@ Page({
           text: currentTime + 's', //按钮文字变成倒计时对应秒数
 
         })
-        if (currentTime <= 0){
+        if (currentTime <= 0) {
           that.onShow();
         }
         //如果当秒数小于等于0时 停止计时器 且按钮文字变成重新发送 且按钮变成可用状态 
         //倒计时的秒数也要恢复成默认秒数 即让获取验证码的按钮恢复到初始化状态只改变按钮文字
-     
         if (currentTime <= 0) {
           clearInterval(interval)
           that.setData({
@@ -242,9 +243,7 @@ Page({
             disabled: true,
             color: 'red'
           })
-
         }
-    
       }, 1000);
     });
   },
@@ -252,7 +251,7 @@ Page({
   /** 
    * 登录验证,提交 
    */
-  onStep2: function(e) {
+  onStep2: function (e) {
     var that = this;
 
     //验证码校验 必须为6位
@@ -302,12 +301,14 @@ Page({
         app.onLaunch();
       }
       //用户验证身份失败 跳转到登录首页
-      if (resCode == '0026'){
+      if (resCode == '0026') {
+        util.showToast("用户手机号更改,请重新登录");
         //用户未登录
         this.setData({
           loginStep1: false,
-          loading: true,
+          loginStep2: true,
         })
+        return;
       }
 
       if (resCode != 'S') {
@@ -320,7 +321,7 @@ Page({
         url: "/pages/loginShowInfo/loginShowInfo",
       })
     });
- 
+
   },
 
 })

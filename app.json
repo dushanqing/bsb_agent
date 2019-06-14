@@ -2,7 +2,6 @@
   "pages": [
     "pages/forgetPassWordStep1/forgetPassWordStep1",
     "pages/loginShowInfo/loginShowInfo",
-    "pages/index/index",
     "pages/login/login",
     "pages/userInfo/userInfo",
     "pages/mcht/mchtList/mchtList",
