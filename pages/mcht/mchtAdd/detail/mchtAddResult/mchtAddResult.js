@@ -1,14 +1,11 @@
-const App = getApp()
+const app = getApp();
 
 Page({
   data: {
 
   },
-
-  navigateTo(e) {
-    console.log("mchtlist");
-    const index = e.currentTarget.dataset.index
-    const path = e.currentTarget.dataset.path
+  mchtPicNextStep: function(e) {
+    const path = "../../../../loginShowInfo/loginShowInfo";
     wx.navigateTo({
       url: path
     });
