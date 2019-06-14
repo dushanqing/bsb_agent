@@ -1,6 +1,7 @@
 var app = getApp()
 import {HTTP} from '../../../utils/http.js'
 var util = require('../../../utils/util.js');
+
 const http = new HTTP();
 Page({
   data: {
@@ -14,11 +15,11 @@ Page({
     isFromSearch: true,   // 用于判断searchSongList数组是不是空数组，默认true，空的数组
      
     mchtStat: [{
-      mchtStatId: "01",
+      mchtStatId: "03",
       mchtStatName: "新增待审核",
       picFlag: "/images/u936.png",  
     }, {
-      mchtStatId: "02",
+      mchtStatId: "08",
       mchtStatName: "审核拒绝",
       picFlag: "/images/u917.png",
     }, {
@@ -26,19 +27,19 @@ Page({
       mchtStatName: "正常",
       picFlag: "/images/u892.png",
     }, {
-      mchtStatId: "03",
+      mchtStatId: "04",
       mchtStatName: "修改待审核"
     }, {
-      mchtStatId: "04",
+      mchtStatId: "05",
       mchtStatName: "冻结待审核"
     }, {
-      mchtStatId: "05",
+      mchtStatId: "01",
       mchtStatName: "冻结"
     }, {
       mchtStatId: "06",
       mchtStatName: "解冻待审核"
     }, {
-      mchtStatId: "06",
+      mchtStatId: "02",
       mchtStatName: "注销"
     }],
     mchtStatIndex: 0,
@@ -56,7 +57,7 @@ Page({
   initSearchData: function(e){
     var that = this;
     console.log("输入框事件") 
-    console.log(e.detail.value) 
+    console.log(e.detail.value)
 
     //避免重复提交
     if (that.data.searchFlag) {
