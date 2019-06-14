@@ -1,5 +1,6 @@
-// pages/mcht/mchtDetail/mchtAuditRejectDetail/mchtAuditRejectDetail.js
 var util = require("../../../../utils/util.js");
+import { HTTP } from '../../../../utils/http.js';
+const http = new HTTP();
 var areaArr = new Array();
 
 Page({
@@ -21,8 +22,7 @@ Page({
       url: 'selectMchtAuditRejectInfo.do',
       data: {
         body: {
-          // mchtId: options.mchtId,
-          mchtId: "8201904230000002",
+          mchtId: options.mchtId,
         }
       },
       method: 'POST'
@@ -40,7 +40,7 @@ Page({
         return;
       }
       //成功
-      var mcht = res.data.mcht;
+      var mcht = res.mcht;
       var mchtAreaNo = mcht.mchtAreaNo;
       that.setData({
         mchtName: mcht.mchtName,
@@ -48,8 +48,8 @@ Page({
         mchtContAddr: mcht.mchtContAddr,
         mchtPersonName: mcht.mchtPersonName,
         mchtPhone: mcht.mchtPhone,
-        auditView: mcht.auditView,
-        mchtAreaNo: mcht.mchtAreaNo
+        auditView: mcht.auditView
+        
       })
       that.selectByFlagAndCtCode(mchtAreaNo);
     })
@@ -81,7 +81,7 @@ Page({
       }
       //成功
       //如果所属商户为null,所属商户不可选
-      var ct = res.data.empList[0];
+      var ct = res.empList[0];
       areaArr.unshift(ct.ctName);
       console.log("ctCode333:" + areaArr);
       var upCtCode = ct.upCtCode;
