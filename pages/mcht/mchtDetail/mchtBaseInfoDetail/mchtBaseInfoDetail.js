@@ -13,7 +13,6 @@ Page({
   },
 
   showData: function (options) {
-    console.log('+++'+options.mchtId);
     var that = this;
 
     const resBody = http.request({
@@ -27,7 +26,6 @@ Page({
       method: 'POST'
     });
     resBody.then(res => {
-      console.log("res res" + res)
       const resCode = res.resCode;
       const resMessage = res.resMessage;
       //session 过期处理 按照首次登录处理
@@ -41,9 +39,9 @@ Page({
       }
       //成功
       wx.setStorageSync("mchtDeatil", res);
-      console.log("res:"+res);
+      console.log("res:"+res.mcht);
       var mcht = res.mcht;
-      var mchtLev = mcht.mchtLev
+      var mchtLev = mcht.mchtLev,
         mchtName = "",
         mchtSimpleName = "",
         isXiaoWei,

@@ -14,34 +14,65 @@ Page({
     searchFlag:false,
     isFromSearch: true,   // 用于判断searchSongList数组是不是空数组，默认true，空的数组
      
-    mchtStat: [{
-      mchtStatId: "01",
-      mchtStatName: "新增待审核",
+    mchtStat: [
+    {
+      mchtStatId: "100",
+      mchtStatName: "全部",
+    },
+    {
+        mchtStatId: "00",
+        mchtStatName: "正常",
+        picFlag: "/images/u892.png",
+    }, 
+    {
+        mchtStatId: "01",
+        mchtStatName: "冻结"
+    },
+    {
+        mchtStatId: "02",
+        mchtStatName: "注销",
+        picFlag: "/images/u917.png", 
+    },
+    {
+        mchtStatId: "03",
+        mchtStatName: "新增待审核",
+        picFlag: "/images/u936.png",  
+    }, 
+    {
+        mchtStatId: "04",
+        mchtStatName: "修改待审核",
+        picFlag: "/images/u936.png",  
+
+    },
+    {
+        mchtStatId: "05",
+        mchtStatName: "冻结待审核",
       picFlag: "/images/u936.png",  
-    }, {
-      mchtStatId: "02",
-      mchtStatName: "审核拒绝",
-      picFlag: "/images/u917.png",
-    }, {
-      mchtStatId: "00",
-      mchtStatName: "正常",
-      picFlag: "/images/u892.png",
-    }, {
-      mchtStatId: "03",
-      mchtStatName: "修改待审核"
-    }, {
-      mchtStatId: "04",
-      mchtStatName: "冻结待审核"
-    }, {
-      mchtStatId: "05",
-      mchtStatName: "冻结"
-    }, {
+
+    },
+    {
       mchtStatId: "06",
-      mchtStatName: "解冻待审核"
-    }, {
-      mchtStatId: "06",
-      mchtStatName: "注销"
-    }],
+      mchtStatName: "解冻待审核",
+      picFlag: "/images/u936.png",
+    }, 
+    {
+      mchtStatId: "07",
+      mchtStatName: "注销待审核",
+      picFlag: "/images/u936.png",  
+
+    },
+    {
+        mchtStatId: "08",
+        mchtStatName: "新增被拒绝",
+        picFlag: "/images/u917.png",  
+    },
+    {
+        mchtStatId: "12",
+        mchtStatName: "暂存",
+        picFlag: "/images/u936.png",  
+   
+    }
+    ],
     mchtStatIndex: 0,
   },
   onLoad: function() {
@@ -106,8 +137,6 @@ Page({
     let mchtStat = that.data.searchData.mchtStat;
     let mchtStatId = mchtStat.mchtStatId;
     let mchtStatName = mchtStat.mchtStatName;
-    let picFlag = mchtStat.picFlag;
-
     //请求网络服务获取查询数据
     const resbody = http.request({
       url: 'MerchantList.do',
@@ -116,7 +145,7 @@ Page({
           userNo: userNo,
           userType: '1',
           mchtSimpleName: that.data.searchData.mchtNameSearch,
-          mchtStat: mchtStatId,
+          mchtStat: mchtStatId == '100' ? '' : mchtStatId,
           pageNo: that.data.pageNo.toString(),
         }
       },
@@ -129,19 +158,19 @@ Page({
       that.setData({
         searchFlag: false,
       })
-
       console.log(res);
       var mchtList = [];
         let empList = res.empList;
       if (!util.strIsEmpty(empList)) {
           for (var index in empList) {
+            let stat = that.getPic(empList[index].mchtStat)
             var tmp = {
               brName: empList[index].brName,
               crtDateTime: empList[index].crtDateTime,
               mchtId: empList[index].mchtId,
               userName: empList[index].userName,
-              picFlag: picFlag,
-              mchtStat: mchtStatName,
+              picFlag: stat.picFlag,
+              mchtStat: stat.mchtStatName,
               mchtName: empList[index].mchtSimpleName,
               url: "../mchtDetail/mchtBaseInfoDetail/mchtBaseInfoDetail"
             };
@@ -169,4 +198,21 @@ Page({
       }
     })
   },
+
+  //通过返回商户状态获取状态显示图片
+  getPic:function(stat){
+    let that = this;
+    let mchtStat = that.data.mchtStat;
+    let tmp ;
+    for (var index in mchtStat){
+      if (mchtStat[index].mchtStatId == stat){
+        tmp = mchtStat[index]
+        
+        break ;
+      }
+    }
+    return tmp
+  }
+
+  //通过
 });
