@@ -5,15 +5,23 @@ const http = new HTTP();
 var mchtDeatil = new Object();
 var areaArr = new Array();
 Page({
-  data: {},
+  data: {
+    detailFlag: false 
+  },
  
   onLoad(options) {
     this.showData(options);
   },
 
   showData: function (options) {
-
+    console.log(options.mchtId);
     var that = this;
+
+    //避免重复提交 请求
+    // that.setData({
+    //   detailFlag: true,
+    // })
+
     const resBody = http.request({
       url: 'editMerchant.do',
       data: {
@@ -25,6 +33,12 @@ Page({
       method: 'POST'
     });
     resBody.then(res => {
+
+      //避免重复提交 请求返回
+      // that.setData({
+      //   detailFlag: false,
+      // })
+
       const resCode = res.resCode;
       const resMessage = res.resMessage;
       //session 过期处理 按照首次登录处理
@@ -122,9 +136,12 @@ Page({
         mchtEmail: mchtEmail,
         longitude: longitude,
         latitude: latitude,
+        mchtAreaNo: mchtAreaNo,
       })
+     
+      
       that.queryAgencyInfo(mchtBigType);
-      that.selectByFlagAndCtCode(mchtAreaNo);
+      
     })
   },
 
@@ -163,8 +180,9 @@ Page({
           }
         })
       }
+      console.log("taht.data.mchtAreaNo:" + that.data.mchtAreaNo)
+      that.selectByFlagAndCtCode(that.data.mchtAreaNo);
     })
-    return mchtBigType;
   },
   // 所属地区
   selectByFlagAndCtCode: function(ctCode) {

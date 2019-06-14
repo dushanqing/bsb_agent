@@ -10,8 +10,8 @@
   </view>
 
   <view class="center">
-    <navigator url="/pages/userInfo/userInfo">
-      <view class="center-mchts" url="/pages/userInfo/userInfo">
+    <navigator url="/pages/mcht/mchtAdd/mchtBaseInfo/mchtBaseInfo">
+      <view class="center-mchts" >
           <image  src="/images/mchts.png" class="center-mchts-image"></image>
           <text>进件商户</text>
       </view>

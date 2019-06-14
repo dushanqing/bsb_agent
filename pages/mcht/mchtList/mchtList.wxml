@@ -27,7 +27,7 @@
 <view class="weui-cells weui-cells_after-title">
     <block wx:for="{{mchtListData}}" wx:for-item="item" id="mchtList">
       <view class="weui-cell weui-cell_input">
-        <navigator url="{{item.url}}" class="weui-cell weui-cell_access">
+        <navigator url="{{item.url}}?mchtId={{item.mchtId}}" class="weui-cell weui-cell_access">
           <view class="pic-flag">
             <image src="{{item.picFlag}}" id="picFlag" />
           </view>

@@ -1,7 +1,6 @@
 var app = getApp()
 import {HTTP} from '../../../utils/http.js'
 var util = require('../../../utils/util.js');
-
 const http = new HTTP();
 Page({
   data: {
