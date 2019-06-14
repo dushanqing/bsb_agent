@@ -9,7 +9,7 @@
         <view style="height:20rpx;"></view>
         <picker bindchange="bindMchtStatChange" value="{{mchtStat[mchtStatIndex]}}" range="{{mchtStat}}" name="mchtStat" range-key="mchtStatName">
           <view class="search-input">
-            <input class="weui-input" name="mchtStatSearch" value="{{mchtStat[mchtStatIndex].mchtStatName}}" placeholder="请选择商户状态" disabled="true"/>
+            <input class="weui-input" name="mchtStatSearch" value="{{mchtStat[mchtStatIndex].mchtStatName}}" placeholder="请选择商户状态" />
           </view>
         </picker>
       </view>
@@ -25,7 +25,7 @@
 <scroll-view  scroll-y="true"  style = "height:100%" bindscrolltolower="searchScrollLower">
 
 <view class="weui-cells weui-cells_after-title">
-    <block wx:for="{{mchtListData}}" wx:for-item="item" id="mchtList">
+    <block wx:for="{{mchtListData}}" wx:key="" wx:for-item="item" id="mchtList">
       <view class="weui-cell weui-cell_input">
         <navigator url="{{item.url}}?mchtId={{item.mchtId}}" class="weui-cell weui-cell_access">
           <view class="pic-flag">

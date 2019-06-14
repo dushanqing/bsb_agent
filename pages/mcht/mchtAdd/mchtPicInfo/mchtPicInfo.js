@@ -118,7 +118,7 @@ Page({
               yyzz: filePath,
               modalHidden: true
             });
-            mchtInfo.yyzzNo = fileList[0].downloadUrlCode;
+            mchtInfo.yyzzMchtPicId = fileList[0].downloadUrlCode;
             mchtInfo.yyzz = filePath;
             wx.setStorageSync("mchtInfo", mchtInfo);
             wx.setStorageSync("yyzz", yyzz);
@@ -136,7 +136,7 @@ Page({
               zzjg: filePath,
               modalHidden: true
             });
-            mchtInfo.zzjgNo = fileList[0].downloadUrlCode;
+            mchtInfo.zzjgMchtPicId = fileList[0].downloadUrlCode;
             mchtInfo.zzjg = filePath;
             wx.setStorageSync("mchtInfo", mchtInfo);
           }
@@ -153,7 +153,7 @@ Page({
               swdj: filePath,
               modalHidden: true
             });
-            mchtInfo.swdjNo = fileList[0].downloadUrlCode;
+            mchtInfo.swdjMchtPicId = fileList[0].downloadUrlCode;
             mchtInfo.swdj = filePath;
             wx.setStorageSync("mchtInfo", mchtInfo);
           }
@@ -170,7 +170,7 @@ Page({
               sfzj: filePath,
               modalHidden: true
             });
-            mchtInfo.sfzjNo = fileList[0].downloadUrlCode;
+            mchtInfo.sfzjMchtPicId = fileList[0].downloadUrlCode;
             mchtInfo.sfzj = filePath;
             wx.setStorageSync("mchtInfo", mchtInfo);
           }
@@ -187,7 +187,7 @@ Page({
               shxy: filePath,
               modalHidden: true
             });
-            mchtInfo.shxyNo = fileList[0].downloadUrlCode;
+            mchtInfo.shxyMchtPicId = fileList[0].downloadUrlCode;
             mchtInfo.shxy = filePath;
             wx.setStorageSync("mchtInfo", mchtInfo);
           }
@@ -303,48 +303,51 @@ Page({
     }
   },
   checkFiled: function(e){
+    var threeToOne = this.data.threeToOne[e.detail.value.threeToOne].threeToOneId;
     if (util.strIsNotEmpty(mchtInfo)) {
       if ("00" == mchtInfo.isXiaowei ){
-        if (util.strIsEmpty(mchtInfo.yyzzNo)){
+        if (util.strIsEmpty(mchtInfo.yyzzMchtPicId)){
           util.showToast('请上传营业执照！');
           return false;
         }
-        if (util.strIsEmpty(mchtInfo.sfzjNo)) {
+        if (util.strIsEmpty(mchtInfo.sfzjMchtPicId)) {
           util.showToast('请上传身份证件！');
           return false;
         }
-        if (util.strIsEmpty(mchtInfo.shxyNo)) {
+        if (util.strIsEmpty(mchtInfo.shxyMchtPicId)) {
           util.showToast('请上传商户协议！');
           return false;
         }
       }
       var threeToOne = e.detail.value.threeToOne
       if ("0" == threeToOne){
-        if (util.strIsEmpty(mchtInfo.zzjgNo)) {
+        if (util.strIsEmpty(mchtInfo.zzjgMchtPicId)) {
           util.showToast('请上传组织结构代码证！');
           return false;
         }
-        if (util.strIsEmpty(mchtInfo.swdjNo)) {
+        if (util.strIsEmpty(mchtInfo.swdjMchtPicId)) {
           util.showToast('请上传税务登记证！');
           return false;
         }
       }
     }
     if ("01" == mchtInfo.isXiaowei) {
-      if (util.strIsEmpty(mchtInfo.sfzjNo)) {
+      if (util.strIsEmpty(mchtInfo.sfzjMchtPicId)) {
         util.showToast('请上传身份证件！');
         return false;
       }
     }
+    mchtInfo.threeToOne = threeToOne;
+    wx.setStorageSync("mchtInfo", mchtInfo);
     return true;
   },
 
   // 电子信息页面 下一步
   picFormSubmit(e) {
     if (this.checkFiled(e)) {
-    wx.navigateTo({
-      url: "../mchtProdInfo/mchtProdInfo"
-    });
+      wx.navigateTo({
+        url: "../mchtProdInfo/mchtProdInfo"
+      });
     }
   }
 

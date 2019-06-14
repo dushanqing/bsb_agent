@@ -1,0 +1,18 @@
+<form bindsubmit="formSubmit" id='1' bindreset="formReset">    
+<input style='display:none' name='program_id' value='{{program_id}}'></input>    
+      <view class='caigou_centent'>描述说明(选填)</view>    
+   
+      <view class="big-logos">
+        <view class='big-logos_img'>
+           <image bindtap="upimg" src=''></image> 
+           <image bindtap="upimg" src=''></image> 
+          <image bindtap="upimg" src=''></image>   
+        </view>
+        <block wx:for="{{img_arr}}" wx:key="{{index}}"> 
+            <view class='logoinfo'>    
+              <image src='{{item}}'></image>    
+            </view>  
+        </block>    
+      </view>    
+      <button class='btn' formType="submit">发布</button>    
+</form>  

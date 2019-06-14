@@ -192,10 +192,15 @@ Page({
     })
   },
 
+
   //获取开户网点
   blurSetlAcctInstitute: function(e) {
     var that = this;
     mchtInfo.setlAcctInstitute = e.detail.value;
+    mchtInfo.lianhangwangdian = "";
+    that.setData({
+      lianhangwangdian: ""
+    });
     const resBody = http.request({
       url: 'selectNamesByPrimaryKey.do',
       data: {
@@ -229,6 +234,10 @@ Page({
     wx.setStorageSync("mchtInfo", mchtInfo);
 
   },
+  focusSetlAcctInstitute: function () {
+   
+  },
+
 
   /**
    * 步骤标签跳转
@@ -512,14 +521,14 @@ Page({
       util.strIsNotEmpty(mchtInfo.isStore) && "01" == mchtInfo.isStore) {} else {
       if ("01" != setlType) {
         util.showToast('结算方式请选择独立清算！');
-        return flag = false;
+        return false;
       }
     }
-    var setlCycle = this.data.setlCycle[e.detail.value.setlCycle].setlCycleId;
+    var setlCycle = this.data.setlCycle[e.detail.value.setlCycle].dataNo;
     var setlAcctType = this.data.setlAcctType[e.detail.value.setlAcctType].setlAcctTypeId;
     if ("1" == setlAcctType && "02" == setlCycle) {
       util.showToast('行外账户暂不支持D+1结算模式！');
-      return flag = false;
+      return false;
     }
     var setlAcctInstitute = util.trim(e.detail.value.setlAcctInstitute);
     if ("1" == setlAcctType && util.strIsEmpty(setlAcctInstitute)) {
@@ -528,7 +537,7 @@ Page({
         setlAcctInstituteFocus: true,
         lianhangwangdian: ""
       })
-      return flag = false;
+      return false;
     }
     var lianhangwangdian = util.trim(e.detail.value.lianhangwangdian);
     if ("1" == setlAcctType && util.strIsEmpty(lianhangwangdian)) {
@@ -536,17 +545,17 @@ Page({
       this.setData({
         setlAcctInstituteFocus: true
       })
-      return flag = false;
+      return false;
     }
 
     var setlAcctNo = util.trim(e.detail.value.setlAcctNo);
     if (util.strIsEmpty(setlAcctNo)) {
       util.showToast('请输入银行账号！');
-      return flag = false;
+      return false;
     } else {
       if (!reg.isNumber.test(setlAcctNo)) {
         util.showToast('银行账号格式不正确！');
-        return flag = false;
+        return false;
       }
     }
 
@@ -556,14 +565,14 @@ Page({
       this.setData({
         setlAcctNameFocus: true
       })
-      return flag = false;
+      return false;
     } else {
       if (util.getLength(setlAcctName) > 128) {
         util.showToast('开户名称最大长度为42个汉字！');
         this.setData({
           setlAcctNameFocus: true
         })
-        return flag = false;
+        return false;
       }
     }
 
@@ -573,14 +582,14 @@ Page({
       this.setData({
         setlCertNoFocus: true
       })
-      return flag = false;
+      return false;
     } else {
       if (!reg.isSetlCertNo.test(setlCertNo)) {
         util.showToast('证件号码格式不正确！');
         this.setData({
           setlCertNoFocus: true
         })
-        return flag = false;
+        return false;
       }
     }
     var legalPersonName = util.trim(e.detail.value.legalPersonName);
@@ -591,44 +600,10 @@ Page({
         this.setData({
           setlPhoneFocus: true
         })
-        return flag = false;
+        return false;
       }
     }
     var userType = this.data.userType[e.detail.value.userType].userTypeId;
-    
-    if ("0" == setlAcctType) {
-      const resBody = http.request({
-        url: 'checkBankAccount.do',
-        data: {
-          body: {
-            setlAcctType: setlAcctType,
-            userType: userType,
-            setlAcctName: setlAcctName,
-            setlAcctNo: setlAcctNo,
-            setlCertNo: setlCertNo,
-            setlPhone: setlPhone,
-            setlCertType: setlCertType
-          }
-        },
-        method: 'POST'
-      });
-      resBody.then(res => {
-        const resCode = res.resCode;
-        const resMessage = res.resMessage;
-        //session 过期处理 按照首次登录处理
-        if (resCode == 'REQ1015') {
-          app.onLaunch();
-        }
-        //成功
-        if ("0000" != resCode) {
-          util.showToast(res.respMsg);
-          return flag = false;
-        } 
-       
-      })
-    }  
-
-    // var startDate = util.trim(this.data.startDate[e.detail.value.startDate]);
     var startDate = util.trim(e.detail.value.startDate);
     var conTerm = util.trim(this.data.conTerm[e.detail.value.conTerm].conTermId);
     setlCertType
@@ -639,6 +614,7 @@ Page({
     mchtInfo.setlAcctInstitute = setlAcctInstitute;
     mchtInfo.lianhangwangdian = lianhangwangdian;
     mchtInfo.setlAcctNo = setlAcctNo;
+    mchtInfo.userType = userType;
     mchtInfo.setlAcctName = setlAcctName;
     mchtInfo.setlCertType = setlCertType;
     mchtInfo.legalPersonName = legalPersonName;
@@ -653,10 +629,47 @@ Page({
   // 结算信息页面 下一步
   //注意控制重复点击
   acctFormSubmit(e) {
-    if (this.checkFiled(e) && true == flag) {
-      wx.navigateTo({
-        url: "../mchtPicInfo/mchtPicInfo"
-      });
+    if (this.checkFiled(e)) {
+      if ("0" == mchtInfo.setlAcctType) {
+        const resBody = http.request({
+          url: 'checkBankAccount.do',
+          data: {
+            body: {
+              setlAcctType: mchtInfo.setlAcctType,
+              userType: mchtInfo.userType,
+              setlAcctName: mchtInfo.setlAcctName,
+              setlAcctNo: mchtInfo.setlAcctNo,
+              setlCertNo: mchtInfo.setlCertNo,
+              setlPhone: mchtInfo.setlPhone,
+              setlCertType: mchtInfo.setlCertType
+            }
+          },
+          method: 'POST'
+        });
+        resBody.then(res => {
+          const resCode = res.resCode;
+          const resMessage = res.resMessage;
+          //session 过期处理 按照首次登录处理
+          if (resCode == 'REQ1015') {
+            app.onLaunch();
+          }
+          //成功
+          if ("0000" == resCode) {
+            wx.navigateTo({
+              url: "../mchtPicInfo/mchtPicInfo"
+            });
+          } else {
+            util.showToast(res.resMessage);
+            return false;
+          }
+        })
+      } else {
+        wx.navigateTo({
+          url: "../mchtPicInfo/mchtPicInfo"
+        });
+      }
+
+     
     }
   }
 

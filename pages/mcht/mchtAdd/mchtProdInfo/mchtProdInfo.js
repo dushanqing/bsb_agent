@@ -1,5 +1,9 @@
 const App = getApp();
 var util = require("../../../../utils/util.js");
+import {
+  HTTP
+} from '../../../../utils/http.js'
+let http = new HTTP();
 var mchtInfo;
 Page({
   data: {
@@ -374,6 +378,17 @@ Page({
         return false;
       }
     }
+    mchtInfo.prodIds = prodIds;
+    mchtInfo.jiejifee = jiejifee;
+    mchtInfo.jiejitop = jiejitop;
+    mchtInfo.daijifee = daijifee;
+    mchtInfo.daijitop = daijitop;
+    mchtInfo.limitMin = limitMin;
+    mchtInfo.limitOne = limitOne;
+    mchtInfo.limitDay = limitDay;
+    mchtInfo.limitMonth = limitMonth;
+    mchtInfo.limitYear = limitYear;
+    mchtInfo.btnFlag = "add";
     return true;
   },
   saveMerchant: function(){
@@ -381,7 +396,7 @@ Page({
       url: 'saveMerchant.do',
       data: {
         body: {
-         
+          mchtInfo: JSON.stringify(mchtInfo)
         }
       },
       method: 'POST'
@@ -393,13 +408,14 @@ Page({
       if (resCode == 'REQ1015') {
         app.onLaunch();
       }
-      //失败
-      if (resCode != 'S') {
+     //成功
+      if ('0000' == resCode) {
+        return true;
+      } else {//失败
         util.showToast(resMessage);
         return false;
       }
-      //成功
-      return true;
+     
     })
   },
   // 提交审核

@@ -49,12 +49,6 @@
   height: 240rpx;
 }
 
-/* .count-body{
-  display: flex;
-  justify-content:space-around;
-  flex-flow: column;
-} */
-
 .count-text{
   width: 100%;
   height: 40rpx;
@@ -63,6 +57,7 @@
   justify-content:space-around;
   margin-top: 20rpx;
 }
+
 
 .solid{
   margin-top: 60rpx;

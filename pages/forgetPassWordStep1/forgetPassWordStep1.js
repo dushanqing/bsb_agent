@@ -1,7 +1,6 @@
 // pages/forgetPassWord/forgetPassWord.js
 const app = getApp();
 var util = require("../../utils/util.js");
-var reg = require("../../utils/reg.js");
 import { HTTP} from '../../utils/http.js'
 const http = new HTTP();
 Page({
@@ -26,6 +25,8 @@ Page({
   onLoad: function(options) {
 
     app.loginCallback = loginFlag => {
+      console.log(loginFlag)
+     
       if (loginFlag){
          //用户已经登录过
         this.setData({
@@ -35,7 +36,6 @@ Page({
         let userNo = wx.getStorageSync('userNo');
         let mchtLicnNo = wx.getStorageSync('mchtLicnNo');
         let phoneNo = wx.getStorageSync('phoneNo');
-        
         this.setData({
           phoneNo: phoneNo,
           userNo: userNo,
@@ -67,18 +67,16 @@ Page({
     let mchtLicnNo = e.detail.value.mchtLicnNo;
     let phoneNo = e.detail.value.telPhone;
     if (util.strIsEmpty(userNo)) {
-      util.showToast('请输入账号')
+      util.showToast("请输入账号")
       return;
     }
     if (util.strIsEmpty(mchtLicnNo)) {
-      util.showToast('请输入营业执照号')
+      util.showToast("请输入营业执照号")
       return;
     }
-    if (util.strIsNotEmpty(setlPhone)) {
-      if (!reg.pattern.test(phoneNo)) {
-        util.showToast('手机号格式不正确')
-        return;
-      }
+    if (util.strIsEmpty(phoneNo)) {
+      util.showToast("请输入手机号")
+      return;
     }
     const resBody = http.request({
       url: 'checkLoginInfo.do',
@@ -235,6 +233,7 @@ Page({
         }
         //如果当秒数小于等于0时 停止计时器 且按钮文字变成重新发送 且按钮变成可用状态 
         //倒计时的秒数也要恢复成默认秒数 即让获取验证码的按钮恢复到初始化状态只改变按钮文字
+     
         if (currentTime <= 0) {
           clearInterval(interval)
           that.setData({
@@ -243,7 +242,9 @@ Page({
             disabled: true,
             color: 'red'
           })
+
         }
+    
       }, 1000);
     });
   },
@@ -302,13 +303,11 @@ Page({
       }
       //用户验证身份失败 跳转到登录首页
       if (resCode == '0026'){
-        util.showToast("用户手机号更改,请重新登录");
         //用户未登录
         this.setData({
           loginStep1: false,
-          loginStep2: true,
+          loading: true,
         })
-        return;
       }
 
       if (resCode != 'S') {
