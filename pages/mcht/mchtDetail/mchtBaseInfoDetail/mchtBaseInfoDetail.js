@@ -6,7 +6,6 @@ var mchtDeatil = new Object();
 var areaArr = new Array();
 Page({
   data: {
-    detailFlag: false 
   },
  
   onLoad(options) {
@@ -14,31 +13,21 @@ Page({
   },
 
   showData: function (options) {
-    console.log(options.mchtId);
+    console.log('+++'+options.mchtId);
     var that = this;
-
-    //避免重复提交 请求
-    // that.setData({
-    //   detailFlag: true,
-    // })
 
     const resBody = http.request({
       url: 'editMerchant.do',
       data: {
         body: {
-          // mchtId: options.mchtId,
-          mchtId: "8201904240000004",
+          mchtId: options.mchtId,
+          // mchtId: "8201904240000004",
         }
       },
       method: 'POST'
     });
     resBody.then(res => {
-
-      //避免重复提交 请求返回
-      // that.setData({
-      //   detailFlag: false,
-      // })
-
+      console.log("res res" + res)
       const resCode = res.resCode;
       const resMessage = res.resMessage;
       //session 过期处理 按照首次登录处理
@@ -52,8 +41,9 @@ Page({
       }
       //成功
       wx.setStorageSync("mchtDeatil", res);
+      console.log("res:"+res);
       var mcht = res.mcht;
-      var mchtLev = mcht.mchtLev,
+      var mchtLev = mcht.mchtLev
         mchtName = "",
         mchtSimpleName = "",
         isXiaoWei,

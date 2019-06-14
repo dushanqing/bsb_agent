@@ -74,7 +74,7 @@ Page({
       util.showToast('请输入营业执照号')
       return;
     }
-    if (util.strIsNotEmpty(setlPhone)) {
+    if (util.strIsNotEmpty(phoneNo)) {
       if (!reg.pattern.test(phoneNo)) {
         util.showToast('手机号格式不正确')
         return;
