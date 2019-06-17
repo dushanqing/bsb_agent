@@ -173,9 +173,23 @@ Page({
       that.setData({
         searchFlag: false,
       })
-      console.log(res);
+      //session 过期处理 按照首次登录处理
+      if (res.resCode == 'REQ1015') {
+        app.onLaunch();
+        wx.redirectTo({
+          url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
+        })
+        return;
+      }
+
+      //验证请求状态不是成功直接暴露异常
+      if (res.resCode != 'S') {
+        util.showToast(res.resMessage)
+        return;
+      }
+      // console.log(res);
       var mchtList = [];
-        let empList = res.empList;
+      let empList = res.empList;
       if (!util.strIsEmpty(empList)) {
           for (var index in empList) {
             let stat = that.getPic(empList[index].mchtStat)
@@ -222,12 +236,10 @@ Page({
     for (var index in mchtStat){
       if (mchtStat[index].mchtStatId == stat){
         tmp = mchtStat[index]
-        
         break ;
       }
     }
     return tmp
   }
 
-  //通过
 });

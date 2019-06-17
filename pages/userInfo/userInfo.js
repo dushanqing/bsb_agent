@@ -26,6 +26,14 @@ Page({
     });
     resBody.then(res=>{
       console.log(res);
+      //session 过期处理 按照首次登录处理
+      if (res.resCode == 'REQ1015') {
+        app.onLaunch();
+        wx.redirectTo({
+          url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
+        })
+        return;
+      }
       if (res.resCode !='S'){
         util.showLoading('获取用户信息失败')
         return;

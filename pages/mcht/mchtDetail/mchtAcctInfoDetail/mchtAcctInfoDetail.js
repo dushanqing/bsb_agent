@@ -1,4 +1,4 @@
-const App = getApp()
+const app = getApp()
 var util = require("../../../../utils/util.js");
 import { HTTP } from '../../../../utils/http.js';
 const http = new HTTP();
@@ -135,6 +135,11 @@ Page({
       //session 过期处理 按照首次登录处理
       if (resCode == 'REQ1015') {
         app.onLaunch();
+        wx.redirectTo({
+          url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
+        })
+        return;
+
       }
       //失败
       if (resCode != 'S') {

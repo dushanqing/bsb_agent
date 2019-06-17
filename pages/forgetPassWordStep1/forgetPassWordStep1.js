@@ -24,11 +24,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var that = this;
     app.loginCallback = loginFlag => {
       if (loginFlag) {
         //用户已经登录过
-        this.setData({
+        that.setData({
           loginStep2: false,
           loading: true,
         })
@@ -36,14 +36,14 @@ Page({
         let mchtLicnNo = wx.getStorageSync('mchtLicnNo');
         let phoneNo = wx.getStorageSync('phoneNo');
 
-        this.setData({
+        that.setData({
           phoneNo: phoneNo,
           userNo: userNo,
           mchtLicnNo: mchtLicnNo,
         })
       } else {
         //用户未登录
-        this.setData({
+        that.setData({
           loginStep1: false,
           loading: true,
         })
@@ -55,13 +55,13 @@ Page({
     * 生命周期函数--监听页面显示
     */
   onShow: function () {
-    this.selectComponent("#test").onUpdate();
+    var that = this;
+    that.selectComponent("#test").onUpdate();
   },
   /** 
    * onStep1登录商户信息(客户经理编号,营业执照号,手机号) 
    */
   onStep1: function (e) {
-    console.log("this is forgetStep1");
     let sessionId = wx.getStorageSync("sessionId");
     let userNo = e.detail.value.userName;
     let mchtLicnNo = e.detail.value.mchtLicnNo;
@@ -98,6 +98,10 @@ Page({
       //session 过期处理 按照首次登录处理
       if (resCode == 'REQ1015') {
         app.onLaunch();
+        wx.redirectTo({
+          url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
+        })
+        return;
       }
 
       //验证请求状态不是成功直接暴露异常
@@ -111,7 +115,7 @@ Page({
       wx.setStorageSync('mchtLicnNo', mchtLicnNo)
       wx.setStorageSync('phoneNo', phoneNo)
       //数据验证成功,显示step2页面
-      this.setData({
+      that.setData({
         phoneNo: phoneNo,
         userNo: userNo,
         mchtLicnNo: mchtLicnNo,
@@ -126,6 +130,7 @@ Page({
    * 图形验证,成功到后台获取验证码
    */
   myEventListener: function (e) {
+    var that = this;
     //图形验证成功调用后台返回随机数
     if (e.detail.msg) {
       const resBody = http.request({
@@ -142,25 +147,28 @@ Page({
 
         //session 过期处理 按照首次登录处理
         if (resCode == 'REQ1015') {
-          console.log('sessionId过期')
           app.onLaunch();
+          wx.redirectTo({
+            url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
+          })
+          return;
         }
 
         //验证请求状态不是成功直接暴露异常
         if (resCode != 'S') {
           util.showToast(resMessage);
-          this.onShow();
+          that.onShow();
           that.setData({
             disabled: 'true',
           })
           return;
         }
         let msgToken = res.msgToken;
-        this.setData({
+        that.setData({
           msgToken: msgToken
         });
         //获取图形验证成功,显示获取验证码
-        this.setData({
+        that.setData({
           disabled: false
         });
       })
@@ -196,27 +204,31 @@ Page({
       //session 过期处理 按照首次登录处理
       if (resCode == 'REQ1015') {
         app.onLaunch();
+        wx.redirectTo({
+          url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
+        })
+        return;
       }
 
       //图片验证随机数过期处理 失败直接刷新
       if (resCode == 'REQ1001') {
         console.log(resCode);
         util.showToast('图形验证码过期,请重新验证');
-        this.onShow();
+        that.onShow();
         return;
       }
 
       //验证请求状态不是成功直接暴露异常
       if (resCode != 'S') {
         util.showToast("短信验证码发送失败,请重新发送短信验证码");
-        this.onShow();
+        that.onShow();
         return;
       }
 
       util.showToast("短信验证码已发送");
       let taskId = res.taskId;
       let reqSsn = res.reqSsn;
-      this.setData({
+      that.setData({
         taskId: taskId,
         reqSsn: reqSsn
       });
@@ -299,12 +311,16 @@ Page({
       //session 过期处理 按照首次登录处理
       if (resCode == 'REQ1015') {
         app.onLaunch();
+        wx.redirectTo({
+          url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
+        })
+        return;
       }
       //用户验证身份失败 跳转到登录首页
       if (resCode == '0026') {
         util.showToast("用户手机号更改,请重新登录");
         //用户未登录
-        this.setData({
+        that.setData({
           loginStep1: false,
           loginStep2: true,
         })

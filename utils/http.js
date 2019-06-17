@@ -72,9 +72,21 @@ _request(url, resolve, reject, data = {}, method = 'GET', contentType = 'applica
             aesResBody = aesResBody.replace(/\r\n/g, "").replace(/\n/g, "");
             let resBody = aesUtil.decrypt_ecb(aesResBody, aesKey);
             resBody = JSON.parse(resBody);
+
             resolve(resBody);
+
           }else{
-            resolve(res.data.body);
+            //session 过期处理 按照首次登录处理
+            if (resCode == 'REQ1015') {
+              console.log("session过期")
+              getApp().onLaunch();
+              wx.redirectTo({
+                url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
+              })
+              return;
+            }else{
+              resolve(res.data.body);
+            }
        
           }
         } else {

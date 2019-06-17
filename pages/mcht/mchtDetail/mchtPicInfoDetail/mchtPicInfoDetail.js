@@ -1,4 +1,4 @@
-const App = getApp();
+const app = getApp();
 var util = require("../../../../utils/util.js");
 var yyzz="/images/no-pic.png",
 zzjg= "/images/no-pic.png",
