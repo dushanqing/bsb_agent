@@ -81,7 +81,6 @@ Page({
       mchtStat:that.data.mchtStat[0],
       mchtNameSearch:""
       } 
-    console.log(mchtStat)
     this.setData({
       searchData: mchtStat,
       pageNo: 1,   //第一次加载，设置1  
@@ -103,9 +102,6 @@ Page({
  //初始化查询数据
   initSearchData: function(e){
     var that = this;
-    console.log("输入框事件") 
-    console.log(e.detail.value) 
-
     //避免重复提交
     if (that.data.searchFlag) {
       return;
@@ -126,7 +122,6 @@ Page({
 
   //滚动到底部触发事件  
   searchScrollLower: function () {
-    console.log("滚动到底部触发事件");
     var that = this;
     if (that.data.searchLoading && !that.data.searchLoadingComplete) {
       that.setData({
@@ -174,20 +169,19 @@ Page({
         searchFlag: false,
       })
       //session 过期处理 按照首次登录处理
-      if (res.resCode == 'REQ1015') {
-        app.onLaunch();
-        wx.redirectTo({
-          url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
-        })
-        return;
-      }
+      // if (res.resCode == 'REQ1015') {
+      //   app.onLaunch();
+      //   wx.redirectTo({
+      //     url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
+      //   })
+      //   return;
+      // }
 
       //验证请求状态不是成功直接暴露异常
       if (res.resCode != 'S') {
         util.showToast(res.resMessage)
         return;
       }
-      // console.log(res);
       var mchtList = [];
       let empList = res.empList;
       if (!util.strIsEmpty(empList)) {

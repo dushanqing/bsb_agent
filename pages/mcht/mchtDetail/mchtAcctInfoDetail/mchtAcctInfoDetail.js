@@ -133,14 +133,14 @@ Page({
       const resCode = res.resCode;
       const resMessage = res.resMessage;
       //session 过期处理 按照首次登录处理
-      if (resCode == 'REQ1015') {
-        app.onLaunch();
-        wx.redirectTo({
-          url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
-        })
-        return;
+      // if (resCode == 'REQ1015') {
+      //   app.onLaunch();
+      //   wx.redirectTo({
+      //     url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
+      //   })
+      //   return;
 
-      }
+      // }
       //失败
       if (resCode != 'S') {
         util.showToast(resMessage);

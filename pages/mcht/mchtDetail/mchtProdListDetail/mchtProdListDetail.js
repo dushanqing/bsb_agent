@@ -19,9 +19,7 @@ Page({
       }
   },
   bindProductDetail(e){
-    console.log("e=" + e);
     var prodId = e.target.dataset.id;
-    console.log("prodId="+prodId);
     wx.navigateTo({
       url: "../detail/prodDetail/prodDetail?prodId=" + prodId
     });

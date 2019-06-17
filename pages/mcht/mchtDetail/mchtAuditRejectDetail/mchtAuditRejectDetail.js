@@ -7,7 +7,6 @@ var areaArr = new Array();
 Page({
   bindCallMchtPhone: function(e) {
     const path = e.currentTarget.dataset.path
-    console.log("path=" + path);
     wx.makePhoneCall({
       phoneNumber: path
     })
@@ -32,13 +31,13 @@ Page({
       const resCode = res.resCode;
       const resMessage = res.resMessage;
       //session 过期处理 按照首次登录处理
-      if (resCode == 'REQ1015') {
-        app.onLaunch();
-        wx.redirectTo({
-          url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
-        })
-        return;
-      }
+      // if (resCode == 'REQ1015') {
+      //   app.onLaunch();
+      //   wx.redirectTo({
+      //     url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
+      //   })
+      //   return;
+      // }
       //失败
       if (resCode != 'S') {
         util.showToast(resMessage);
@@ -76,13 +75,13 @@ Page({
       const resCode = res.resCode;
       const resMessage = res.resMessage;
       //session 过期处理 按照首次登录处理
-      if (resCode == 'REQ1015') {
-        app.onLaunch();
-        wx.redirectTo({
-          url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
-        })
-        return;
-      }
+      // if (resCode == 'REQ1015') {
+      //   app.onLaunch();
+      //   wx.redirectTo({
+      //     url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
+      //   })
+      //   return;
+      // }
       //失败
       if (resCode != 'S') {
         util.showToast(resMessage);
@@ -92,7 +91,6 @@ Page({
       //如果所属商户为null,所属商户不可选
       var ct = res.empList[0];
       areaArr.unshift(ct.ctName);
-      console.log("ctCode333:" + areaArr);
       var upCtCode = ct.upCtCode;
       if (util.strIsNotEmpty(upCtCode)) {
         that.selectByFlagAndCtCode(upCtCode);

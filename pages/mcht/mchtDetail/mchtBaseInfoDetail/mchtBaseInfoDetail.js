@@ -13,7 +13,6 @@ Page({
   },
 
   showData: function (options) {
-    console.log(options)
     var that = this;
     if (JSON.stringify(options) == "{}"){
       var mchtDeatilData = wx.getStorageSync('mchtDeatil');
@@ -34,20 +33,19 @@ Page({
       const resCode = res.resCode;
       const resMessage = res.resMessage;
       //session 过期处理 按照首次登录处理
-      if (resCode == 'REQ1015') {
-        app.onLaunch();
-        wx.redirectTo({
-          url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
-        })
-        return;
-      }
+      // if (resCode == 'REQ1015') {
+      //   app.onLaunch();
+      //   wx.redirectTo({
+      //     url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
+      //   })
+      //   return;
+      // }
       //失败
       if (resCode != 'S') {
         util.showToast(resMessage);
         return;
       }
       //成功
-      console.log(res);
       wx.setStorageSync("mchtDeatil", res);
       that.packData(res);
       that.queryAgencyInfo(res.mcht.mchtBigType);
@@ -158,13 +156,13 @@ packData:function(res){
       const resCode = res.resCode;
       const resMessage = res.resMessage;
       //session 过期处理 按照首次登录处理
-      if (resCode == 'REQ1015') {
-        app.onLaunch();
-        wx.redirectTo({
-          url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
-        })
-        return;
-      }
+      // if (resCode == 'REQ1015') {
+      //   app.onLaunch();
+      //   wx.redirectTo({
+      //     url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
+      //   })
+      //   return;
+      // }
       //失败
       if (resCode != 'S') {
         util.showToast(resMessage);
@@ -182,7 +180,6 @@ packData:function(res){
           }
         })
       }
-      console.log("taht.data.mchtAreaNo:" + that.data.mchtAreaNo)
       that.selectByFlagAndCtCode(that.data.mchtAreaNo);
     })
   },
@@ -203,13 +200,13 @@ packData:function(res){
       const resCode = res.resCode;
       const resMessage = res.resMessage;
       //session 过期处理 按照首次登录处理
-      if (resCode == 'REQ1015') {
-        app.onLaunch();
-        wx.redirectTo({
-          url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
-        })
-        return;
-      }
+      // if (resCode == 'REQ1015') {
+      //   app.onLaunch();
+      //   wx.redirectTo({
+      //     url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
+      //   })
+      //   return;
+      // }
       //失败
       if (resCode != 'S') {
         util.showToast(resMessage);

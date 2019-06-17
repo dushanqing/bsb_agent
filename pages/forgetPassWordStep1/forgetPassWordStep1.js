@@ -31,7 +31,7 @@ Page({
         that.setData({
           loginStep2: false,
           loading: true,
-        })
+        });
         let userNo = wx.getStorageSync('userNo');
         let mchtLicnNo = wx.getStorageSync('mchtLicnNo');
         let phoneNo = wx.getStorageSync('phoneNo');
@@ -40,16 +40,15 @@ Page({
           phoneNo: phoneNo,
           userNo: userNo,
           mchtLicnNo: mchtLicnNo,
-        })
+        });
       } else {
         //用户未登录
         that.setData({
           loginStep1: false,
           loading: true,
-        })
-      }
-
-    }
+        });
+      };
+    };
   },
   /**
     * 生命周期函数--监听页面显示
@@ -96,19 +95,19 @@ Page({
       const resMessage = res.resMessage
 
       //session 过期处理 按照首次登录处理
-      if (resCode == 'REQ1015') {
-        app.onLaunch();
-        wx.redirectTo({
-          url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
-        })
-        return;
-      }
+      // if (resCode == 'REQ1015') {
+      //   app.onLaunch();
+      //   wx.redirectTo({
+      //     url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
+      //   })
+      //   return;
+      // }
 
       //验证请求状态不是成功直接暴露异常
       if (resCode != 'S') {
         util.showToast(resMessage)
         return;
-      }
+      };
 
       //数据放入本地缓存
       wx.setStorageSync('userNo', userNo)
@@ -121,9 +120,9 @@ Page({
         mchtLicnNo: mchtLicnNo,
         loginStep1: true,
         loginStep2: false
-      })
+      });
 
-    })
+    });
   },
 
   /** 
@@ -146,13 +145,13 @@ Page({
         const resMessage = res.resMessage
 
         //session 过期处理 按照首次登录处理
-        if (resCode == 'REQ1015') {
-          app.onLaunch();
-          wx.redirectTo({
-            url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
-          })
-          return;
-        }
+        // if (resCode == 'REQ1015') {
+        //   app.onLaunch();
+        //   wx.redirectTo({
+        //     url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
+        //   })
+        //   return;
+        // }
 
         //验证请求状态不是成功直接暴露异常
         if (resCode != 'S') {
@@ -160,7 +159,7 @@ Page({
           that.onShow();
           that.setData({
             disabled: 'true',
-          })
+          });
           return;
         }
         let msgToken = res.msgToken;
@@ -202,17 +201,16 @@ Page({
       const resMessage = res.resMessage;
 
       //session 过期处理 按照首次登录处理
-      if (resCode == 'REQ1015') {
-        app.onLaunch();
-        wx.redirectTo({
-          url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
-        })
-        return;
-      }
+      // if (resCode == 'REQ1015') {
+      //   app.onLaunch();
+      //   wx.redirectTo({
+      //     url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
+      //   })
+      //   return;
+      // }
 
       //图片验证随机数过期处理 失败直接刷新
       if (resCode == 'REQ1001') {
-        console.log(resCode);
         util.showToast('图形验证码过期,请重新验证');
         that.onShow();
         return;
@@ -271,11 +269,11 @@ Page({
     if (util.strIsEmpty(vrfyCode)) {
       util.showToast("请输入验证码");
       return;
-    }
+    };
     if (util.getLength(vrfyCode) != 6) {
       util.showToast("验证码格式不正确");
       return;
-    }
+    };
 
     //避免重复提交
     if (that.data.submitFlag) {
@@ -283,7 +281,7 @@ Page({
     }
     that.setData({
       submitFlag: true,
-    })
+    });
 
     const resBody = http.request({
       url: 'checkMesCode.do',
@@ -303,19 +301,18 @@ Page({
     resBody.then(res => {
       that.setData({
         submitFlag: false,
-      })
-      console.log(res);
+      });
       const resCode = res.resCode;
       const resMessage = res.resMessage;
 
       //session 过期处理 按照首次登录处理
-      if (resCode == 'REQ1015') {
-        app.onLaunch();
-        wx.redirectTo({
-          url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
-        })
-        return;
-      }
+      // if (resCode == 'REQ1015') {
+      //   app.onLaunch();
+      //   wx.redirectTo({
+      //     url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
+      //   })
+      //   return;
+      // }
       //用户验证身份失败 跳转到登录首页
       if (resCode == '0026') {
         util.showToast("用户手机号更改,请重新登录");
@@ -323,7 +320,7 @@ Page({
         that.setData({
           loginStep1: false,
           loginStep2: true,
-        })
+        });
         return;
       }
 
@@ -332,10 +329,10 @@ Page({
         return;
       }
       //登录成功以后userId放到本地缓存中
-      wx.setStorageSync('userId', res.userId)
+      wx.setStorageSync('userId', res.userId);
       wx.redirectTo({
         url: "/pages/loginShowInfo/loginShowInfo",
-      })
+      });
     });
 
   },
