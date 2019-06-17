@@ -61,6 +61,7 @@ Page({
    * onStep1登录商户信息(客户经理编号,营业执照号,手机号) 
    */
   onStep1: function (e) {
+    var that = this;
     let sessionId = wx.getStorageSync("sessionId");
     let userNo = e.detail.value.userName;
     let mchtLicnNo = e.detail.value.mchtLicnNo;
