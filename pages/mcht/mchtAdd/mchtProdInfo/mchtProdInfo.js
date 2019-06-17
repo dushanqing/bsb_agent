@@ -2,7 +2,7 @@ const App = getApp();
 var util = require("../../../../utils/util.js");
 import {
   HTTP
-} from '../../../../utils/http.js'
+} from '../../../../utils/http.js';
 let http = new HTTP();
 var mchtInfo;
 var saveFlag = true;
@@ -243,8 +243,6 @@ Page({
     var checkboxItems = this.data.checkboxItems,
       values = e.detail.value;
     var prodName = "";
-    // var  = "";
-    console.log("checkProdId:" + values);
     for (var i = 0, lenI = checkboxItems.length; i < lenI; ++i) {
       checkboxItems[i].prodChecked = false;
       for (var j = 0, lenJ = values.length; j < lenJ; ++j) {
@@ -382,7 +380,6 @@ Page({
         return false;
       }
     }
-    console.log("prodIds:" + prodIds)
     mchtInfo.prodIds = prodIds;
     mchtInfo.jiejifee = jiejifee;
     mchtInfo.jiejitop = jiejitop;
@@ -416,13 +413,9 @@ Page({
         resBody.then(res => {
           const resCode = res.resCode;
           const resMessage = res.resMessage;
-          //session 过期处理 按照首次登录处理
-          if (resCode == 'REQ1015') {
-            app.onLaunch();
-          }
           //成功
           if ('S' == resCode) {
-            const path = "../detail/mchtAddResult/mchtAddResult"
+            const path = "../detail/mchtAddResult/mchtAddResult";
             wx.navigateTo({
               url: path
             });

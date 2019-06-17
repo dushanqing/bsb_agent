@@ -1,4 +1,7 @@
 {
   "navigationBarTitleText": "电子信息",
-  "enablePullDownRefresh": true
+"enablePullDownRefresh": true,
+"usingComponents": {
+  "show-modal": "../../../../components/show-modal/show-modal"
+}
 }

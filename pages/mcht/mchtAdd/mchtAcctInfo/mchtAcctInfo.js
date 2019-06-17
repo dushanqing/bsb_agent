@@ -4,13 +4,12 @@ var reg = require("../../../../utils/reg.js");
 import { config } from '../../../../config.js';
 import {
   HTTP
-} from '../../../../utils/http.js'
+} from '../../../../utils/http.js';
 let http = new HTTP();
 var mchtInfo = wx.getStorageSync("mchtInfo");
 var flag = false;
 Page({
   data: {
-
     modalHidden: true,
     setlType: [{
       setlTypeId: "01",
@@ -174,12 +173,8 @@ Page({
     resBody.then(res => {
       const resCode = res.resCode;
       const resMessage = res.resMessage;
-      //session 过期处理 按照首次登录处理
-      if (resCode == 'REQ1015') {
-        app.onLaunch();
-      }
       //失败
-      if (resCode != 'S') {
+      if ('S' != resCode) {
         util.showToast(resMessage);
         return;
       }
@@ -214,11 +209,8 @@ Page({
       const resCode = res.resCode;
       const resMessage = res.resMessage;
       //session 过期处理 按照首次登录处理
-      if (resCode == 'REQ1015') {
-        app.onLaunch();
-      }
       //失败
-      if (resCode != 'S') {
+      if ('S' != resCode) {
         util.showToast(resMessage);
         return;
       }
@@ -235,7 +227,9 @@ Page({
 
   },
   focusSetlAcctInstitute: function () {
-   
+    this.setData({
+      lianhangwangdian:""
+    });
   },
 
 
@@ -246,7 +240,7 @@ Page({
     var dataset = e.target.dataset;
     var pageNum = dataset.text;
     if (pageNum === "1") {
-      const path = '../mchtBaseInfo/mchtBaseInfo'
+      const path = '../mchtBaseInfo/mchtBaseInfo';
       wx.navigateTo({
         url: path
       });

@@ -39,7 +39,7 @@ Page({
       //   return;
       // }
       //失败
-      if (resCode != 'S') {
+      if ('S' != resCode) {
         util.showToast(resMessage);
         return;
       }
@@ -82,8 +82,9 @@ Page({
       //   })
       //   return;
       // }
+
       //失败
-      if (resCode != 'S') {
+      if ('S' != resCode) {
         util.showToast(resMessage);
         return;
       }

@@ -85,7 +85,6 @@ Page({
     });
   },
   modalConfirm: function (e) {
-    console.log("URL:" + this.data.tempFilePaths);
     var imgFlag = this.data.imgFlag;
     //保存到服务器
     this.upload_file(imgFlag);
@@ -210,7 +209,6 @@ Page({
   },
 
   chooseImage: function (imgFlag) {
-    console.log("imgFlag22=" + imgFlag);
     var that = this;
     wx.getSystemInfo({
       success: function (res) {
@@ -237,14 +235,12 @@ Page({
   },
 
   chooseWxImage: function (type, imgFlag) {
-    console.log("imgFlag=" + imgFlag);
     var that = this;
     wx.chooseImage({
       sizeType: ['original', 'compressed'],
       sourceType: [type],
       count: 1,
       success: function (res) {
-        console.log(res);
         var tempFilesSize = res.tempFiles[0].size;  //获取图片的大小，单位B
         if (tempFilesSize <= 2000000) {//图片小于或者等于2M(2000000B)时 可以执行获取图片
           that.setData({
@@ -281,7 +277,6 @@ Page({
    */
   bindThreeToOneChange: function (e) {
     mchtInfo.threeToOneIndex = e.detail.value;
-    console.log("e.detail.value" + e.detail.value);
     this.setData({
       threeToOneIndex: e.detail.value
     })

@@ -366,15 +366,12 @@ Page({
       method: 'POST'
     });
     resBody.then(res => {
-      const resCode = res.resCode
-      const resMessage = res.resMessage
+      const resCode = res.resCode;
+      const resMessage = res.resMessage;
       //session 过期处理 按照首次登录处理
-      if (resCode == 'REQ1015') {
-        app.onLaunch();
-      }
       //失败
       if (resCode != 'S') {
-        util.showToast(resMessage)
+        util.showToast(resMessage);
         return;
       }
       //成功
@@ -557,7 +554,6 @@ Page({
 
     var isXiaowei = this.data.xiaowei[e.detail.value.xiaowei].xwId;
     var mchtLicnNo = util.trim(e.detail.value.mchtLicnNo);
-   
     if ("00" == isXiaowei && util.strIsEmpty(mchtLicnNo)) {
       util.showToast('请输入营业执照号！');
       this.setData({

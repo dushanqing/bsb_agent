@@ -1,5 +1,5 @@
 const app = getApp();
-import { HTTP } from '../../../../../utils/http.js'
+import { HTTP } from '../../../../../utils/http.js';
 const http = new HTTP();
 var util = require("../../../../../utils/util.js");
 var cgList;
@@ -34,12 +34,9 @@ Page({
     resBody.then(res => {
       const resCode = res.resCode;
       const resMessage = res.resMessage;
-      //session 过期处理 按照首次登录处理
-      if (resCode == 'REQ1015') {
-        app.onLaunch();
-      }
+     
       //失败
-      if (resCode != 'S') {
+      if ('S' != resCode ) {
         util.showToast(resMessage);
         return;
       }
