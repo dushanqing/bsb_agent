@@ -58,24 +58,29 @@ App({
               wx.setStorageSync('rsaPubKey', rsaPubKey);
             }
 
-            let userId = res.data.body.userId;
-            let userNo = res.data.body.userNo;
-            let phoneNo = res.data.body.phoneNo;
-            let mchtLicnNo = res.data.body.mchtLicnNo
-            if (util.strIsEmpty(userId) || util.strIsEmpty(userNo) || util.strIsEmpty(phoneNo) || util.strIsEmpty(mchtLicnNo)){
-              loginFlag = false;
-              util.showToast("系统异常");
-            }else{
-              wx.setStorageSync('userId', userId);
-              wx.setStorageSync('userNo', userNo);
-              wx.setStorageSync('phoneNo', phoneNo);
-              wx.setStorageSync('mchtLicnNo', mchtLicnNo);
+            //用户已经登录获取用户信息
+            if (loginFlag){
+              let userId = res.data.body.userId;
+              let userNo = res.data.body.userNo;
+              let phoneNo = res.data.body.phoneNo;
+              let mchtLicnNo = res.data.body.mchtLicnNo
+              if (util.strIsEmpty(userId) || util.strIsEmpty(userNo) || util.strIsEmpty(phoneNo) || util.strIsEmpty(mchtLicnNo)) {
+                loginFlag = false;
+                util.showToast("系统异常");
+                return;
+              } else {
+                wx.setStorageSync('userId', userId);
+                wx.setStorageSync('userNo', userNo);
+                wx.setStorageSync('phoneNo', phoneNo);
+                wx.setStorageSync('mchtLicnNo', mchtLicnNo);
+              }
             }
-
+            
             //回调传参,onLoad使用
             if(that.loginCallback){
               that.loginCallback(loginFlag);
             }
+
           }
         })
       }
