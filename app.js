@@ -110,10 +110,10 @@ App({
 
 
   onShow() {
-    console.log('onShow')
+    // console.log('onShow')
   },
   onHide() {
-    console.log('onHide')
+    // console.log('onHide')
   },
   getUserInfo() {
     return this.WxService.login()

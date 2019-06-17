@@ -50,7 +50,7 @@ class HTTP {
 _request(url, resolve, reject, data = {}, method = 'GET', contentType = 'application/json') {
 
     var url = config.baseRestUrl + url;
-    console.log(url);
+    // console.log(url);
     wx.request({
       
       url: url,
@@ -78,7 +78,7 @@ _request(url, resolve, reject, data = {}, method = 'GET', contentType = 'applica
           }else{
             //session 过期处理 按照首次登录处理
             if (resCode == 'REQ1015') {
-              console.log("session过期")
+              // console.log("session过期")
               getApp().onLaunch();
               wx.redirectTo({
                 url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
@@ -95,7 +95,7 @@ _request(url, resolve, reject, data = {}, method = 'GET', contentType = 'applica
       },
 
       fail: function (err) {
-        console.log(err);
+        // console.log(err);
         reject();
       },
 
