@@ -187,15 +187,19 @@ Page({
       if (!util.strIsEmpty(empList)) {
           for (var index in empList) {
             let stat = that.getPic(empList[index].mchtStat)
+            let url = "../mchtDetail/mchtBaseInfoDetail/mchtBaseInfoDetail";
+            if (stat.mchtStatId == "08"){
+              url = "../mchtDetail/mchtAuditRejectDetail/mchtAuditRejectDetail";
+            };
             var tmp = {
               brName: empList[index].brName,
-              crtDateTime: empList[index].crtDateTime,
+              crtDateTime: util.formatStringyyyyMMddToyyyy_MM_dd(empList[index].crtDateTime),
               mchtId: empList[index].mchtId,
               userName: empList[index].userName,
               picFlag: stat.picFlag,
               mchtStat: stat.mchtStatName,
               mchtName: empList[index].mchtSimpleName,
-              url: "../mchtDetail/mchtBaseInfoDetail/mchtBaseInfoDetail"
+              url: url
             };
             mchtList.push(tmp);
           }
