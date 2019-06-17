@@ -278,7 +278,7 @@ Page({
    * 银行账号
    */
   blurSetlAcctNo: function(e) {
-    mchtInfo.userTypeIndex = e.detail.value;
+    mchtInfo.setlAcctNo = e.detail.value;
     wx.setStorageSync("mchtInfo", mchtInfo);
   },
   /**
@@ -290,6 +290,13 @@ Page({
   //     setlCertTypeIndex: e.detail.value
   //   });
   // },
+  /**
+  * 账户证件号码
+    */
+  blurSetlCertNo: function (e) {
+    mchtInfo.setlCertNo = e.detail.value;
+    wx.setStorageSync("mchtInfo", mchtInfo);
+  },
 
   /**
    *  账号类型

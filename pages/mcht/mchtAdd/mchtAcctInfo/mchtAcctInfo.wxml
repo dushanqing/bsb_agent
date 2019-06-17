@@ -104,7 +104,7 @@
           <view class="weui-label">账户证件号码</view>
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" type="idcard" name="setlCertNo" value="{{setlCertNo}}" bindblur="bindSetlCertNo" maxlength="18" placeholder="请输入账户证件号码" />
+          <input class="weui-input" type="idcard" name="setlCertNo" value="{{setlCertNo}}" bindblur="blurSetlCertNo" maxlength="18" placeholder="请输入账户证件号码" />
         </view>
         <view>
           <image class="ocr" src="/images/u588.png" data-longitude="{{location.longitude}}" data-latitude="{{location.latitude}}" bindtap="bindsetlCertNoOcr" />
