@@ -415,6 +415,10 @@ Page({
           const resMessage = res.resMessage;
           //成功
           if ('S' == resCode) {
+            wx.setStorageSync("mchtInfo", null);
+            wx.setStorageSync("mchtBigType", null);
+            wx.setStorageSync("ctArr", null);
+
             const path = "../detail/mchtAddResult/mchtAddResult";
             wx.navigateTo({
               url: path

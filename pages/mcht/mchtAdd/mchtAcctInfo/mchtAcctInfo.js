@@ -611,6 +611,7 @@ Page({
     mchtInfo.userType = userType;
     mchtInfo.setlAcctName = setlAcctName;
     mchtInfo.setlCertType = setlCertType;
+    mchtInfo.setlCertNo = setlCertNo;
     mchtInfo.legalPersonName = legalPersonName;
     mchtInfo.setlPhone = setlPhone;
     mchtInfo.startDate = startDate;
