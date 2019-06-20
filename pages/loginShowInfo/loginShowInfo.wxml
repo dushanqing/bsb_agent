@@ -1,16 +1,97 @@
 <!--pages/loginShowInfo/loginShowInfo.wxml-->
-<view class="containner">
-
-  <view class="title">
-    <image class="title-image" src="/images/bsbt.jpg"></image>
-    <view class="title-item">
+<!-- <view class="containner"> -->
+<view class="weui-panel" id="center">
+  <image class="title-image" src="/images/bsb/bsb.png"></image>
+  <view class="title-item">
     <text>{{agname}}</text>
     <text>{{userNm}}</text>
+  </view>
+</view>
+
+<view class="weui-panel mcht_panel">
+  <view class="mcht mcht_list" id="center">
+    <view>
+      <button class="img-btn" bindtap='bindMchtAdd'>
+        <image src="/images/u85.jpg" class="center-mchts-image"></image>
+      </button>
+      <view class="mcht-text">
+        <text>进件商户</text>
+      </view>
+    </view>
+    <view>
+      <button class="img-btn" bindtap='bindMchtList'>
+        <image src="/images/u91.jpg" class="center-mchts-image" style="background-color: #fff; width:100%;height:60%;color:#40171A;"></image>
+      </button>
+      <view class="mcht-text">
+        <text>商户列表</text>
+      </view>
     </view>
   </view>
+  <view class="u101">
+    <image src="/images/u101.png" class="u101_img"></image>
+  </view>
+  <view class="text total-panel">
+    <view class="count-text">
+      <text>总进件商户数（户）</text>
+      <text>{{totalCount}}</text>
+    </view>
+    <view class="count-text">
+      <text>审核通过商户数（户）</text>
+      <text>{{passCount}}</text>
+    </view>
+    <view class="count-text">
+      <text>审核拒绝商户数（户）</text>
+      <text>{{refuseCount}}</text>
+    </view>
+    <view class="count-text">
+      <text>审核中商户数（户）</text>
+      <text>{{inReviewCount}}</text>
+    </view>
+  </view>
+  <view class="u101">
+    <image src="/images/u101.png" class="u101_img"></image>
+  </view>
+  <view class="text total-panel">
+    <view class="count-text">
+      <text>今日进件（户）</text>
+      <text>{{dayCount}}</text>
+    </view>
+    <view class="count-text">
+      <text>近一周进件（户）</text>
+      <text>{{weekCount}}</text>
+    </view>
+  </view>
+  <view class="u101">
+    <image src="/images/u101.png" class="u101_img"></image>
+  </view>
+  <view class="text total-panel" style='height:50rpx'>
+  </view>
 
-  <view class="center">
-    <navigator url="/pages/mcht/mchtAdd/mchtBaseInfo/mchtBaseInfo">
+
+
+  
+
+  <!-- <view class="root">
+  <navigator url="/pages/mcht/mchtList/mchtList">
+    <text>首页</text>
+  </navigator>
+  <navigator url="/pages/userInfo/userInfo">
+    <text>我的</text>
+  </navigator>
+  <navigator url="/pages/index/index">
+    <text>更多</text>
+  </navigator>
+</view> -->
+
+</view>
+
+
+
+
+
+
+<!-- <view class="center">
+     <navigator url="/pages/mcht/mchtAdd/mchtBaseInfo/mchtBaseInfo">
       <view class="center-mchts">
           <image  src="/images/mchts.png" class="center-mchts-image"></image>
           <text>进件商户</text>
@@ -22,44 +103,44 @@
         <text>商户列表</text>
       </view>
     </navigator>
-  </view>
-  <view class='solid'/>
-  <view class="count-text">
-      <text>总进件商户数（户）</text>
-      <text>{{totalCount}}</text>
-  </view>
-  <view class="count-text">
-      <text>审核通过商户数（户）</text>
-      <text>{{passCount}}</text>
-  </view>
-  <view class="count-text">
-      <text>审核拒绝商户数（户）</text>
-      <text>{{refuseCount}}</text>
-  </view>
-  <view class="count-text">
-      <text>审核中商户数（户）</text>
-      <text>{{inReviewCount}}</text>
-  </view>
-  <view class='solid'/>
-  <view class="count-text">
-      <text>今日进件（户）</text>
-      <text>{{dayCount}}</text>
-  </view>
-  <view class="count-text">
-      <text>近一周进件（户）</text>
-      <text>{{weekCount}}</text>
-  </view>
-  <view class='solid'/>
-
-  <view class="root">
-    <navigator url= "/pages/mcht/mchtList/mchtList">
-      <text>首页</text>
-    </navigator>
-    <navigator url= "/pages/userInfo/userInfo">
-      <text>我的</text>
-    </navigator>
-    <navigator url= "/pages/index/index">
-      <text>更多</text>
-    </navigator>
-  </view>
+  </view> -->
+<!-- <view class='solid' />
+<view class="count-text">
+  <text>总进件商户数（户）</text>
+  <text>{{totalCount}}</text>
 </view>
+<view class="count-text">
+  <text>审核通过商户数（户）</text>
+  <text>{{passCount}}</text>
+</view>
+<view class="count-text">
+  <text>审核拒绝商户数（户）</text>
+  <text>{{refuseCount}}</text>
+</view>
+<view class="count-text">
+  <text>审核中商户数（户）</text>
+  <text>{{inReviewCount}}</text>
+</view>
+<view class='solid' />
+<view class="count-text">
+  <text>今日进件（户）</text>
+  <text>{{dayCount}}</text>
+</view>
+<view class="count-text">
+  <text>近一周进件（户）</text>
+  <text>{{weekCount}}</text>
+</view>
+<view class='solid' />
+
+<view class="root">
+  <navigator url="/pages/mcht/mchtList/mchtList">
+    <text>首页</text>
+  </navigator>
+  <navigator url="/pages/userInfo/userInfo">
+    <text>我的</text>
+  </navigator>
+  <navigator url="/pages/index/index">
+    <text>更多</text>
+  </navigator>
+</view> -->
+<!-- </view> -->
