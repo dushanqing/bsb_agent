@@ -1,25 +1,25 @@
 {
   "pages": [
     "pages/forgetPassWordStep1/forgetPassWordStep1",
+    "pages/forgetPassWordStep2/forgetPassWordStep2",
+    "pages/mcht/mchtDetail/mchtBaseInfoDetail/mchtBaseInfoDetail",
     "pages/loginShowInfo/loginShowInfo",
     "pages/login/login",
     "pages/userInfo/userInfo",
     "pages/mcht/mchtList/mchtList",
     "pages/mcht/mchtAdd/mchtBaseInfo/mchtBaseInfo",
     "pages/mcht/mchtAdd/mchtAcctInfo/mchtAcctInfo",
-    "pages/mcht/mchtDetail/mchtPicInfoDetail/mchtPicInfoDetail",
-    "pages/mcht/mchtDetail/mchtProdListDetail/mchtProdListDetail",
-    "pages/mcht/mchtDetail/mchtBaseInfoDetail/mchtBaseInfoDetail",
-    "pages/mcht/mchtAdd/mchtProdInfo/mchtProdInfo",
     "pages/mcht/mchtAdd/mchtPicInfo/mchtPicInfo",
+    "pages/mcht/mchtAdd/mchtProdInfo/mchtProdInfo",
     "pages/mcht/mchtDetail/mchtAuditRejectDetail/mchtAuditRejectDetail",
+    "pages/mcht/mchtDetail/mchtProdListDetail/mchtProdListDetail",
+    "pages/mcht/mchtDetail/mchtPicInfoDetail/mchtPicInfoDetail",
     "pages/mcht/mchtAdd/detail/mchtProdCheck/mchtProdCheck",
     "pages/mcht/mchtDetail/detail/prodDetail/prodDetail",
     "pages/rsa/rsa",
     "map/index",
     "pages/error/error",
     "map/position/position",
-    "pages/forgetPassWordStep2/forgetPassWordStep2",
     "pages/forgetPassWordStep3/forgetPassWordStep3",
     "pages/mcht/mchtDetail/mchtAcctInfoDetail/mchtAcctInfoDetail",
     "pages/mcht/mchtAdd/detail/mchtArea/city/city",
@@ -27,14 +27,42 @@
     "pages/mcht/mchtAdd/detail/mchtArea/area/area",
     "pages/mcht/mchtAdd/detail/mchtBigType/mchtBigType",
     "pages/mcht/mchtAdd/detail/mchtAddResult/mchtAddResult",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/more/more"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "包商进件宝",
-    "navigationBarTextStyle": "black"
+    "navigationBarBackgroundColor": "#F4761A",
+    "navigationBarTitleText": "集商宝",
+    "navigationBarTextStyle": "white"
   },
+  "tabBar": {
+    "color": "#353535",
+    "selectedColor": "#F4761A",
+    "borderStyle": "white",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/loginShowInfo/loginShowInfo",
+        "iconPath": "images/app/iconfont-home.png",
+        "selectedIconPath": "images/app/iconfont-home-active.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/userInfo/userInfo",
+        "iconPath": "images/app/iconfont-user.png",
+        "selectedIconPath": "images/app/iconfont-user-active.png",
+        "text": "我的"
+      },
+      {
+        "pagePath": "pages/more/more",
+        "iconPath": "images/app/icon-more.png",
+        "selectedIconPath": "images/app/icon-more-active.png",
+        "text": "更多"
+      }
+    ]
+  },
+ 
   "permission": {
     "scope.userLocation": {
       "desc": "你的位置信息将用于小程序位置接口的效果展示"
