@@ -1,23 +1,24 @@
 {
   "pages": [
     "pages/forgetPassWordStep1/forgetPassWordStep1",
-    "pages/forgetPassWordStep2/forgetPassWordStep2",
-    "pages/mcht/mchtDetail/mchtBaseInfoDetail/mchtBaseInfoDetail",
     "pages/loginShowInfo/loginShowInfo",
-    "pages/login/login",
+    "pages/common/bsb/bsb",
     "pages/userInfo/userInfo",
+    "map/index",
+    "pages/login/login",
+    "pages/forgetPassWordStep2/forgetPassWordStep2",
     "pages/mcht/mchtList/mchtList",
     "pages/mcht/mchtAdd/mchtBaseInfo/mchtBaseInfo",
     "pages/mcht/mchtAdd/mchtAcctInfo/mchtAcctInfo",
     "pages/mcht/mchtAdd/mchtPicInfo/mchtPicInfo",
     "pages/mcht/mchtAdd/mchtProdInfo/mchtProdInfo",
+    "pages/mcht/mchtDetail/mchtBaseInfoDetail/mchtBaseInfoDetail",
     "pages/mcht/mchtDetail/mchtAuditRejectDetail/mchtAuditRejectDetail",
     "pages/mcht/mchtDetail/mchtProdListDetail/mchtProdListDetail",
     "pages/mcht/mchtDetail/mchtPicInfoDetail/mchtPicInfoDetail",
     "pages/mcht/mchtAdd/detail/mchtProdCheck/mchtProdCheck",
     "pages/mcht/mchtDetail/detail/prodDetail/prodDetail",
     "pages/rsa/rsa",
-    "map/index",
     "pages/error/error",
     "map/position/position",
     "pages/forgetPassWordStep3/forgetPassWordStep3",
@@ -62,7 +63,6 @@
       }
     ]
   },
- 
   "permission": {
     "scope.userLocation": {
       "desc": "你的位置信息将用于小程序位置接口的效果展示"
