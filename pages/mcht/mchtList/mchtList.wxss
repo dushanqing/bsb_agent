@@ -1,4 +1,3 @@
-
 @import "../style/mcht.wxss";
 
 page{
@@ -10,12 +9,12 @@ page{
   -webkit-box-flex: 1;
   -webkit-flex: auto;
   flex: auto;
-  border-radius: 5px;
+  border-radius: 10rpx;
   background: #fff;
   border: 1rpx solid #e6e6ea;
-  height: 10px;
+  height: 20rpx;
   width: 100%;
-  left: 10px;
+  left: 20rpx;
   top: 20rpx;
 }
 
@@ -26,10 +25,10 @@ page{
 
 .mcht-search {
   width: 100%;
-  height: 108px;
+  height: 216rpx;
   background: #fff;
-  border-bottom: 1px solid #eee;
-  box-shadow: 0 2px 5px #eee;
+  border-bottom: 2rpx solid #eee;
+  box-shadow: 0 4rpx 10rpx #eee;
   display: flex;
   justify-content: center;
 }
@@ -39,8 +38,8 @@ page{
 }
 
 #picFlag {
-  width: 40px;
-  height: 40px;
+  width: 80rpx;
+  height: 80rpx;
   display: flex;
   align-items: center;
 }
@@ -52,8 +51,10 @@ page{
   color: #000;
 }
 
+
+
 .weui-cell__hd #mchtName {
-  font-size: 18px;
+  font-size: 36rpx;
   text-rendering: optimizeLegibility;
   font-feature-settings: "kern";
   -moz-font-feature-settings: "kern";
@@ -61,7 +62,7 @@ page{
 }
 
 #mchtStat {
-  font-size: 14px;
+  font-size: 28rpx;
   color: #169bd5;
   text-rendering: optimizeLegibility;
   font-feature-settings: "kern" 1;
@@ -69,15 +70,17 @@ page{
 }
 
 #crtDateTime {
-  font-size: 14px;
+  font-size: 28rpx;
 }
 
 .search-btn {
+  width:188rpx;
   margin-right: 4%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  
 }
 
 .weui-btn {
@@ -92,7 +95,7 @@ page{
 
 .pic-flag {
   text-align: left;
-  width: 40px;
+  width: 80rpx;
   flex: 1;
 }
 
@@ -101,8 +104,9 @@ page{
 }
 
 #search-btn {
-  background-color: #09f;
-  color: #000;
+  font-size:30rpx;
+  color: #f8f8f8;
+  background-color: #f4761a;
 }
 
 .loading{  

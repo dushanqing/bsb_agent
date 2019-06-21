@@ -147,6 +147,12 @@ Page({
         this.setData({
           startDate: mchtInfo.startDate
         });
+      }else {
+        var startDate = util.formatTime(new Date());
+        console.log("startDate:" + startDate);
+        that.setData({
+          startDate: startDate
+        });
       }
 
       if (util.strIsNotEmpty(mchtInfo.conTermIndex)) {

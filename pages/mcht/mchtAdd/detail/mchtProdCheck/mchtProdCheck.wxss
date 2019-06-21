@@ -30,7 +30,7 @@
 	font-size: 1rem;
 }
 .prod p{
-	color:  #09f;
+	color:  #F4761A;
 	font-size: .75rem;
 }
 .prod .add-btn{

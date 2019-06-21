@@ -387,6 +387,7 @@ Page({
    *  所属商户
    */
   bindMchtMngNoChange: function(e) {
+    var value = e.detail.value;
     mchtInfo.mchtMngNoIndex = e.detail.value;
     wx.setStorageSync("mchtInfo", mchtInfo);
     this.setData({
@@ -574,6 +575,11 @@ Page({
      var isStore = this.data.stores[e.detail.value.stores].storesId;
       mchtInfo.isStore = isStore;
       if ("01" == isStore){
+        var mchtMngNoValue = e.detail.value.mchtMngNo;
+        if ("0" === mchtMngNoValue||util.strIsEmpty(mchtMngNoValue)) {
+          util.showToast('请选择所属商户！');
+          return false;
+        }
         var mchtMngNo = this.data.mchtMngNo[e.detail.value.mchtMngNo].mchtId;
         mchtInfo.mchtMngNo = mchtMngNo;
       }
