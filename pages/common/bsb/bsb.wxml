@@ -1,0 +1,9 @@
+<view class="weui-panel bsb">
+  <view class="bsb_img">
+  <image class="title-image" src="/images/bsb/bsb.png"></image>
+  </view>
+  <view class="title-item">
+    <text>{{agname}}</text>
+    <text>{{userNm}}</text>
+  </view>
+</view>

@@ -1,0 +1,25 @@
+.weui-panel {
+  background-color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.bsb{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.bsb_img{
+  width:40%
+}
+.title-image {
+  margin-left: 40rpx;
+  width: 210rpx;
+  height: 140rpx;
+}
+.title-item {
+  width:60%;
+  margin-top: 30rpx;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+}
