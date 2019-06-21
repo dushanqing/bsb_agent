@@ -264,7 +264,6 @@ Page({
    */
   onStep2: function (e) {
     var that = this;
-
     //验证码校验 必须为6位
     let vrfyCode = e.detail.value.checkCode;
     if (util.strIsEmpty(vrfyCode)) {
@@ -331,9 +330,9 @@ Page({
       }
       //登录成功以后userId放到本地缓存中
       wx.setStorageSync('userId', res.userId);
-      wx.redirectTo({
-        url: "/pages/loginShowInfo/loginShowInfo",
-      });
+      wx.switchTab({
+        url: '../loginShowInfo/loginShowInfo',
+      })
     });
 
   },

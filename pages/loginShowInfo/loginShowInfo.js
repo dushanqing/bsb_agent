@@ -117,5 +117,16 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  bindMchtAdd: function(){
+    wx.redirectTo({
+      url: '../mcht/mchtAdd/mchtBaseInfo/mchtBaseInfo',
+    });
+  },
+
+  bindMchtList: function () {
+    wx.redirectTo({
+      url: '../mcht/mchtList/mchtList',
+    });
   }
 })
