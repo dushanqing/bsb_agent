@@ -14,7 +14,7 @@
 .operationBgBox {
   height: 100rpx;
   width: 100%;
-  background-color: #0099FF;
+  background-color: #F4761A;
   border-radius: 5px;
   overflow: hidden;
   position: absolute;
