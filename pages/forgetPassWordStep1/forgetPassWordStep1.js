@@ -17,6 +17,7 @@ Page({
     loginStep1: true,
     loginStep2: true,
     submitFlag: false, //避免重复提交
+    capFlag: false,//图形验证码
 
   },
 
@@ -74,11 +75,17 @@ Page({
       util.showToast('请输入营业执照号')
       return;
     }
-    if (util.strIsNotEmpty(phoneNo)) {
-      if (!reg.pattern.test(phoneNo)) {
-        util.showToast('手机号格式不正确')
-        return;
-      }
+    if (!reg.isLicnNo.test(phoneNo)){
+      util.showToast('营业执照号格式不正确')
+      return;
+    }
+    if (util.strIsEmpty(phoneNo)) {
+      util.showToast('请输入手机号')
+      return;
+    }
+    if (!reg.pattern.test(phoneNo)) {
+      util.showToast('手机号格式不正确')
+      return;
     }
     const resBody = http.request({
       url: 'checkLoginInfo.do',
@@ -94,15 +101,6 @@ Page({
     resBody.then(res => {
       const resCode = res.resCode
       const resMessage = res.resMessage
-
-      //session 过期处理 按照首次登录处理
-      // if (resCode == 'REQ1015') {
-      //   app.onLaunch();
-      //   wx.redirectTo({
-      //     url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
-      //   })
-      //   return;
-      // }
 
       //验证请求状态不是成功直接暴露异常
       if (resCode != 'S') {
@@ -122,7 +120,7 @@ Page({
         loginStep1: true,
         loginStep2: false
       });
-
+    
     });
   },
 
@@ -131,6 +129,10 @@ Page({
    */
   myEventListener: function (e) {
     var that = this;
+    if(that.data.capFlag){
+      return;
+    }
+    that.data.capFlag = true;
     //图形验证成功调用后台返回随机数
     if (e.detail.msg) {
       const resBody = http.request({
@@ -144,16 +146,6 @@ Page({
         //回调结果处理
         const resCode = res.resCode
         const resMessage = res.resMessage
-
-        //session 过期处理 按照首次登录处理
-        // if (resCode == 'REQ1015') {
-        //   app.onLaunch();
-        //   wx.redirectTo({
-        //     url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
-        //   })
-        //   return;
-        // }
-
         //验证请求状态不是成功直接暴露异常
         if (resCode != 'S') {
           util.showToast(resMessage);
@@ -185,14 +177,14 @@ Page({
     that.setData({
       disabled: 'true',
     })
-
     //调用服务端发送短信验证
     const resBody = http.request({
       url: 'getMesCode.do',
       data: {
         body: {
           msgToken: that.data.msgToken,
-          phoneNo: wx.getStorageSync('phoneNo')
+          phoneNo: wx.getStorageSync('phoneNo'),
+          userNo: wx.getStorageSync('userNo')
         }
       },
       method: 'POST'
@@ -201,19 +193,21 @@ Page({
       const resCode = res.resCode;
       const resMessage = res.resMessage;
 
-      //session 过期处理 按照首次登录处理
-      // if (resCode == 'REQ1015') {
-      //   app.onLaunch();
-      //   wx.redirectTo({
-      //     url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
-      //   })
-      //   return;
-      // }
-
       //图片验证随机数过期处理 失败直接刷新
       if (resCode == 'REQ1001') {
         util.showToast('图形验证码过期,请重新验证');
         that.onShow();
+        return;
+      }
+
+      if (resCode == '0023') {
+        util.showToast("用户手机更改,请重新登录");
+        that.onShow();
+        //用户未登录
+        that.setData({
+          loginStep1: false,
+          loginStep2: true,
+        });
         return;
       }
 
@@ -242,6 +236,7 @@ Page({
 
         })
         if (currentTime <= 0) {
+          that.data.capFlag=false;
           that.onShow();
         }
         //如果当秒数小于等于0时 停止计时器 且按钮文字变成重新发送 且按钮变成可用状态 
@@ -305,17 +300,15 @@ Page({
       const resCode = res.resCode;
       const resMessage = res.resMessage;
 
-      //session 过期处理 按照首次登录处理
-      // if (resCode == 'REQ1015') {
-      //   app.onLaunch();
-      //   wx.redirectTo({
-      //     url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
-      //   })
-      //   return;
-      // }
+      //用户被禁用
+      if (resCode == '0040'){
+        util.showToast("该用户已禁用")
+        return;
+      }
+
       //用户验证身份失败 跳转到登录首页
       if (resCode == '0026') {
-        util.showToast("用户手机号更改,请重新登录");
+        util.showToast("用户营业执照更改,请重新登录");
         //用户未登录
         that.setData({
           loginStep1: false,
@@ -323,7 +316,15 @@ Page({
         });
         return;
       }
-
+      if (resCode == '0023') {
+        util.showToast("用户手机更改,请重新登录");
+        //用户未登录
+        that.setData({
+          loginStep1: false,
+          loginStep2: true,
+        });
+        return;
+      }
       if (resCode != 'S') {
         util.showToast("短信验证失败");
         return;
