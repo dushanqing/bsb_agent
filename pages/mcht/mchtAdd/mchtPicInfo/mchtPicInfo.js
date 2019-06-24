@@ -299,8 +299,9 @@ Page({
   },
   checkFiled: function(e){
     var threeToOne = this.data.threeToOne[e.detail.value.threeToOne].threeToOneId;
+    console.log("threeToOne=" + threeToOne);
     if (util.strIsNotEmpty(mchtInfo)) {
-      if ("00" == mchtInfo.isXiaowei ){
+      if ("00" === mchtInfo.isXiaowei ){
         if (util.strIsEmpty(mchtInfo.yyzzMchtPicId)){
           util.showToast('请上传营业执照！');
           return false;
@@ -314,8 +315,8 @@ Page({
           return false;
         }
       }
-      var threeToOne = e.detail.value.threeToOne
-      if ("0" == threeToOne){
+    
+      if ("0" === threeToOne){
         if (util.strIsEmpty(mchtInfo.zzjgMchtPicId)) {
           util.showToast('请上传组织结构代码证！');
           return false;
@@ -326,7 +327,7 @@ Page({
         }
       }
     }
-    if ("01" == mchtInfo.isXiaowei) {
+    if ("01" === mchtInfo.isXiaowei) {
       if (util.strIsEmpty(mchtInfo.sfzjMchtPicId)) {
         util.showToast('请上传身份证件！');
         return false;

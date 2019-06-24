@@ -5,9 +5,8 @@ Page({
 
   },
   mchtPicNextStep: function(e) {
-    const path = "../../../../loginShowInfo/loginShowInfo";
-    wx.navigateTo({
-      url: path
+    wx.showTabBar({
+      url: "../../../../loginShowInfo/loginShowInfo"
     });
   },
 });

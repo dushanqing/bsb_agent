@@ -7,7 +7,7 @@
           <view class="weui-label">商户名称</view>
         </view>
         <view class="weui-cell__bd__d">
-          <text class="weui-text" name="mchtName">{{mchtName}}</text>
+         <text class="weui-text" name="mchtName">{{mchtName}}</text>
         </view>
       </view>
       <view class="weui-cell weui-cell_input">
@@ -63,7 +63,7 @@
           <view class="weui-label">行业类别</view>
         </view>
         <view class="weui-cell__bd__d">
-            <text class="weui-text" name="mchtBigType">{{mchtBigType}}</text>
+           <text class="weui-text" name="mchtBigType">{{mchtBigType}}</text>
         </view>
       </view>
       <view class="weui-cell weui-cell_select">

@@ -1,61 +1,61 @@
 const app = getApp()
-var util = require("../../../../utils/util.js");
+var util = require('../../../../utils/util.js');
 import { HTTP } from '../../../../utils/http.js';
 const http = new HTTP();
 Page({
   data: {
-    setlType: "",
+    setlType: '',
   },
   onLoad() {
     this.showData();
   },
   showData: function() {
     var that = this;
-    var data = wx.getStorageSync("mchtDeatil");
+    var data = wx.getStorageSync('mchtDeatil');
     if (util.strIsNotEmpty(data)) {
       var contr = data.contr,
         mcht = data.mcht,
         setlType,
         setlCycle,
         setlAcctType,
-        setlAcctInstitute = "",
+        setlAcctInstitute = '',
         setlAcctInstituteHidden,
-        lianhangwangdian="",
-        setlAcctNo = "",
-        setlAcctName = "",
-        setlCertNo = "",
-        legalPersonName = "",
+        lianhangwangdian='',
+        setlAcctNo = '',
+        setlAcctName = '',
+        setlCertNo = '',
+        legalPersonName = '',
         userType,
         setlCertType,
-        setlMobile = "", 
+        setlMobile = '', 
         startDate,
         conTerm;
       if (util.strIsNotEmpty(contr)) {
-        if ("01" == contr.setlType) {
-          setlType = "独立清算";
+        if ('01' == contr.setlType) {
+          setlType = '独立清算';
         }
-        if ("03" == contr.setlType) {
-          setlType = "归集清算";
+        if ('03' == contr.setlType) {
+          setlType = '归集清算';
         }
-        if ("1" == contr.setlAcctType) {
-          setlAcctType = "否";
+        if ('1' == contr.setlAcctType) {
+          setlAcctType = '否';
           setlAcctInstituteHidden = false;
         }
-        if ("0" == contr.setlAcctType) {
-          setlAcctType = "是";
+        if ('0' == contr.setlAcctType) {
+          setlAcctType = '是';
           setlAcctInstituteHidden = true;
         }
         if (util.strIsNotEmpty(contr.setlAcctInstitute)){
           setlAcctInstitute = contr.setlAcctInstitute;
         }
-        if (util.strIsNotEmpty(contr.lianhangwangdian)) {
-          lianhangwangdian = contr.lianhangwangdian;
+        if (util.strIsNotEmpty(contr.setlBankName)) {
+          lianhangwangdian = contr.setlBankName;
         }
-        if ("1" == contr.userType) {
-          userType = "对私";
+        if ('1' == contr.userType) {
+          userType = '对私';
         }
-        if ("0" == contr.userType) {
-          userType = "对公";
+        if ('0' == contr.userType) {
+          userType = '对公';
         }
 
        if (util.strIsNotEmpty(contr.setlAcctNo)) {
@@ -68,8 +68,8 @@ Page({
           setlCertNo = contr.setlCertNo;
         }
   
-        if ("01" == contr.setlCertType) {
-          setlCertType = "身份证";
+        if ('01' == contr.setlCertType) {
+          setlCertType = '身份证';
         }
         if (util.strIsNotEmpty(mcht.mchtPersonName)) {
           legalPersonName = mcht.mchtPersonName;
@@ -81,17 +81,17 @@ Page({
           startDate = contr.startDate;
         }
         
-        if ("01" == contr.conTerm) {
-          conTerm = "一年";
+        if ('01' == contr.conTerm) {
+          conTerm = '一年';
         }
-        if ("02" == contr.conTerm) {
-          conTerm = "二年";
+        if ('02' == contr.conTerm) {
+          conTerm = '二年';
         }
-        if ("03" == contr.conTerm) {
-          conTerm = "三年";
+        if ('03' == contr.conTerm) {
+          conTerm = '三年';
         }
-        if ("04" == contr.conTerm) {
-          conTerm = "长期";
+        if ('04' == contr.conTerm) {
+          conTerm = '长期';
         }
 
         startDate = util.formatStringyyyyMMddToyyyy_MM_dd(contr.startDate)
@@ -124,7 +124,7 @@ Page({
       url: 'queryIfsDataDic.do',
       data: {
         body: {
-          dataTypeNo: "1811",
+          dataTypeNo: '1811',
         }
       },
       method: 'POST'
@@ -132,15 +132,6 @@ Page({
     resBody.then(res => {
       const resCode = res.resCode;
       const resMessage = res.resMessage;
-      //session 过期处理 按照首次登录处理
-      // if (resCode == 'REQ1015') {
-      //   app.onLaunch();
-      //   wx.redirectTo({
-      //     url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
-      //   })
-      //   return;
-
-      // }
       //失败
       if (resCode != 'S') {
         util.showToast(resMessage);
@@ -167,22 +158,24 @@ Page({
   bindReturnStep(e) {
     var dataset = e.target.dataset;
     var pageNum = dataset.text;
-    var  path = "";
-    if (pageNum === "1") {
-      path = "../mchtBaseInfoDetail/mchtBaseInfoDetail"
-    } else if (pageNum === "2") {
-      // path = "../mchtAcctInfoDetail/mchtAcctInfoDetail"
-      return
-    } else if (pageNum === "3") {
-      path = "../mchtPicInfoDetail/mchtPicInfoDetail"
-    } else if (pageNum === "4") {
-      path = "../mchtProdListDetail/mchtProdListDetail"
+    if (pageNum === '1') {
+      wx.redirectTo({
+        url: '../mchtBaseInfoDetail/mchtBaseInfoDetail',
+      });
+    } else if (pageNum === '2') {
+      wx.redirectTo({
+        url: '../mchtAcctInfoDetail/mchtAcctInfoDetail',
+      });
+    } else if (pageNum === '3') {
+      wx.redirectTo({
+        url: '../mchtPicInfoDetail/mchtPicInfoDetail',
+      });
+    } else if (pageNum === '4') {
+      wx.redirectTo({
+        url: '../mchtProdListDetail/mchtProdListDetail',
+      });
     } else {
-      console.log("页面步骤异常");
-      return
+      return;
     }
-    wx.navigateTo({
-      url: path
-    });
   }
 });

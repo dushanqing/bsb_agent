@@ -225,7 +225,7 @@ Page({
       for (var i = 0, lenI = checkboxItems.length; i < lenI; ++i) {
         checkboxItems[i].prodChecked = false;
         for (var j = 0, lenJ = checkProdId.length; j < lenJ; ++j) {
-          if (checkboxItems[i].prodId == checkProdId[j]) {
+          if (checkboxItems[i].prodId === checkProdId[j]) {
             checkboxItems[i].prodChecked = true;
             break;
           }
@@ -246,7 +246,7 @@ Page({
     for (var i = 0, lenI = checkboxItems.length; i < lenI; ++i) {
       checkboxItems[i].prodChecked = false;
       for (var j = 0, lenJ = values.length; j < lenJ; ++j) {
-        if (checkboxItems[i].prodId == values[j]) {
+        if (checkboxItems[i].prodId === values[j]) {
           checkboxItems[i].prodChecked = true;
           prodName += checkboxItems[i].productName;
           break;
@@ -287,21 +287,18 @@ Page({
     var dataset = e.target.dataset
     var pageNum = dataset.text
     if (pageNum === "1") {
-      const path = '../mchtBaseInfo/mchtBaseInfo'
-      wx.navigateTo({
-        url: path
+      wx.redirectTo({
+        url: '../mchtBaseInfo/mchtBaseInfo'
       });
     }
     if (pageNum === "2") {
-      const path = '../mchtAcctInfo/mchtAcctInfo'
-      wx.navigateTo({
-        url: path
+      wx.redirectTo({
+        url: '../mchtAcctInfo/mchtAcctInfo'
       });
     }
     if (pageNum === "3") {
-      const path = '../mchtPicInfo/mchtPicInfo'
-      wx.navigateTo({
-        url: path
+      wx.redirectTo({
+          url: '../mchtPicInfo/mchtPicInfo'
       });
     } else {
       return
@@ -309,13 +306,22 @@ Page({
   },
   // 提交前校验
   checkFiled: function(e) {
-    var checkboxItems = this.data.checkboxItems;
+    // var checkboxItems = this.data.checkboxItems;
+    mchtInfo = wx.getStorageSync("mchtInfo");
+    var checkProdId = mchtInfo.checkProdId;
     var prodIds = "";
-    for (var i = 0, lenI = checkboxItems.length; i < lenI; ++i) {
-      if (checkboxItems[i].prodChecked = true) {
-        prodIds += checkboxItems[i].prodId + "|";
-        break;
-      }
+    // for (var i = 0, lenI = checkboxItems.length; i < lenI; ++i) {
+    //   if (checkboxItems[i].prodChecked === true) {
+    //     prodIds += checkboxItems[i].prodId + "|";
+    //     break;
+    //   }
+    // }
+    if (util.strIsEmpty(checkProdId)) {
+      util.showToast('请至少选择一个支付产品！');
+      return false;
+    }
+    for (var i = 0, lenI = checkProdId.length; i < lenI; ++i){
+      prodIds += checkProdId[i] + "|";
     }
     if (util.strIsEmpty(prodIds)) {
       util.showToast('请至少选择一个支付产品！');
@@ -414,14 +420,12 @@ Page({
           const resCode = res.resCode;
           const resMessage = res.resMessage;
           //成功
-          if ('S' == resCode) {
+          if ('S' === resCode) {
             wx.setStorageSync("mchtInfo", null);
             wx.setStorageSync("mchtBigType", null);
             wx.setStorageSync("ctArr", null);
-
-            const path = "../detail/mchtAddResult/mchtAddResult";
             wx.navigateTo({
-              url: path
+              url: "../detail/mchtAddResult/mchtAddResult"
             });
           } else { //失败
             saveFlag = true;

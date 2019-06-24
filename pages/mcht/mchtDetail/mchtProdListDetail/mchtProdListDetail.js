@@ -19,35 +19,40 @@ Page({
       }
   },
   bindProductDetail(e){
-    var prodId = e.target.dataset.id;
-    wx.navigateTo({
+    // var prodId = e.target.dataset.id;
+    // var prodId = e.dataset.id;
+    var prodId = e.currentTarget.dataset.id;
+    wx.redirectTo({
       url: "../detail/prodDetail/prodDetail?prodId=" + prodId
     });
   },
 
+
   /**
- * 步骤标签跳转
- */
+   * 步骤标签跳转
+   */
   bindReturnStep(e) {
     var dataset = e.target.dataset;
     var pageNum = dataset.text;
-    var path ="";
-    if (pageNum === "1") {
-      path = '../mchtBaseInfoDetail/mchtBaseInfoDetail'
-    } else if (pageNum === "2") {
-      path = '../mchtAcctInfoDetail/mchtAcctInfoDetail'
-    } else if (pageNum === "3") {
-      path = '../mchtPicInfoDetail/mchtPicInfoDetail'
-    } else if (pageNum === "4") {
-    //  path = '../mchtProdListDetail/mchtProdListDetail'
-      return
+    if (pageNum === '1') {
+      wx.redirectTo({
+        url: '../mchtBaseInfoDetail/mchtBaseInfoDetail',
+      });
+    } else if (pageNum === '2') {
+      wx.redirectTo({
+        url: '../mchtAcctInfoDetail/mchtAcctInfoDetail',
+      });
+    } else if (pageNum === '3') {
+      wx.redirectTo({
+        url: '../mchtPicInfoDetail/mchtPicInfoDetail',
+      });
+    } else if (pageNum === '4') {
+      wx.redirectTo({
+        url: '../mchtProdListDetail/mchtProdListDetail',
+      });
     } else {
-      console.log("页面步骤异常");
-      return
+      return;
     }
-    wx.navigateTo({
-      url: path
-    });
   }
 }) 
 

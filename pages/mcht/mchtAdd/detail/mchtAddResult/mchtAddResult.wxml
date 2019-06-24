@@ -7,7 +7,7 @@
     </view>
    
     <view class="weui-btn-area ">
-      <button style="background-color: #09f;" id="step-btn" class="weui-btn" type="primary" bindtap="mchtPicNextStep">完成</button>
+      <button id="step-btn" class="weui-btn" type="primary" bindtap="mchtPicNextStep">完成</button>
     </view>
       
  </view>

@@ -3,11 +3,10 @@ var util = require("../../../../utils/util.js");
 import { HTTP } from '../../../../utils/http.js';
 const http = new HTTP();
 var mchtDeatil = new Object();
-var areaArr = new Array();
+var mchtBigType = "";
 Page({
   data: {
   },
- 
   onLoad(options) {
     this.showData(options);
   },
@@ -24,7 +23,6 @@ Page({
       data: {
         body: {
           mchtId: options.mchtId,
-          // mchtId: "8201904240000004",
         }
       },
       method: 'POST'
@@ -32,14 +30,6 @@ Page({
     resBody.then(res => {
       const resCode = res.resCode;
       const resMessage = res.resMessage;
-      //session 过期处理 按照首次登录处理
-      // if (resCode == 'REQ1015') {
-      //   app.onLaunch();
-      //   wx.redirectTo({
-      //     url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
-      //   })
-      //   return;
-      // }
       //失败
       if (resCode != 'S') {
         util.showToast(resMessage);
@@ -49,7 +39,6 @@ Page({
       wx.setStorageSync("mchtDeatil", res);
       that.packData(res);
       that.queryAgencyInfo(res.mcht.mchtBigType);
-      
     })
   },
 packData:function(res){
@@ -66,13 +55,16 @@ packData:function(res){
     mchtMngNoHidden,
     mchtType,
     mchtBigType = mcht.mchtBigType,
-    mchtAreaNo = mcht.mchtAreaNo,
     mchtContAddr = "",
     mchtPersonName = "",
     mchtPhone = "",
     mchtEmail = "",
     longitude = "",
-    latitude = "";
+    latitude = "",
+    province = "",
+    city = "",
+    quyu = "",
+    mchtAreaNo = "";
 
   if (util.strIsNotEmpty(mcht.mchtName)) {
     mchtName = mcht.mchtName;
@@ -121,6 +113,17 @@ packData:function(res){
   if (util.strIsNotEmpty(mcht.latitude)) {
     latitude = mcht.latitude;
   }
+  if (util.strIsNotEmpty(res.province.ctName)) {
+    province = res.province.ctName;
+  }
+  if (util.strIsNotEmpty(res.city.ctName)) {
+    city = res.city.ctName;
+  }
+  if (util.strIsNotEmpty(res.quyu.ctName)) {
+    quyu = res.quyu.ctName;
+  }
+  mchtAreaNo = province + city + quyu;
+  console.log("mchtAreaNo:" + mchtAreaNo);
   that.setData({
     mchtName: mchtName,
     mchtSimpleName: mchtSimpleName,
@@ -132,13 +135,13 @@ packData:function(res){
     storeHidden: storeHidden,
     mchtMngNoHidden: mchtMngNoHidden,
     mchtType: mchtType,
+    mchtAreaNo: mchtAreaNo,
     mchtContAddr: mchtContAddr,
     mchtPersonName: mchtPersonName,
     mchtPhone: mchtPhone,
     mchtEmail: mchtEmail,
     longitude: longitude,
     latitude: latitude,
-    mchtAreaNo: mchtAreaNo,
   })
 },
 
@@ -155,14 +158,6 @@ packData:function(res){
     resBody.then(res => {
       const resCode = res.resCode;
       const resMessage = res.resMessage;
-      //session 过期处理 按照首次登录处理
-      // if (resCode == 'REQ1015') {
-      //   app.onLaunch();
-      //   wx.redirectTo({
-      //     url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
-      //   })
-      //   return;
-      // }
       //失败
       if (resCode != 'S') {
         util.showToast(resMessage);
@@ -174,76 +169,41 @@ packData:function(res){
       if (cgList.length > 0) {
         cgList.forEach(function (item, index) {
           if (mchtBigType == item.custNo) {
+            mchtBigType = item.custName;
             that.setData({
               mchtBigType: item.custName
             })
           }
         })
       }
-      that.selectByFlagAndCtCode(that.data.mchtAreaNo);
-    })
-  },
-  // 所属地区
-  selectByFlagAndCtCode: function(ctCode) {
-    var that = this;
-    const resBody = http.request({
-      url: 'selectByFlagAndCtCode.do',
-      data: {
-        body: {
-          ctFlag: '3',
-          ctCode: ctCode
-        }
-      },
-      method: 'POST'
-    });
-    resBody.then(res => {
-      const resCode = res.resCode;
-      const resMessage = res.resMessage;
-      //session 过期处理 按照首次登录处理
-      // if (resCode == 'REQ1015') {
-      //   app.onLaunch();
-      //   wx.redirectTo({
-      //     url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
-      //   })
-      //   return;
-      // }
-      //失败
-      if (resCode != 'S') {
-        util.showToast(resMessage);
-        return;
-      }
-      //成功
-      var ct = res.empList[0];
-      areaArr.unshift(ct.ctName);
-      var upCtCode = ct.upCtCode;
-      if (util.strIsNotEmpty(upCtCode)) {
-        that.selectByFlagAndCtCode(upCtCode);
-      }
-      that.setData({
-        mchtAreaNo: areaArr.join("")
-      })
     })
   },
 
+  /**
+   * 步骤标签跳转
+   */
   bindReturnStep(e) {
-      var dataset = e.target.dataset;
-      var pageNum = dataset.text;
-      var  path = "" ;
-      if (pageNum === "1") {
-        // path = "../mchtBaseInfoDetail/mchtBaseInfoDetail"
-      } else if (pageNum === "2") {
-        path = "../mchtAcctInfoDetail/mchtAcctInfoDetail"
-      } else if (pageNum === "3") {
-        path = "../mchtPicInfoDetail/mchtPicInfoDetail"
-      } else if (pageNum === "4") {
-        path = "../mchtProdListDetail/mchtProdListDetail"
-      } else {
-        console.log("页面步骤异常");
-        return
-      }
-      wx.navigateTo({
-        url: path
+    var dataset = e.target.dataset;
+    var pageNum = dataset.text;
+    if (pageNum === '1') {
+      wx.redirectTo({
+        url: '../mchtBaseInfoDetail/mchtBaseInfoDetail',
       });
+    } else if (pageNum === '2') {
+      wx.redirectTo({
+        url: '../mchtAcctInfoDetail/mchtAcctInfoDetail',
+      });
+    } else if (pageNum === '3') {
+      wx.redirectTo({
+        url: '../mchtPicInfoDetail/mchtPicInfoDetail',
+      });
+    } else if (pageNum === '4') {
+      wx.redirectTo({
+        url: '../mchtProdListDetail/mchtProdListDetail',
+      });
+    } else {
+      return;
     }
+  }
 
 });

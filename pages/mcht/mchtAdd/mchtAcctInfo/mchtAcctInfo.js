@@ -75,8 +75,8 @@ Page({
 
   showData: function() {
     if (util.strIsNotEmpty(mchtInfo)) {
-      if (util.strIsNotEmpty(mchtInfo.mchtLev) && "01" == mchtInfo.mchtLev &&
-        util.strIsNotEmpty(mchtInfo.isStore) && "01" == mchtInfo.isStore) {
+      if (util.strIsNotEmpty(mchtInfo.mchtLev) && "01" === mchtInfo.mchtLev &&
+        util.strIsNotEmpty(mchtInfo.isStore) && "01" === mchtInfo.isStore) {
         this.setData({
           setlTypeSwitch: false
         });
@@ -148,9 +148,9 @@ Page({
           startDate: mchtInfo.startDate
         });
       }else {
-        var startDate = util.formatTime(new Date());
+        var startDate = util.formatTimeyyy_MM_dd(new Date());
         console.log("startDate:" + startDate);
-        that.setData({
+        this.setData({
           startDate: startDate
         });
       }
@@ -197,40 +197,44 @@ Page({
   //获取开户网点
   blurSetlAcctInstitute: function(e) {
     var that = this;
-    mchtInfo.setlAcctInstitute = e.detail.value;
-    mchtInfo.lianhangwangdian = "";
-    that.setData({
-      lianhangwangdian: ""
-    });
-    const resBody = http.request({
-      url: 'selectNamesByPrimaryKey.do',
-      data: {
-        body: {
-          setlAcctInstitute: e.detail.value
+    var setlAcctInstitute = e.detail.value;
+    if (util.strIsEmpty(setlAcctInstitute)){
+      return;
+    }else {
+      mchtInfo.setlAcctInstitute = e.detail.value;
+      mchtInfo.lianhangwangdian = "";
+      that.setData({
+        lianhangwangdian: ""
+      });
+      const resBody = http.request({
+        url: 'selectNamesByPrimaryKey.do',
+        data: {
+          body: {
+            setlAcctInstitute: e.detail.value
+          }
+        },
+        method: 'POST'
+      });
+      resBody.then(res => {
+        const resCode = res.resCode;
+        const resMessage = res.resMessage;
+        //session 过期处理 按照首次登录处理
+        //失败
+        if ('S' != resCode) {
+          util.showToast(resMessage);
+          return;
         }
-      },
-      method: 'POST'
-    });
-    resBody.then(res => {
-      const resCode = res.resCode;
-      const resMessage = res.resMessage;
-      //session 过期处理 按照首次登录处理
-      //失败
-      if ('S' != resCode) {
-        util.showToast(resMessage);
-        return;
-      }
-      //成功
-      var respCode = res.respCode;
-      if ("0000" == respCode) {
-        mchtInfo.lianhangwangdian = res.acctInstName;
-        that.setData({
-          lianhangwangdian: res.acctInstName
-        });
-      }
-    })
-    wx.setStorageSync("mchtInfo", mchtInfo);
-
+        //成功
+        var respCode = res.respCode;
+        if ("0000" === respCode) {
+          mchtInfo.lianhangwangdian = res.acctInstName;
+          that.setData({
+            lianhangwangdian: res.acctInstName
+          });
+        }
+      })
+      wx.setStorageSync("mchtInfo", mchtInfo);
+    }
   },
   focusSetlAcctInstitute: function () {
     this.setData({
@@ -246,9 +250,8 @@ Page({
     var dataset = e.target.dataset;
     var pageNum = dataset.text;
     if (pageNum === "1") {
-      const path = '../mchtBaseInfo/mchtBaseInfo';
-      wx.navigateTo({
-        url: path
+      wx.redirectTo({
+        url: '../mchtBaseInfo/mchtBaseInfo'
       });
     } else {
       return;
@@ -319,12 +322,12 @@ Page({
 
   setlAcctType_onSelect: function(e) {
     var setlAcctTypeId = this.data.setlAcctType[e.detail.value].setlAcctTypeId
-    if ("1" == setlAcctTypeId) {
+    if ("1" === setlAcctTypeId) {
       this.setData({
         setlAcctInstituteHidden: false
       });
     }
-    if ("0" == setlAcctTypeId) {
+    if ("0" === setlAcctTypeId) {
       mchtInfo.setlAcctInstitute = "";
       mchtInfo.lianhangwangdian = "";
       this.setData({
@@ -407,7 +410,7 @@ Page({
       success: function (res) {
         //选项集合
         let itemList;
-        if (res.platform == 'android') {
+        if (res.platform === 'android') {
           itemList = ['从相册中选择', '拍照', '取消']
         } else {
           itemList = ['从相册中选择', '拍照']
@@ -415,12 +418,12 @@ Page({
         wx.showActionSheet({
           itemList: itemList,
           success: function (res) {
-            if (res.tapIndex == 0) {
+            if (res.tapIndex === 0) {
               //选项1操作
               that.chooseWxImage('album', url)
-            } else if (res.tapIndex == 1) {
+            } else if (res.tapIndex === 1) {
               that.chooseWxImage('camera', url)
-            } else if (res.tapIndex == 2) {
+            } else if (res.tapIndex === 2) {
               //取消操作
             }
           },
@@ -480,8 +483,8 @@ Page({
       },
       success: function (res) {
         var result = JSON.parse(res.data);
-        if ('ocrSetlAcctNo.do' == ocrUrl){
-          if ('0000' == result.respCode){
+        if ('ocrSetlAcctNo.do' === ocrUrl){
+          if ('0000' === result.respCode){
             console.log(" result.infoCardNumber:" + result.infoCardNumber);
             that.setData({
               setlAcctNo: result.infoCardNumber,
@@ -496,8 +499,8 @@ Page({
             util.showToast(result.resMessage);
           }
         }
-        if ('ocrSetlCertNo.do' == ocrUrl) {
-          if ('0000' == result.respCode) {
+        if ('ocrSetlCertNo.do' === ocrUrl) {
+          if ('0000' === result.respCode) {
             that.setData({
               setlCertNo: result.infoNumber,
               legalPersonName: result.infoName,
@@ -524,8 +527,8 @@ Page({
   
   
     var setlType = this.data.setlType[e.detail.value.setlType].setlTypeId;
-    if (util.strIsNotEmpty(mchtInfo.mchtLev) && "01" == mchtInfo.mchtLev &&
-      util.strIsNotEmpty(mchtInfo.isStore) && "01" == mchtInfo.isStore) {} else {
+    if (util.strIsNotEmpty(mchtInfo.mchtLev) && "01" === mchtInfo.mchtLev &&
+      util.strIsNotEmpty(mchtInfo.isStore) && "01" === mchtInfo.isStore) {} else {
       if ("01" != setlType) {
         util.showToast('结算方式请选择独立清算！');
         return false;
@@ -533,12 +536,12 @@ Page({
     }
     var setlCycle = this.data.setlCycle[e.detail.value.setlCycle].dataNo;
     var setlAcctType = this.data.setlAcctType[e.detail.value.setlAcctType].setlAcctTypeId;
-    if ("1" == setlAcctType && "02" == setlCycle) {
+    if ("1" === setlAcctType && "02" === setlCycle) {
       util.showToast('行外账户暂不支持D+1结算模式！');
       return false;
     }
     var setlAcctInstitute = util.trim(e.detail.value.setlAcctInstitute);
-    if ("1" == setlAcctType && util.strIsEmpty(setlAcctInstitute)) {
+    if ("1" === setlAcctType && util.strIsEmpty(setlAcctInstitute)) {
       util.showToast('请输入联行号！');
       this.setData({
         setlAcctInstituteFocus: true,
@@ -547,7 +550,7 @@ Page({
       return false;
     }
     var lianhangwangdian = util.trim(e.detail.value.lianhangwangdian);
-    if ("1" == setlAcctType && util.strIsEmpty(lianhangwangdian)) {
+    if ("1" === setlAcctType && util.strIsEmpty(lianhangwangdian)) {
       util.showToast('请输入正确的联行号！');
       this.setData({
         setlAcctInstituteFocus: true
@@ -638,7 +641,7 @@ Page({
   //注意控制重复点击
   acctFormSubmit(e) {
     if (this.checkFiled(e)) {
-      if ("0" == mchtInfo.setlAcctType) {
+      if ("0" === mchtInfo.setlAcctType) {
         const resBody = http.request({
           url: 'checkBankAccount.do',
           data: {
@@ -658,11 +661,11 @@ Page({
           const resCode = res.resCode;
           const resMessage = res.resMessage;
           //session 过期处理 按照首次登录处理
-          if (resCode == 'REQ1015') {
+          if (resCode === 'REQ1015') {
             app.onLaunch();
           }
           //成功
-          if ("0000" == resCode) {
+          if ("0000" === resCode) {
             wx.navigateTo({
               url: "../mchtPicInfo/mchtPicInfo"
             });

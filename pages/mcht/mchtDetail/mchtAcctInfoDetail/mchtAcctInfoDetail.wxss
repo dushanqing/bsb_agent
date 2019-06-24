@@ -7,3 +7,15 @@
   border-radius: 50rpx;
   background-color: #F4761A;
 }
+
+/* .weui-cell__bd__d{
+  height: 2.58823529em;
+  min-height: 2.58823529em;
+  line-height: 2.58823529em;
+  text-align: right;
+  margin-right: 5%;
+  font-size: 28rpx;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+} */

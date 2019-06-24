@@ -120,7 +120,7 @@ Page({
         //如果是普通商户 隐藏是否门店、所属商户
         // 连锁非门店  隐藏 所属商户
         let mchtLevId = this.data.mchtLev[mchtInfo.mchtLevIndex].mchtLevId;
-        if ("02" == mchtLevId) {
+        if ("02" === mchtLevId) {
           this.setData({
             mchtLevIndex: mchtInfo.mchtLevIndex,
             storesHidden: true,
@@ -136,7 +136,7 @@ Page({
       }
       if (util.strIsNotEmpty(mchtInfo.storesIndex)) {
         let storesId = this.data.stores[mchtInfo.storesIndex].storesId;
-        if ("02" == storesId){
+        if ("02" === storesId){
           this.setData({
             storesIndex: mchtInfo.storesIndex,
             mchtMngNoHidden: true
@@ -450,14 +450,14 @@ Page({
   //根据是否门店显示所属商户
   stores_onSelect: function (e) {
    
-    if ("01" == this.data.stores[e.detail.value].storesId) {
+    if ("01" === this.data.stores[e.detail.value].storesId) {
       this.setData({
         mchtMngNoHidden: false,
         mchtMngNo: mchtMngNoList,
         mchtMngNoIndex: 0
       })
     }
-    if ("02" == this.data.stores[e.detail.value].storesId) {
+    if ("02" === this.data.stores[e.detail.value].storesId) {
       this.setData({
         mchtMngNoHidden: true,
         mchtMngNo: "",
@@ -480,7 +480,7 @@ Page({
 
   //根据商户类型显示是否门店
   mchtLev_onSelect: function (e) {
-    if ("02" == this.data.mchtLev[e.detail.value].mchtLevId) {
+    if ("02" === this.data.mchtLev[e.detail.value].mchtLevId) {
       this.setData({
         storesHidden: true,
         stores: "",
@@ -490,7 +490,7 @@ Page({
         mchtMngNoIndex: ""
       })
     }
-    if ("01" == this.data.mchtLev[e.detail.value].mchtLevId) {
+    if ("01" === this.data.mchtLev[e.detail.value].mchtLevId) {
       var arr = [{
         storesId: "02",
         storesName: "否"
@@ -555,7 +555,7 @@ Page({
 
     var isXiaowei = this.data.xiaowei[e.detail.value.xiaowei].xwId;
     var mchtLicnNo = util.trim(e.detail.value.mchtLicnNo);
-    if ("00" == isXiaowei && util.strIsEmpty(mchtLicnNo)) {
+    if ("00" === isXiaowei && util.strIsEmpty(mchtLicnNo)) {
       util.showToast('请输入营业执照号！');
       this.setData({
         mchtLicnNoFocus: true
@@ -571,10 +571,10 @@ Page({
     }
     
     var mchtLev = this.data.mchtLev[e.detail.value.mchtLev].mchtLevId;
-    if ("01" == mchtLev){
+    if ("01" === mchtLev){
      var isStore = this.data.stores[e.detail.value.stores].storesId;
       mchtInfo.isStore = isStore;
-      if ("01" == isStore){
+      if ("01" === isStore){
         var mchtMngNoValue = e.detail.value.mchtMngNo;
         if ("0" === mchtMngNoValue||util.strIsEmpty(mchtMngNoValue)) {
           util.showToast('请选择所属商户！');
@@ -716,8 +716,8 @@ Page({
   //注意控制重复点击
   baseFormSubmit(e) {
     if (this.checkFiled(e)){
-      wx.navigateTo({
-        url: "../mchtAcctInfo/mchtAcctInfo"
+      wx.redirectTo({
+        url: "../mchtAcctInfo/mchtAcctInfo",
       });
     }
   }

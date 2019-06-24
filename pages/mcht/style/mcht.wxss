@@ -105,7 +105,7 @@
 }
 
 .weui-cell__bd__d {
-  height: 2.58823529em;
+  /* height: 2.58823529em; */
   min-height: 2.58823529em;
   line-height: 2.58823529em;
   text-align: right;
