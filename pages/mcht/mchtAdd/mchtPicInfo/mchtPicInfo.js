@@ -341,7 +341,7 @@ Page({
   // 电子信息页面 下一步
   picFormSubmit(e) {
     if (this.checkFiled(e)) {
-      wx.navigateTo({
+      wx.redirectTo({
         url: "../mchtProdInfo/mchtProdInfo"
       });
     }

@@ -38,7 +38,7 @@ Page({
       //成功
       wx.setStorageSync("mchtDeatil", res);
       that.packData(res);
-      that.queryAgencyInfo(res.mcht.mchtBigType);
+     
     })
   },
 packData:function(res){
@@ -65,7 +65,9 @@ packData:function(res){
     city = "",
     quyu = "",
     mchtAreaNo = "";
-
+  if (util.strIsNotEmpty(mchtBigType)) {
+    that.queryAgencyInfo(mchtBigType);
+  }
   if (util.strIsNotEmpty(mcht.mchtName)) {
     mchtName = mcht.mchtName;
   }
@@ -123,7 +125,6 @@ packData:function(res){
     quyu = res.quyu.ctName;
   }
   mchtAreaNo = province + city + quyu;
-  console.log("mchtAreaNo:" + mchtAreaNo);
   that.setData({
     mchtName: mchtName,
     mchtSimpleName: mchtSimpleName,

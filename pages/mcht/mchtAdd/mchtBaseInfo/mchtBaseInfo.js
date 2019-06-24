@@ -132,23 +132,29 @@ Page({
             storesHidden: false,
             mchtMngNoHidden: false
           });
+
+          if (util.strIsNotEmpty(mchtInfo.storesIndex)) {
+            let storesId = this.data.stores[mchtInfo.storesIndex].storesId;
+            if ("02" === storesId) {
+              this.setData({
+                storesIndex: mchtInfo.storesIndex,
+                mchtMngNoHidden: true
+              });
+            } else {
+              this.setData({
+                storesIndex: mchtInfo.storesIndex,
+                mchtMngNoHidden: false
+              });
+            }
+          }else{
+              this.setData({
+                storesIndex: 0,
+                mchtMngNoHidden: true
+              });
+          }
         }
       }
-      if (util.strIsNotEmpty(mchtInfo.storesIndex)) {
-        let storesId = this.data.stores[mchtInfo.storesIndex].storesId;
-        if ("02" === storesId){
-          this.setData({
-            storesIndex: mchtInfo.storesIndex,
-            mchtMngNoHidden: true
-          });
-        } else{
-          this.setData({
-            storesIndex: mchtInfo.storesIndex,
-            mchtMngNoHidden: false
-          });
-        }
-       
-      }
+     
       if (util.strIsNotEmpty(mchtInfo.mchtMngNoIndex)) {
         this.setData({
           mchtMngNoIndex: mchtInfo.mchtMngNoIndex

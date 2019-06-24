@@ -5,7 +5,7 @@ Page({
 
   },
   mchtPicNextStep: function(e) {
-    wx.showTabBar({
+    wx.switchTab({
       url: "../../../../loginShowInfo/loginShowInfo"
     });
   },

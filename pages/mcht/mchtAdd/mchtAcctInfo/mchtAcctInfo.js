@@ -1,13 +1,16 @@
 const app = getApp();
 var util = require("../../../../utils/util.js");
 var reg = require("../../../../utils/reg.js");
-import { config } from '../../../../config.js';
+import {
+  config
+} from '../../../../config.js';
 import {
   HTTP
 } from '../../../../utils/http.js';
 let http = new HTTP();
 var mchtInfo = wx.getStorageSync("mchtInfo");
-var flag = false;
+var flag = false,
+  ocrFlag = true;
 Page({
   data: {
     modalHidden: true,
@@ -125,7 +128,7 @@ Page({
         this.setData({
           setlCertTypeIndex: mchtInfo.setlCertTypeIndex
         });
-             
+
       }
       if (util.strIsNotEmpty(mchtInfo.setlCertNo)) {
         this.setData({
@@ -147,7 +150,7 @@ Page({
         this.setData({
           startDate: mchtInfo.startDate
         });
-      }else {
+      } else {
         var startDate = util.formatTimeyyy_MM_dd(new Date());
         console.log("startDate:" + startDate);
         this.setData({
@@ -198,9 +201,9 @@ Page({
   blurSetlAcctInstitute: function(e) {
     var that = this;
     var setlAcctInstitute = e.detail.value;
-    if (util.strIsEmpty(setlAcctInstitute)){
+    if (util.strIsEmpty(setlAcctInstitute)) {
       return;
-    }else {
+    } else {
       mchtInfo.setlAcctInstitute = e.detail.value;
       mchtInfo.lianhangwangdian = "";
       that.setData({
@@ -236,9 +239,9 @@ Page({
       wx.setStorageSync("mchtInfo", mchtInfo);
     }
   },
-  focusSetlAcctInstitute: function () {
+  focusSetlAcctInstitute: function() {
     this.setData({
-      lianhangwangdian:""
+      lianhangwangdian: ""
     });
   },
 
@@ -300,9 +303,9 @@ Page({
   //   });
   // },
   /**
-  * 账户证件号码
-    */
-  blurSetlCertNo: function (e) {
+   * 账户证件号码
+   */
+  blurSetlCertNo: function(e) {
     mchtInfo.setlCertNo = e.detail.value;
     wx.setStorageSync("mchtInfo", mchtInfo);
   },
@@ -379,8 +382,8 @@ Page({
 
   },
 
-// 开户名称
-  blurSetlAcctName: function (e) {
+  // 开户名称
+  blurSetlAcctName: function(e) {
     var setlAcctName = e.detail.value;
     if (util.strIsNotEmpty(setlAcctName)) {
       mchtInfo.setlAcctName = setlAcctName;
@@ -388,26 +391,26 @@ Page({
     }
   },
   //手机号
-  blurSetlPhone: function (e) {
+  blurSetlPhone: function(e) {
     var setlPhone = e.detail.value;
     if (util.strIsNotEmpty(setlPhone)) {
       mchtInfo.setlPhone = setlPhone;
       wx.setStorageSync("mchtInfo", mchtInfo);
     }
   },
-  
-  bindSetlAcctNoOcr: function (e) {
+
+  bindSetlAcctNoOcr: function(e) {
     this.chooseImage('ocrSetlAcctNo.do');
   },
 
-  bindsetlCertNoOcr: function (e) {
+  bindsetlCertNoOcr: function(e) {
     this.chooseImage('ocrSetlCertNo.do');
   },
 
-  chooseImage: function (url) {
+  chooseImage: function(url) {
     var that = this;
     wx.getSystemInfo({
-      success: function (res) {
+      success: function(res) {
         //选项集合
         let itemList;
         if (res.platform === 'android') {
@@ -417,7 +420,7 @@ Page({
         }
         wx.showActionSheet({
           itemList: itemList,
-          success: function (res) {
+          success: function(res) {
             if (res.tapIndex === 0) {
               //选项1操作
               that.chooseWxImage('album', url)
@@ -432,15 +435,15 @@ Page({
     })
   },
 
-  chooseWxImage: function (type, url) {
+  chooseWxImage: function(type, url) {
     var that = this;
     wx.chooseImage({
       sizeType: ['original', 'compressed'],
       sourceType: [type],
       count: 1,
-      success: function (res) {
-        var tempFilesSize = res.tempFiles[0].size;  //获取图片的大小，单位B
-        if (tempFilesSize <= 2000000) {//图片小于或者等于2M(2000000B)时 可以执行获取图片
+      success: function(res) {
+        var tempFilesSize = res.tempFiles[0].size; //获取图片的大小，单位B
+        if (tempFilesSize <= 2000000) { //图片小于或者等于2M(2000000B)时 可以执行获取图片
           that.setData({
             modalHidden: false,
             url: url,
@@ -453,22 +456,30 @@ Page({
     })
   },
 
-  modalCancel: function () {
+  modalCancel: function() {
     this.setData({
       modalHidden: true
     });
   },
-  modalConfirm: function (e) {
+  modalConfirm: function(e) {
     var ocrUrl = this.data.url;
-    //保存到服务器
-    this.upload_file(ocrUrl);
+    if (ocrFlag) {
+      ocrFlag = false;
+      //保存到服务器
+      this.upload_file(ocrUrl);
+    }
     this.setData({
       modalHidden: false
     });
   },
 
-  upload_file: function (ocrUrl) {
+  upload_file: function(ocrUrl) {
     var that = this;
+    var i = 0;
+    i++;
+    console.log(i + "-ocrFlag=" + ocrFlag);
+
+    ocrFlag = false;
     let sessionId = wx.getStorageSync('sessionId');
     var url = config.baseRestUrl + ocrUrl;
     wx.uploadFile({
@@ -481,22 +492,21 @@ Page({
       formData: {
         sessionId: sessionId
       },
-      success: function (res) {
+      success: function(res) {
         var result = JSON.parse(res.data);
-        if ('ocrSetlAcctNo.do' === ocrUrl){
-          if ('0000' === result.respCode){
-            console.log(" result.infoCardNumber:" + result.infoCardNumber);
+        if ('ocrSetlAcctNo.do' === ocrUrl) {
+          if ('0000' === result.respCode) {
             that.setData({
               setlAcctNo: result.infoCardNumber,
               modalHidden: true
             });
             mchtInfo.setlAcctNo = result.infoCardNumber;
             wx.setStorageSync("mchtInfo", mchtInfo);
-          }else {
+          } else {
             that.setData({
               modalHidden: true
             });
-            util.showToast(result.resMessage);
+            util.showToast(result.respMsg);
           }
         }
         if ('ocrSetlCertNo.do' === ocrUrl) {
@@ -513,19 +523,33 @@ Page({
             that.setData({
               modalHidden: true
             });
-            util.showToast(result.resMessage);
+            util.showToast(result.respMsg);
           }
         }
-      },
-      fail: function (res) {
+        var timer = setInterval(function() {
+          ocrFlag = true;
+          clearInterval(timer);
+        }, 20000);
+
 
       },
+      fail: function(res) {
+        that.setData({
+          modalHidden: true
+        });
+        util.showToast(result.respMsg);
+        var timer = setInterval(function() {
+          ocrFlag = true;
+          clearInterval(timer);
+        }, 20000);
+      },
     })
+
   },
-  
+
   checkFiled: function(e) {
-  
-  
+
+
     var setlType = this.data.setlType[e.detail.value.setlType].setlTypeId;
     if (util.strIsNotEmpty(mchtInfo.mchtLev) && "01" === mchtInfo.mchtLev &&
       util.strIsNotEmpty(mchtInfo.isStore) && "01" === mchtInfo.isStore) {} else {
@@ -603,20 +627,30 @@ Page({
       }
     }
     var legalPersonName = util.trim(e.detail.value.legalPersonName);
+    var userType = this.data.userType[e.detail.value.userType].userTypeId;
     var setlPhone = util.trim(e.detail.value.setlPhone);
-    if (util.strIsNotEmpty(setlPhone)) {
-      if (!reg.pattern.test(setlPhone)) {
-        util.showToast('手机号格式不正确！');
+
+    if ("1" === userType) {
+      if (util.strIsEmpty(setlPhone)) {
+        util.showToast('请输入手机号！');
         this.setData({
           setlPhoneFocus: true
         })
         return false;
+      } else {
+        if (!reg.pattern.test(setlPhone)) {
+          util.showToast('手机号格式不正确！');
+          this.setData({
+            setlPhoneFocus: true
+          })
+          return false;
+        }
       }
+
     }
-    var userType = this.data.userType[e.detail.value.userType].userTypeId;
+
     var startDate = util.trim(e.detail.value.startDate);
     var conTerm = util.trim(this.data.conTerm[e.detail.value.conTerm].conTermId);
-    setlCertType
     var setlCertType = this.data.setlCertType[e.detail.value.setlCertType].setlCertTypeId;
     mchtInfo.setlType = setlType;
     mchtInfo.setlCycle = setlCycle;
@@ -680,7 +714,7 @@ Page({
         });
       }
 
-     
+
     }
   }
 
