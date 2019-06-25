@@ -119,13 +119,13 @@ Page({
 
   },
   bindMchtAdd: function(){
-    wx.redirectTo({
+    wx.navigateTo({
       url: '../mcht/mchtAdd/mchtBaseInfo/mchtBaseInfo',
     });
   },
 
   bindMchtList: function () {
-    wx.redirectTo({
+    wx.navigateTo({
       url: '../mcht/mchtList/mchtList',
     });
   }
