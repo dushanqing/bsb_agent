@@ -148,7 +148,9 @@ Page({
         //验证请求状态不是成功直接暴露异常
         if (resCode != 'S') {
           util.showToast(resMessage);
-           that.selectComponent("#test").onUpdate();
+          that.selectComponent("#test").onUpdate();
+          that.data.capFlag = false;
+
           that.setData({
             disabled: 'true',
           });
@@ -195,13 +197,17 @@ Page({
       //图片验证随机数过期处理 失败直接刷新
       if (resCode == 'REQ1001') {
         util.showToast('图形验证码过期,请重新验证');
-         that.selectComponent("#test").onUpdate();
+        that.selectComponent("#test").onUpdate();
+        that.data.capFlag = false;
+
         return;
       }
 
       if (resCode == '0023') {
         util.showToast("用户手机更改,请重新登录");
-         that.selectComponent("#test").onUpdate();
+        that.selectComponent("#test").onUpdate();
+        that.data.capFlag = false;
+
         //用户未登录
         that.setData({
           loginStep1: false,
@@ -213,7 +219,9 @@ Page({
       //验证请求状态不是成功直接暴露异常
       if (resCode != 'S') {
         util.showToast("短信验证码发送失败,请重新发送短信验证码");
-         that.selectComponent("#test").onUpdate();
+        that.selectComponent("#test").onUpdate();
+        that.data.capFlag = false;
+
         return;
       }
 
