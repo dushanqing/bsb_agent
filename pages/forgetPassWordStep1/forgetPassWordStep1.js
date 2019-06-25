@@ -55,8 +55,7 @@ Page({
     * 生命周期函数--监听页面显示
     */
   onShow: function () {
-    var that = this;
-    that.selectComponent("#test").onUpdate();
+
   },
   /** 
    * onStep1登录商户信息(客户经理编号,营业执照号,手机号) 
@@ -91,9 +90,9 @@ Page({
       url: 'checkLoginInfo.do',
       data: {
         body: {
-          userNo: userNo,
-          mchtLicnNo: mchtLicnNo,
-          phoneNo: phoneNo,
+          userNo: util.trim(userNo),
+          mchtLicnNo: util.trim(mchtLicnNo),
+          phoneNo: util.trim(phoneNo),
         }
       },
       method: 'POST'
@@ -129,12 +128,12 @@ Page({
    */
   myEventListener: function (e) {
     var that = this;
-    if(that.data.capFlag){
-      return;
-    }
-    that.data.capFlag = true;
     //图形验证成功调用后台返回随机数
     if (e.detail.msg) {
+      if (that.data.capFlag) {
+        return;
+      }
+      that.data.capFlag = true;
       const resBody = http.request({
         url: 'getCapCode.do',
         data: {
@@ -149,7 +148,7 @@ Page({
         //验证请求状态不是成功直接暴露异常
         if (resCode != 'S') {
           util.showToast(resMessage);
-          that.onShow();
+           that.selectComponent("#test").onUpdate();
           that.setData({
             disabled: 'true',
           });
@@ -196,13 +195,13 @@ Page({
       //图片验证随机数过期处理 失败直接刷新
       if (resCode == 'REQ1001') {
         util.showToast('图形验证码过期,请重新验证');
-        that.onShow();
+         that.selectComponent("#test").onUpdate();
         return;
       }
 
       if (resCode == '0023') {
         util.showToast("用户手机更改,请重新登录");
-        that.onShow();
+         that.selectComponent("#test").onUpdate();
         //用户未登录
         that.setData({
           loginStep1: false,
@@ -214,7 +213,7 @@ Page({
       //验证请求状态不是成功直接暴露异常
       if (resCode != 'S') {
         util.showToast("短信验证码发送失败,请重新发送短信验证码");
-        that.onShow();
+         that.selectComponent("#test").onUpdate();
         return;
       }
 
@@ -236,8 +235,8 @@ Page({
 
         })
         if (currentTime <= 0) {
-          that.data.capFlag=false;
-          that.onShow();
+           that.data.capFlag=false;
+           that.selectComponent("#test").onUpdate();
         }
         //如果当秒数小于等于0时 停止计时器 且按钮文字变成重新发送 且按钮变成可用状态 
         //倒计时的秒数也要恢复成默认秒数 即让获取验证码的按钮恢复到初始化状态只改变按钮文字
