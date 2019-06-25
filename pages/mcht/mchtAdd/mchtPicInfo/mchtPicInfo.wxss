@@ -12,7 +12,7 @@
 }
 .pic {
   width:270rpx;
-  height:106rpx;
+  height:165rpx;
   padding-top: 30rpx;
   bottom: 30rpx;
   display: flex;

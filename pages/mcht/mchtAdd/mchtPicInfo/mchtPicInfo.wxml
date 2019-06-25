@@ -20,6 +20,7 @@
       </view>
       <view class="weui-cell__bd">
         <image class="pic" name="yyzz" src="{{yyzz}}" bindtap="bindYyzzImg"></image>
+
       </view>
     </view>
     <!-- 组织结构代码证 -->

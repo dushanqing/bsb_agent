@@ -33,7 +33,7 @@ Page({
         })
       }else{
         that.setData({
-          yyzz: "/images/no-pic.png",
+          yyzz: "/images/tupian.png",
         })
       }
 
@@ -43,7 +43,7 @@ Page({
         })
       } else {
         that.setData({
-          zzjg: "/images/no-pic.png",
+          zzjg: "/images/tupian.png",
         })
       }
       
@@ -53,7 +53,7 @@ Page({
         })
       } else {
         that.setData({
-          swdj: "/images/no-pic.png",
+          swdj: "/images/tupian.png",
         })
       }
 
@@ -63,7 +63,7 @@ Page({
         })
       } else {
         that.setData({
-          sfzj: "/images/no-pic.png",
+          sfzj: "/images/tupian.png",
         })
       }
 
@@ -73,7 +73,7 @@ Page({
         })
       } else {
         that.setData({
-          shxy: "/images/no-pic.png",
+          shxy: "/images/tupian.png",
         })
       }
     }
