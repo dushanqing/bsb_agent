@@ -15,34 +15,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this;
-    let userId = wx.getStorageInfoSync('userId');
-    const resBody = http.request({
-      url: 'getAgentInfo.do',
-      data: {
-        body: {}
-      },
-      method: 'POST'
-    });
-    resBody.then(res=>{
-      //session 过期处理 按照首次登录处理
-      // if (res.resCode == 'REQ1015') {
-      //   app.onLaunch();
-      //   wx.redirectTo({
-      //     url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
-      //   })
-      //   return;
-      // }
-      if (res.resCode !='S'){
-        util.showLoading('获取用户信息失败')
-        return;
-      }
-      that.setData({
-        agname: res.agname,
-        userNm: res.userNm,
-        phoneNo: res.phoneNo,
-      })
-    })
+
   },
 
   /**
@@ -56,7 +29,26 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var that = this;
+    let userId = wx.getStorageInfoSync('userId');
+    const resBody = http.request({
+      url: 'getAgentInfo.do',
+      data: {
+        body: {}
+      },
+      method: 'POST'
+    });
+    resBody.then(res => {
+      if (res.resCode != 'S') {
+        util.showLoading('获取用户信息失败')
+        return;
+      }
+      that.setData({
+        agname: res.agname,
+        userNm: res.userNm,
+        phoneNo: res.phoneNo,
+      })
+    })
   },
 
   /**
