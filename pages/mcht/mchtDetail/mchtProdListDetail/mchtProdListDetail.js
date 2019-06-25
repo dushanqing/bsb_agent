@@ -22,7 +22,7 @@ Page({
     // var prodId = e.target.dataset.id;
     // var prodId = e.dataset.id;
     var prodId = e.currentTarget.dataset.id;
-    wx.redirectTo({
+    wx.navigateTo({
       url: "../detail/prodDetail/prodDetail?prodId=" + prodId
     });
   },
@@ -35,19 +35,19 @@ Page({
     var dataset = e.target.dataset;
     var pageNum = dataset.text;
     if (pageNum === '1') {
-      wx.redirectTo({
+      wx.navigateTo({
         url: '../mchtBaseInfoDetail/mchtBaseInfoDetail',
       });
     } else if (pageNum === '2') {
-      wx.redirectTo({
+      wx.navigateTo({
         url: '../mchtAcctInfoDetail/mchtAcctInfoDetail',
       });
     } else if (pageNum === '3') {
-      wx.redirectTo({
+      wx.navigateTo({
         url: '../mchtPicInfoDetail/mchtPicInfoDetail',
       });
     } else if (pageNum === '4') {
-      wx.redirectTo({
+      wx.navigateTo({
         url: '../mchtProdListDetail/mchtProdListDetail',
       });
     } else {

@@ -13,7 +13,7 @@ Page({
 
   showData: function (options) {
     var that = this;
-    if (JSON.stringify(options) == "{}"){
+    if (JSON.stringify(options) === "{}"){
       var mchtDeatilData = wx.getStorageSync('mchtDeatil');
       that.packData(mchtDeatilData);
       return;
@@ -49,10 +49,10 @@ packData:function(res){
     mchtSimpleName = "",
     isXiaoWei,
     mchtLicnNo = "",
-    isStore,
-    mchtMngNo,
-    storeHidden,
-    mchtMngNoHidden,
+    isStore = mcht.isStore,
+    mchtMngNo="",
+    storeHidden=true,
+    mchtMngNoHidden =true,
     mchtType,
     mchtBigType = mcht.mchtBigType,
     mchtContAddr = "",
@@ -74,27 +74,36 @@ packData:function(res){
   if (util.strIsNotEmpty(mcht.mchtSimpleName)) {
     mchtSimpleName = mcht.mchtSimpleName;
   }
-  if ("01" == mcht.isXiaoWei) {
+  if ("01" === mcht.isXiaoWei) {
     isXiaoWei = "是";
-  } else if ("00" == mcht.isXiaoWei) {
+  } else if ("00" === mcht.isXiaoWei) {
     isXiaoWei = "否";
   }
   if (util.strIsNotEmpty(mcht.mchtLicnNo)) {
     mchtLicnNo = mcht.mchtLicnNo;
   }
-  if ("01" == mchtLev) {
+  if ("01" === mchtLev) {
     mchtLev = "连锁商户";
-    storeHidden = false;
-  } else if ("02" == mchtLev) {
+    if ("02" === isStore){
+      isStore = "否";
+      storeHidden = false;
+      mchtMngNoHidden = true;
+    } else if ("01" === isStore) {
+      isStore = "是";
+      mchtMngNo = mcht.mchtMngNo,
+      storeHidden = false;
+      mchtMngNoHidden = false;
+    }
+  } else if ("02" === mchtLev) {
     mchtLev = "普通商户";
     isStore = "";
     mchtMngNo = "";
     storeHidden = true;
     mchtMngNoHidden = true;
   }
-  if ("01" == mcht.mchtType) {
+  if ("01" === mcht.mchtType) {
     mchtType = "实体";
-  } else if ("02" == mcht.mchtType) {
+  } else if ("02" === mcht.mchtType) {
     mchtType = "虚体";
   }
   if (util.strIsNotEmpty(mcht.mchtContAddr)) {
@@ -169,7 +178,7 @@ packData:function(res){
       var cgList = res.cgList;
       if (cgList.length > 0) {
         cgList.forEach(function (item, index) {
-          if (mchtBigType == item.custNo) {
+          if (mchtBigType === item.custNo) {
             mchtBigType = item.custName;
             that.setData({
               mchtBigType: item.custName
@@ -187,19 +196,19 @@ packData:function(res){
     var dataset = e.target.dataset;
     var pageNum = dataset.text;
     if (pageNum === '1') {
-      wx.redirectTo({
+      wx.navigateTo({
         url: '../mchtBaseInfoDetail/mchtBaseInfoDetail',
       });
     } else if (pageNum === '2') {
-      wx.redirectTo({
+      wx.navigateTo({
         url: '../mchtAcctInfoDetail/mchtAcctInfoDetail',
       });
     } else if (pageNum === '3') {
-      wx.redirectTo({
+      wx.navigateTo({
         url: '../mchtPicInfoDetail/mchtPicInfoDetail',
       });
     } else if (pageNum === '4') {
-      wx.redirectTo({
+      wx.navigateTo({
         url: '../mchtProdListDetail/mchtProdListDetail',
       });
     } else {

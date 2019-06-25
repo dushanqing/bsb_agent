@@ -2,11 +2,11 @@
 
 
 .reject-text {
-  height: 100px;
+  height: 200rpx;
   font-family: 'SimSun Bold', 'SimSun';
   font-weight: 700;
   font-style: normal;
-  font-size: 18px;
+  font-size: 36rpx;
   color: #f00;
 }
 
@@ -16,13 +16,13 @@
   font-family: 'Arial Normal', 'Arial';
   font-weight: 500;
   font-style: normal;
-  font-size: 20px;
+  font-size: 40rpx;
   color: #000;
 }
  
 
 #call-mcht-bth {
-  height: 158px;
+  height: 316rpx;
 }
 
 #call-mcht {
@@ -38,11 +38,11 @@
 }
 
 .weui-label {
-  width: 125px;
+  width: 250rpx;
   word-wrap: break-word;
   word-break: break-all;
   font-family: 'Arial Normal', 'Arial';
   font-weight: 400;
   font-style: normal;
-  font-size: 18px;
+  font-size: 30rpx;
 }

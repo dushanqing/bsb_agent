@@ -19,7 +19,8 @@ Page({
     limitDay: "0.00",
     limitMonth: "0.00",
     limitYear: "0.00",
-    modalHidden: true
+    modalHidden: true,
+    bthDisabled:false,
   },
 
   onLoad() {
@@ -33,6 +34,10 @@ Page({
       if (util.strIsNotEmpty(mchtInfo.prodName)) {
         this.setData({
           prodName: mchtInfo.prodName,
+        })
+      }else{
+        this.setData({
+          prodName: "",
         })
       }
       if (util.strIsNotEmpty(mchtInfo.jiejifee)) {
@@ -198,12 +203,8 @@ Page({
     resBody.then(res => {
       const resCode = res.resCode;
       const resMessage = res.resMessage;
-      //session 过期处理 按照首次登录处理
-      if (resCode == 'REQ1015') {
-        app.onLaunch();
-      }
       //失败
-      if (resCode != 'S') {
+      if ('S' != resCode) {
         util.showToast(resMessage);
         return;
       }
@@ -219,13 +220,13 @@ Page({
   //产品弹框
   bindCheckProd: function() {
     mchtInfo = wx.getStorageSync("mchtInfo");
-    var checkProdId = mchtInfo.checkProdId;
+    var checkProd = mchtInfo.checkProd;
     var checkboxItems = mchtInfo.checkboxItems;
-    if (util.strIsNotEmpty(checkProdId)) {
+    if (util.strIsNotEmpty(checkProd)) {
       for (var i = 0, lenI = checkboxItems.length; i < lenI; ++i) {
         checkboxItems[i].prodChecked = false;
-        for (var j = 0, lenJ = checkProdId.length; j < lenJ; ++j) {
-          if (checkboxItems[i].prodId === checkProdId[j]) {
+        for (var j = 0, lenJ = checkProd.length; j < lenJ; ++j) {
+          if (checkboxItems[i].prodId === checkProd[j].prodId) {
             checkboxItems[i].prodChecked = true;
             break;
           }
@@ -242,25 +243,14 @@ Page({
   checkboxChange: function(e) {
     var checkboxItems = this.data.checkboxItems,
       values = e.detail.value;
-    var prodName = "";
     for (var i = 0, lenI = checkboxItems.length; i < lenI; ++i) {
       checkboxItems[i].prodChecked = false;
       for (var j = 0, lenJ = values.length; j < lenJ; ++j) {
         if (checkboxItems[i].prodId === values[j]) {
           checkboxItems[i].prodChecked = true;
-          prodName += checkboxItems[i].productName;
           break;
         }
       }
-    }
-    if (util.strIsNotEmpty(prodName)) {
-      this.setData({
-        prodName: prodName,
-        checkProdId: values
-      });
-      mchtInfo.checkProdId = values;
-      mchtInfo.prodName = prodName;
-      wx.setStorageSync("mchtInfo", mchtInfo);
     }
     this.setData({
       checkboxItems: checkboxItems
@@ -275,11 +265,33 @@ Page({
   },
   // 确认
   modalConfirm: function(e) {
-    mchtInfo.checkboxItems = this.data.checkboxItems;
+    var  checkboxItems = this.data.checkboxItems;
+    var prodName = "";
+    var checkProd = new Array();
+    for (var i = 0, lenI = checkboxItems.length; i < lenI; ++i) {
+      if (checkboxItems[i].prodChecked === true) {
+        checkProd.push(checkboxItems[i]);
+        prodName += checkboxItems[i].productName;
+      }
+    }
+  if (util.strIsNotEmpty(prodName)) {
+      this.setData({
+        prodName: prodName
+      });
+    mchtInfo.checkProd = checkProd;
+    mchtInfo.prodName = prodName;
     wx.setStorageSync("mchtInfo", mchtInfo);
+  }else{
     this.setData({
-      modalHidden: true
+      prodName: ""
     });
+    mchtInfo.checkProd = null;
+    mchtInfo.prodName = "";
+    wx.setStorageSync("mchtInfo", mchtInfo);
+  }
+  this.setData({
+      modalHidden: true
+  });
   },
 
   //步骤回点
@@ -306,22 +318,15 @@ Page({
   },
   // 提交前校验
   checkFiled: function(e) {
-    // var checkboxItems = this.data.checkboxItems;
     mchtInfo = wx.getStorageSync("mchtInfo");
-    var checkProdId = mchtInfo.checkProdId;
+    var checkProd = mchtInfo.checkProd;
     var prodIds = "";
-    // for (var i = 0, lenI = checkboxItems.length; i < lenI; ++i) {
-    //   if (checkboxItems[i].prodChecked === true) {
-    //     prodIds += checkboxItems[i].prodId + "|";
-    //     break;
-    //   }
-    // }
-    if (util.strIsEmpty(checkProdId)) {
+    if (util.strIsEmpty(checkProd)) {
       util.showToast('请至少选择一个支付产品！');
       return false;
     }
-    for (var i = 0, lenI = checkProdId.length; i < lenI; ++i){
-      prodIds += checkProdId[i] + "|";
+    for (var i = 0, lenI = checkProd.length; i < lenI; ++i){
+      prodIds += checkProd[i].prodId + "|";
     }
     if (util.strIsEmpty(prodIds)) {
       util.showToast('请至少选择一个支付产品！');
@@ -404,8 +409,7 @@ Page({
   },
   // 提交审核
   baseFormSubmit(e) {
-    if (saveFlag) {
-      saveFlag = false;
+    this.setData({ btnDisabled: true })
       if (this.checkFiled(e)) {
         const resBody = http.request({
           url: 'saveMerchant.do',
@@ -424,15 +428,14 @@ Page({
             wx.setStorageSync("mchtInfo", null);
             wx.setStorageSync("mchtBigType", null);
             wx.setStorageSync("ctArr", null);
-            wx.navigateTo({
+            wx.redirectTo({
               url: "../detail/mchtAddResult/mchtAddResult"
             });
           } else { //失败
-            saveFlag = true;
             util.showToast(resMessage);
+            this.setData({ btnDisabled: true })
           }
         })
       }
     }
-  }
 });
