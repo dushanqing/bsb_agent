@@ -6,7 +6,7 @@ Page({
   },
   mchtPicNextStep: function(e) {
     wx.switchTab({
-      url: "../../../../loginShowInfo/loginShowInfo"
+      url: "../../../../loginShowInfo/loginShowInfo",
     });
   },
 });

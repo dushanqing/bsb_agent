@@ -121,7 +121,7 @@
     </checkbox-group>
   </show-modal>
   <view class="weui-btn-area">
-    <button class="weui-btn" id="step-btn" type="primary" disabled="{{bthDisabled}}" form-type="submit">提交审核</button>
+    <button class="weui-btn" id="step-btn" type="primary" disabled='{{btnDisabled}}' form-type="submit">提交审核</button>
   </view>
 </view>
 </form>

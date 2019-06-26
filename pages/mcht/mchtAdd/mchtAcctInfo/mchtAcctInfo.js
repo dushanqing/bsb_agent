@@ -9,8 +9,6 @@ import {
 } from '../../../../utils/http.js';
 let http = new HTTP();
 var mchtInfo = wx.getStorageSync("mchtInfo");
-var flag = false,
-  ocrFlag = true;
 Page({
   data: {
     modalHidden: true,
@@ -65,10 +63,12 @@ Page({
       conTermName: "长期"
     }],
     conTermIndex: 3,
-    tempFilePaths: ''
+    tempFilePaths: '',
+    ocrSubFlag: false,
+    btnDisabled: false,
   },
 
-  onShow() {
+  onLoad() {
     mchtInfo = wx.getStorageSync("mchtInfo");
     this.ctx = wx.createCameraContext();
     this.querySetlCycle();
@@ -98,6 +98,11 @@ Page({
         this.setData({
           setlAcctTypeIndex: mchtInfo.setlAcctTypeIndex
         });
+        if ("0" === this.data.setlAcctType[mchtInfo.setlAcctTypeIndex].setlAcctTypeId) {
+          this.setData({
+            setlAcctInstituteHidden: true
+          });
+        }
       }
       if (util.strIsNotEmpty(mchtInfo.setlAcctInstitute)) {
         this.setData({
@@ -462,24 +467,24 @@ Page({
     });
   },
   modalConfirm: function(e) {
-    var ocrUrl = this.data.url;
-    if (ocrFlag) {
-      ocrFlag = false;
-      //保存到服务器
-      this.upload_file(ocrUrl);
+    var that = this;
+    //避免重复提交
+    if (that.data.ocrSubFlag) {
+      return;
     }
     this.setData({
+      ocrSubFlag: true,
+    });
+    console.log("--------ocr-----------------");
+    var ocrUrl = that.data.url;
+    that.upload_file(ocrUrl);
+    that.setData({
       modalHidden: false
     });
   },
 
   upload_file: function(ocrUrl) {
     var that = this;
-    var i = 0;
-    i++;
-    console.log(i + "-ocrFlag=" + ocrFlag);
-
-    ocrFlag = false;
     let sessionId = wx.getStorageSync('sessionId');
     var url = config.baseRestUrl + ocrUrl;
     wx.uploadFile({
@@ -493,6 +498,7 @@ Page({
         sessionId: sessionId
       },
       success: function(res) {
+
         var result = JSON.parse(res.data);
         if ('ocrSetlAcctNo.do' === ocrUrl) {
           if ('0000' === result.respCode) {
@@ -504,6 +510,7 @@ Page({
             wx.setStorageSync("mchtInfo", mchtInfo);
           } else {
             that.setData({
+              setlAcctNo: "",
               modalHidden: true
             });
             util.showToast(result.respMsg);
@@ -521,35 +528,30 @@ Page({
             wx.setStorageSync("mchtInfo", mchtInfo);
           } else {
             that.setData({
+              setlCertNo: "",
+              legalPersonName: "",
               modalHidden: true
             });
             util.showToast(result.respMsg);
           }
         }
-        var timer = setInterval(function() {
-          ocrFlag = true;
-          clearInterval(timer);
-        }, 20000);
-
+        that.setData({
+          ocrSubFlag: false,
+        });
 
       },
       fail: function(res) {
         that.setData({
+          ocrSubFlag: false,
           modalHidden: true
         });
-        util.showToast(result.respMsg);
-        var timer = setInterval(function() {
-          ocrFlag = true;
-          clearInterval(timer);
-        }, 20000);
+        util.showToast(res.errMsg);
       },
     })
 
   },
 
   checkFiled: function(e) {
-
-
     var setlType = this.data.setlType[e.detail.value.setlType].setlTypeId;
     if (util.strIsNotEmpty(mchtInfo.mchtLev) && "01" === mchtInfo.mchtLev &&
       util.strIsNotEmpty(mchtInfo.isStore) && "01" === mchtInfo.isStore) {} else {
@@ -670,11 +672,14 @@ Page({
     return true;
   },
 
-
   // 结算信息页面 下一步
-  //注意控制重复点击
   acctFormSubmit(e) {
-    if (this.checkFiled(e)) {
+    var that = this;
+    that.setData({
+      btnDisabled: true
+    })
+    if (that.checkFiled(e)) {
+      console.log("----acct----------");
       if ("0" === mchtInfo.setlAcctType) {
         const resBody = http.request({
           url: 'checkBankAccount.do',
@@ -694,31 +699,30 @@ Page({
         resBody.then(res => {
           const resCode = res.resCode;
           const resMessage = res.resMessage;
-          //session 过期处理 按照首次登录处理
-          if (resCode === 'REQ1015') {
-            app.onLaunch();
-          }
           //成功
           if ("0000" === resCode) {
-            wx.navigateTo({
-              url: "../mchtPicInfo/mchtPicInfo"
-            });
+            if (that.checkFiled(e)) {
+              wx.navigateTo({
+                url: '../mchtPicInfo/mchtPicInfo',
+              })
+            }
           } else {
             util.showToast(res.resMessage);
+            that.setData({
+              btnDisabled: false
+            })
             return false;
           }
         })
       } else {
         wx.navigateTo({
-          url: "../mchtPicInfo/mchtPicInfo"
-        });
+          url: '../mchtPicInfo/mchtPicInfo',
+        })
       }
-
-
+    }else{
+      that.setData({
+        btnDisabled: false
+      })
     }
   }
-
-
-
-
 });

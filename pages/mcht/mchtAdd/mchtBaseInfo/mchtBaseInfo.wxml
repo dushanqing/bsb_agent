@@ -167,7 +167,7 @@
       </view>
     </view>
     <view class="weui-btn-area">
-      <button class="weui-btn" id="step-btn" type="primary" form-type="submit" >下一步</button>
+      <button class="weui-btn" id="step-btn" type="primary"  form-type="submit" >下一步</button>
     </view>
       </form>
   </view>

@@ -20,7 +20,7 @@ Page({
     limitMonth: "0.00",
     limitYear: "0.00",
     modalHidden: true,
-    bthDisabled:false,
+    btnDisabled:false,
   },
 
   onShow() {
@@ -425,16 +425,20 @@ Page({
           const resMessage = res.resMessage;
           //成功
           if ('S' === resCode) {
-            wx.setStorageSync("mchtInfo", null);
-            wx.setStorageSync("mchtBigType", null);
-            wx.setStorageSync("ctArr", null);
-            wx.redirectTo({
-              url: "../detail/mchtAddResult/mchtAddResult"
+            wx.removeStorageSync('mchtInfo');
+            wx.removeStorageSync('ctArr');
+            wx.removeStorageSync('mchtBigType');
+            wx.reLaunch({
+              url: "../detail/mchtAddResult/mchtAddResult",
             });
           } else { //失败
             util.showToast(resMessage);
-            this.setData({ btnDisabled: true })
+            this.setData({ btnDisabled: false })
           }
+        })
+      } else {
+        that.setData({
+          btnDisabled: false
         })
       }
     }

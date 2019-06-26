@@ -13,9 +13,11 @@ Page({
     }],
     threeToOneIndex: 0,
     modalHidden: true,
+    imgSubFlag: false,//控制重复提交,图片确定按钮
+    btnDisabled: false,
   },
-
-  onShow() {
+ 
+  onLoad() {
     mchtInfo = wx.getStorageSync("mchtInfo");
     this.showData();
   },
@@ -85,15 +87,24 @@ Page({
     });
   },
   modalConfirm: function (e) {
-    var imgFlag = this.data.imgFlag;
+    var that = this;
+    //避免重复提交
+    if (that.data.imgSubFlag) {
+      return;
+    }
+    that.setData({
+      imgSubFlag: true,
+    });
+    var imgFlag = that.data.imgFlag;
     //保存到服务器
-    this.upload_file(imgFlag);
-    this.setData({
+    that.upload_file(imgFlag);
+    that.setData({
       modalHidden: false
     });
   },
 
   upload_file: function (imgFlag) {
+    console.log("---pic-img-----");
     var that = this;
     let sessionId = wx.getStorageSync('sessionId');
     var filePath = that.data.tempFilePaths;
@@ -197,11 +208,14 @@ Page({
             });
           }
         }
-      
+        that.setData({
+          imgSubFlag: false,
+        });
       },
       fail: function (res) {
         util.showToast('图片上传失败！');
         that.setData({
+          imgSubFlag: false,
           modalHidden: true
         });
       },
@@ -286,11 +300,11 @@ Page({
     var dataset = e.target.dataset
     var pageNum = dataset.text
     if (pageNum === "1") {
-      wx.navigateTo({
+      wx.redirectTo({
         url: "../mchtBaseInfo/mchtBaseInfo"
       });
     } if (pageNum === "2") {
-      wx.navigateTo({
+      wx.redirectTo({
         url: "../mchtAcctInfo/mchtAcctInfo"
       });
     } else {
@@ -340,13 +354,22 @@ Page({
 
   // 电子信息页面 下一步
   picFormSubmit(e) {
-    if (this.checkFiled(e)) {
-      wx.redirectTo({
-        url: "../mchtProdInfo/mchtProdInfo"
-      });
+    var that = this;
+    that.setData({ btnDisabled: true })
+      if (that.checkFiled(e)) {
+        console.log("---pic--");
+        wx.redirectTo({
+          url: '../mchtProdInfo/mchtProdInfo',
+          success: function (res) {
+            that.setData({
+              btnDisabled: false
+            });
+          }
+        })
+      } else {
+        that.setData({
+          btnDisabled: false
+        })
+      }
     }
-  }
-
-
-
 });

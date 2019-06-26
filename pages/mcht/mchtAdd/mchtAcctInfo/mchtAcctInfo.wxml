@@ -156,7 +156,7 @@
       <image class="ocrImg" style="width:100%;height:340px;"  src="{{tempFilePaths}}"></image>
     </show-modal>
     <view class="weui-btn-area">
-      <button class="weui-btn" id="step-btn" type="primary" form-type="submit">下一步</button>
+      <button class="weui-btn" id="step-btn" type="primary" disabled="{{btnDisabled}}" form-type="submit">下一步</button>
     </view>
   </view>
   <!-- </view> -->

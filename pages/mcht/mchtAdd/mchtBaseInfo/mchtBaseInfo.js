@@ -1,7 +1,9 @@
 const app = getApp();
 var util = require("../../../../utils/util.js");
 var reg = require("../../../../utils/reg.js");
-import { HTTP } from '../../../../utils/http.js';
+import {
+  HTTP
+} from '../../../../utils/http.js';
 const http = new HTTP();
 //引用腾讯地图API
 var QQMapWX = require("../../../../utils/qqmap-wx-jssdk.min.js");
@@ -33,8 +35,8 @@ Page({
       mchtLevId: "02",
       mchtLevName: "普通商户"
     }, {
-        mchtLevId: "01",
-        mchtLevName: "连锁商户"
+      mchtLevId: "01",
+      mchtLevName: "连锁商户"
     }],
     mchtLevIndex: 0,
 
@@ -65,7 +67,7 @@ Page({
     }],
 
     //所属商户
-     mchtMngNoHidden: true,
+    mchtMngNoHidden: true,
 
     mchtType: [{
       mchtTypeId: "01",
@@ -75,9 +77,16 @@ Page({
       mchtTypeName: "虚体"
     }],
     mchtTypeIndex: 0,
+    submitFlag: undefined,
   },
 
-  onLoad: function (options) {
+  onShow: function() {
+    this.setData({
+      submitFlag: true
+    })
+  },
+
+  onLoad: function(options) {
     mchtInfo = wx.getStorageSync("mchtInfo");
     if (util.strIsEmpty(mchtInfo)) {
       mchtInfo = new Object();
@@ -93,7 +102,7 @@ Page({
   },
 
   // 回显数据
-  showData: function () {
+  showData: function() {
     this.mchtInfo = wx.getStorageSync("mchtInfo");
     if (util.strIsNotEmpty(mchtInfo)) {
       if (util.strIsNotEmpty(mchtInfo.mchtName)) {
@@ -126,7 +135,7 @@ Page({
             storesHidden: true,
             mchtMngNoHidden: true
           });
-        } else{
+        } else {
           this.setData({
             mchtLevIndex: mchtInfo.mchtLevIndex,
             storesHidden: false,
@@ -146,15 +155,15 @@ Page({
                 mchtMngNoHidden: false
               });
             }
-          }else{
-              this.setData({
-                storesIndex: 0,
-                mchtMngNoHidden: true
-              });
+          } else {
+            this.setData({
+              storesIndex: 0,
+              mchtMngNoHidden: true
+            });
           }
         }
       }
-     
+
       if (util.strIsNotEmpty(mchtInfo.mchtMngNoIndex)) {
         this.setData({
           mchtMngNoIndex: mchtInfo.mchtMngNoIndex
@@ -200,9 +209,9 @@ Page({
 
 
 
-  blurMchtName: function(e){
+  blurMchtName: function(e) {
     var mchtName = e.detail.value;
-    if (util.strIsNotEmpty(mchtName)){
+    if (util.strIsNotEmpty(mchtName)) {
       // if (util.getLength(mchtName) > 200) {
       //   util.showToast('商户名称最大长度为66个汉字！');
       //   this.setData({
@@ -214,7 +223,7 @@ Page({
       wx.setStorageSync("mchtInfo", mchtInfo);
     }
   },
-  blurMchtSimpleName: function (e) {
+  blurMchtSimpleName: function(e) {
     var mchtSimpleName = e.detail.value;
     if (util.strIsNotEmpty(mchtSimpleName)) {
       mchtInfo.mchtSimpleName = mchtSimpleName;
@@ -222,7 +231,7 @@ Page({
     }
   },
 
-  blurMchtLicnNo: function (e) {
+  blurMchtLicnNo: function(e) {
     var mchtLicnNo = e.detail.value;
     if (util.strIsNotEmpty(mchtLicnNo)) {
       // if (!reg.isLicnNo.test(mchtLicnNo)){
@@ -235,7 +244,7 @@ Page({
       mchtInfo.mchtLicnNo = mchtLicnNo;
       wx.setStorageSync("mchtInfo", mchtInfo);
     }
-    
+
 
   },
 
@@ -254,7 +263,7 @@ Page({
       wx.setStorageSync("mchtInfo", mchtInfo);
     }
   },
-  
+
   //联系电话
   blurMchtPhone: function(e) {
     var mchtPhone = e.detail.value;
@@ -270,8 +279,8 @@ Page({
       wx.setStorageSync("mchtInfo", mchtInfo);
     }
   },
-  
-    //邮箱
+
+  //邮箱
   blurMchtEmail: function(e) {
     var mchtEmail = e.detail.value;
     if (util.strIsNotEmpty(mchtEmail)) {
@@ -300,28 +309,28 @@ Page({
   },
 
   //维度
-  blurLatitude: function (e) {
+  blurLatitude: function(e) {
     var latitude = e.detail.value;
     var latitudeV = (latitude * 100 / 100).toFixed(7);
     latitudeV = latitudeV.substring(0, latitudeV.lastIndexOf('.') + 7);
     this.setData({
       latitude: latitudeV
     });
-      mchtInfo.latitude = latitude;
-      wx.setStorageSync("mchtInfo", mchtInfo);
+    mchtInfo.latitude = latitude;
+    wx.setStorageSync("mchtInfo", mchtInfo);
   },
-  
+
 
   // 跳转页面
-  navigateTo(e) {
+  redirectTo(e) {
     const index = e.currentTarget.dataset.index;
     const path = e.currentTarget.dataset.path;
-    wx.navigateTo({
+    wx.redirectTo({
       url: path
     });
   },
 
- 
+
   //是否小微商户  yangjx  20190510
   bindXiaoweiChange: function(e) {
     mchtInfo.xiaoweiIndex = e.detail.value;
@@ -420,13 +429,13 @@ Page({
         complete: function(res) {}
       });
     }
-   
+
   },
 
   // 地图手动定位  yangjx 20190506
   openLocation: function(e) {
     const path = "/map/position/position";
-    wx.navigateTo({
+    wx.redirectTo({
       url: path
     });
   },
@@ -443,10 +452,10 @@ Page({
     });
   },
 
-  
+
   //根据是否门店显示所属商户
-  stores_onSelect: function (e) {
-   
+  stores_onSelect: function(e) {
+
     if ("01" === this.data.stores[e.detail.value].storesId) {
       this.setData({
         mchtMngNoHidden: false,
@@ -476,7 +485,7 @@ Page({
   },
 
   //根据商户类型显示是否门店
-  mchtLev_onSelect: function (e) {
+  mchtLev_onSelect: function(e) {
     if ("02" === this.data.mchtLev[e.detail.value].mchtLevId) {
       this.setData({
         storesHidden: true,
@@ -518,12 +527,12 @@ Page({
     })
     this.mchtLev_onSelect(e);
   },
-  
+
   bindReturnStep(e) {
     return;
   },
 
-  checkFiled: function (e){
+  checkFiled: function(e) {
     var mchtName = util.trim(e.detail.value.mchtName);
     if (util.strIsEmpty(mchtName)) {
       util.showToast('请输入商户名称！');
@@ -532,13 +541,13 @@ Page({
       })
       return false;
     } else {
-        if (util.getLength(mchtName) > 200) {
-          util.showToast('商户名称最大长度为66个汉字！');
-          this.setData({
-            mchtNameFocus: true
-          })
-          return false;
-        }
+      if (util.getLength(mchtName) > 200) {
+        util.showToast('商户名称最大长度为66个汉字！');
+        this.setData({
+          mchtNameFocus: true
+        })
+        return false;
+      }
     }
 
     var mchtSimpleName = util.trim(e.detail.value.mchtSimpleName);
@@ -548,7 +557,7 @@ Page({
         mchtSimpleNameFocus: true
       })
       return false;
-    } 
+    }
 
     var isXiaowei = this.data.xiaowei[e.detail.value.xiaowei].xwId;
     var mchtLicnNo = util.trim(e.detail.value.mchtLicnNo);
@@ -558,27 +567,27 @@ Page({
         mchtLicnNoFocus: true
       })
       return false;
-    } 
-    if (util.strIsNotEmpty(mchtLicnNo) && !reg.isLicnNo.test(mchtLicnNo)) {
-        util.showToast('营业执照号格式不正确!');
-        this.setData({
-          mchtLicnNoFocus: true
-        })
-        return false;
     }
-    
+    if (util.strIsNotEmpty(mchtLicnNo) && !reg.isLicnNo.test(mchtLicnNo)) {
+      util.showToast('营业执照号格式不正确!');
+      this.setData({
+        mchtLicnNoFocus: true
+      })
+      return false;
+    }
+
     var mchtLev = this.data.mchtLev[e.detail.value.mchtLev].mchtLevId;
-    if ("01" === mchtLev){
-     var isStore = this.data.stores[e.detail.value.stores].storesId;
+    if ("01" === mchtLev) {
+      var isStore = this.data.stores[e.detail.value.stores].storesId;
       mchtInfo.isStore = isStore;
-      if ("01" === isStore){
+      if ("01" === isStore) {
         var mchtMngNoValue = e.detail.value.mchtMngNo;
-        if (util.strIsEmpty(this.data.mchtMngNo) ||util.strIsEmpty(mchtMngNoValue)) {
+        if (util.strIsEmpty(this.data.mchtMngNo) || util.strIsEmpty(mchtMngNoValue)) {
           util.showToast('请选择所属商户！');
           return false;
-        }else{
-        var mchtMngNo = this.data.mchtMngNo[e.detail.value.mchtMngNo].mchtId;
-        mchtInfo.mchtMngNo = mchtMngNo;
+        } else {
+          var mchtMngNo = this.data.mchtMngNo[e.detail.value.mchtMngNo].mchtId;
+          mchtInfo.mchtMngNo = mchtMngNo;
         }
       }
     }
@@ -589,7 +598,7 @@ Page({
     var custNo = wx.getStorageSync("mchtBigType")[0].custNo;
     var mchtType = this.data.mchtType[e.detail.value.mchtType].mchtTypeId;
     var quyuArr = wx.getStorageSync("ctArr");
-    if (util.strIsEmpty(quyuArr) || util.strIsEmpty(quyuArr[0]) || util.strIsEmpty(quyuArr[0].quCode)){
+    if (util.strIsEmpty(quyuArr) || util.strIsEmpty(quyuArr[0]) || util.strIsEmpty(quyuArr[0].quCode)) {
       util.showToast('请选择地区！');
       return false;
     }
@@ -607,7 +616,7 @@ Page({
         mchtContAddrFocus: true
       })
       return false;
-    }	
+    }
 
     var mchtPersonName = util.trim(e.detail.value.mchtPersonName);
     if (util.strIsEmpty(mchtPersonName)) {
@@ -625,7 +634,7 @@ Page({
         return false;
       }
     }
-   
+
     var mchtPhone = util.trim(e.detail.value.mchtPhone);
     if (util.strIsEmpty(mchtPhone)) {
       util.showToast('请输入联系电话！');
@@ -666,7 +675,7 @@ Page({
         longitudeFocus: true
       })
       return false;
-    }else {
+    } else {
       if (!reg.isLongitude.test(longitude)) {
         util.showToast('经度坐标输入有误！(经度范围-180.000000 ~ 180.000000)');
         this.setData({
@@ -706,17 +715,29 @@ Page({
     mchtInfo.longitude = longitude;
     mchtInfo.latitude = latitude;
     wx.setStorageSync("mchtInfo", mchtInfo);
+    //避免重复提交
     return true;
   },
 
 
   // 基本信息页面 下一步
-  //注意控制重复点击
   baseFormSubmit(e) {
-    if (this.checkFiled(e)){
-      wx.redirectTo({
-        url: "../mchtAcctInfo/mchtAcctInfo",
-      });
+    var that = this;
+    if (that.data.submitFlag) {
+      if (that.checkFiled(e)) {
+        wx.redirectTo({
+          url: '../mchtAcctInfo/mchtAcctInfo',
+          success: function(res) {
+            that.setData({
+              submitFlag: false
+            });
+          }
+        })
+      } else {
+        that.setData({
+          submitFlag: false
+        })
+      }
     }
   }
 
