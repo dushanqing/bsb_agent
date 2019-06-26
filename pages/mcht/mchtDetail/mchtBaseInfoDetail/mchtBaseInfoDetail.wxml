@@ -34,40 +34,40 @@
             <text class="weui-text" name="mchtLicnNo">{{mchtLicnNo}}</text>
         </view>
       </view>
-      <view class="weui-cell weui-cell_select">
-        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
           <view class="weui-label">商户类型</view>
         </view>
         <view class="weui-cell__bd__d">
           <text class="weui-text" name="mchtLev">{{mchtLev}}</text>
         </view>
       </view>
-      <view class="weui-cell weui-cell_select"  hidden='{{storeHidden}}'>
-        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+      <view class="weui-cell weui-cell_input"  hidden='{{storeHidden}}'>
+        <view class="weui-cell__hd">
           <view class="weui-label">是否门店</view>
         </view>
         <view class="weui-cell__bd__d">
            <text class="weui-text" name="isStore">{{isStore}}</text>
         </view>
       </view>
-      <view class="weui-cell weui-cell_select"  hidden='{{mchtMngNoHidden}}'>
-        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+      <view class="weui-cell weui-cell_input"  hidden='{{mchtMngNoHidden}}'>
+        <view class="weui-cell__hd">
           <view class="weui-label">所属商户</view>
         </view>
         <view class="weui-cell__bd__d">
             <text class="weui-text" name="mchtMngNo">{{mchtMngNo}}</text>
         </view>
       </view>
-      <view class="weui-cell weui-cell_select">
-        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
           <view class="weui-label">行业类别</view>
         </view>
         <view class="weui-cell__bd__d">
            <text class="weui-text" name="mchtBigType">{{mchtBigType}}</text>
         </view>
       </view>
-      <view class="weui-cell weui-cell_select">
-        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
           <view class="weui-label">经营类型</view>
         </view>
         <view class="weui-cell__bd__d">

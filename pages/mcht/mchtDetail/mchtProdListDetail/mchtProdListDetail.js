@@ -4,7 +4,7 @@ Page({
   data: {
     prodList: [],
   },
-  onLoad() {
+  onShow() {
     this.showData();
   },
   showData: function () {

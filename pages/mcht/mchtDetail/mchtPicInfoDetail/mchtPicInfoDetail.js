@@ -10,7 +10,7 @@ Page({
     modalHidden: true,
   },
 
-  onLoad() {
+   onShow() {
     this.showData();
   },
   showData: function () {

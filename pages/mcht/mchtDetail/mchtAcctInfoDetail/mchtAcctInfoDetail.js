@@ -6,7 +6,7 @@ Page({
   data: {
     setlType: '',
   },
-  onLoad() {
+  onShow() {
     this.showData();
   },
   showData: function() {
