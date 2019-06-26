@@ -111,28 +111,13 @@ function trim(str) {
 }
 
 function toKeepTwoDecimals(value) {
-  value = value.replace(/[^\d.]/g, "");//把非数字的都替换掉，只保留数字和.
-  value = value.replace(/^\./g, "");//保证第一个为数字，而不是.。
-  value = value.replace(/\.{2,}/g, ".");//保证只出现一个.
-  value = value.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");//保证.只出现一次
-  value = value.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3');//只能输入两个小数
-  var num = value.split(".");
-  if (num.length == 1) {
-  value = parseFloat(num[0]);
-    if (value == "") {
-      value = "0.00";
-    } else {
-      value = value + ".00";
-    }
-  } else if (num.length > 1) {
-    value = parseFloat(num[0]) + "." + num[1];
-    if (num[1].length == 0) {
-       value = value + "00";
-    } else if (num[1].length == 1) {
-      value = value + "0";
-    }
+  var result = (value * 100 / 100).toFixed(3);
+  if ("NaN" === result){
+    result = "0.00";
+    return result;
   }
-  return value;
+  result = result.substring(0, result.lastIndexOf('.') + 3);
+  return result;
 }
 
 function buttonClicked(self) {
