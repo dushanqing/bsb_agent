@@ -13,7 +13,6 @@ class HTTP {
     let body = JSON.stringify(data.body);
     
     //通过rsa加密aeskey
-    // console.log('aesKey' + aesKey);
     let rsaAesKey = rsaUtil.encryptByRsa(aesKey, rsaPubKey);
 
     //通过aes加密body
@@ -50,7 +49,6 @@ class HTTP {
 _request(url, resolve, reject, data = {}, method = 'GET', contentType = 'application/json') {
 
     var url = config.baseRestUrl + url;
-    // console.log(url);
     wx.request({
       
       url: url,
@@ -78,7 +76,6 @@ _request(url, resolve, reject, data = {}, method = 'GET', contentType = 'applica
           }else{
             //session 过期处理 按照首次登录处理
             if (resCode == 'REQ1015') {
-              // console.log("session过期")
               getApp().onLaunch();
               wx.redirectTo({
                 url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
@@ -95,7 +92,6 @@ _request(url, resolve, reject, data = {}, method = 'GET', contentType = 'applica
       },
 
       fail: function (err) {
-        // console.log(err);
         reject();
       },
 

@@ -26,7 +26,6 @@ function encrypt(_content, _key, _iv) {
         mode: CryptJS.mode.CBC,
         padding: CryptJS.pad.Pkcs7
     })
-    debugger
     return CryptJS.enc.Base64.stringify(encrypted.ciphertext);
 }
 
@@ -49,8 +48,6 @@ function decrypt(_content, _key, _iv) {
         mode: CryptJS.mode.CBC,
         padding: CryptJS.pad.Pkcs7
     })
-    debugger
-    // console.log(decrypted)
     return decrypted.toString(CryptJS.enc.Utf8);
 }
 
@@ -64,7 +61,6 @@ function encrypt_ecb(_content, _key) {
         mode: CryptJS.mode.ECB,
         padding: CryptJS.pad.Pkcs7
     })
-    // debugger
     return CryptJS.enc.Base64.stringify(encrypted.ciphertext);
 }
 
@@ -77,8 +73,7 @@ function decrypt_ecb(_content, _key) {
         mode: CryptJS.mode.ECB,
         padding: CryptJS.pad.Pkcs7
     })
-    // debugger
-    // console.log(decrypted)
+
     return decrypted.toString(CryptJS.enc.Utf8);
 }
 
@@ -104,7 +99,6 @@ function _getAesKey() {
     let uuid = UUID.v1();
     let aeskey = CryptJS.enc.Utf8.parse(uuid)
     aeskey = CryptJS.enc.Base64.stringify(aeskey).substring(2, 34)
-    // console.log(aeskey + "\n" + "长度：" + aeskey.length);
     return aeskey;
 }
 
@@ -116,7 +110,6 @@ function _getIv() {
     let uuid = UUID.v1();
     let iv = CryptJS.enc.Utf8.parse(uuid);
     iv = CryptJS.enc.Base64.stringify(iv).substring(2, 18);
-    // console.log(iv + "\n" + "长度：" + iv.length);
     return iv;
 }
 /**

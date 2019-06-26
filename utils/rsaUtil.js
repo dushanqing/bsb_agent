@@ -7,7 +7,6 @@ function encryptByRsa(text, publicKey) {
   encrypt.setPublicKey(publicKey);
   //分段加密
   var encrypted = encrypt.encrypt(text);
-  // console.log("encrypted:" + encrypted);
   return encrypted;
 }
 
@@ -18,7 +17,6 @@ function decryptByRsa(text, privateKey) {
   decrypt.setPrivateKey(privateKey);
   //分段解密
   var decrypted = decrypt.decryptLong(text);
-  // console.log("decrypt:" + decrypted);
   return decrypted;
 }
 
