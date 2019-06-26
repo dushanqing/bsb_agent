@@ -15,7 +15,7 @@ Page({
     modalHidden: true,
   },
 
-  onLoad() {
+  onShow() {
     mchtInfo = wx.getStorageSync("mchtInfo");
     this.showData();
   },

@@ -23,7 +23,7 @@ Page({
     bthDisabled:false,
   },
 
-  onLoad() {
+  onShow() {
     mchtInfo = wx.getStorageSync("mchtInfo");
     this.queryProductNameByUserId();
     this.showData();

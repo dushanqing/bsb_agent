@@ -290,35 +290,26 @@ Page({
   //经度
   blurLongitude: function(e) {
     var longitude = e.detail.value;
-    if (util.strIsNotEmpty(longitude)) {
-      // if (!reg.isLongitude.test(longitude)) {
-      //   util.showToast('经度坐标输入有误！(经度范围-180.000000 ~ 180.000000)');
-      //   this.setData({
-      //     longitudeFocus: true
-      //   })
-      //   return false;
-      // }
-      mchtInfo.longitude = longitude;
-      wx.setStorageSync("mchtInfo", mchtInfo);
-    }
+    var longitudeV = (longitude * 100 / 100).toFixed(7);
+    longitudeV = longitudeV.substring(0, longitudeV.lastIndexOf('.') + 7);
+    this.setData({
+      longitude: longitudeV
+    });
+    mchtInfo.longitude = longitude;
+    wx.setStorageSync("mchtInfo", mchtInfo);
   },
 
   //维度
   blurLatitude: function (e) {
     var latitude = e.detail.value;
-    if (util.strIsNotEmpty(latitude)) {
-      // if (!reg.isLatitude.test(latitude)) {
-      //   util.showToast('纬度坐标输入有误！(纬度范围-90.000000 ~ 90.000000)');
-      //   this.setData({
-      //     latitudeFocus: true
-      //   })
-      //   return false;
-      // }
+    var latitudeV = (latitude * 100 / 100).toFixed(7);
+    latitudeV = latitudeV.substring(0, latitudeV.lastIndexOf('.') + 7);
+    this.setData({
+      latitude: latitudeV
+    });
       mchtInfo.latitude = latitude;
       wx.setStorageSync("mchtInfo", mchtInfo);
-    }
   },
-
   
 
   // 跳转页面
@@ -582,12 +573,13 @@ Page({
       mchtInfo.isStore = isStore;
       if ("01" === isStore){
         var mchtMngNoValue = e.detail.value.mchtMngNo;
-        if ("0" === mchtMngNoValue||util.strIsEmpty(mchtMngNoValue)) {
+        if (util.strIsEmpty(this.data.mchtMngNo) ||util.strIsEmpty(mchtMngNoValue)) {
           util.showToast('请选择所属商户！');
           return false;
-        }
+        }else{
         var mchtMngNo = this.data.mchtMngNo[e.detail.value.mchtMngNo].mchtId;
         mchtInfo.mchtMngNo = mchtMngNo;
+        }
       }
     }
     if (util.strIsEmpty(wx.getStorageSync("mchtBigType")) || util.strIsEmpty(wx.getStorageSync("mchtBigType")[0].custNo)) {

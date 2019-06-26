@@ -1,7 +1,7 @@
 <view class="page">
     <view  class="weui-result" >
        <view  class="weui-img">
-         <image style="width: 300rpx;height:300rpx;" src="../../../../../images/u892.png"></image>
+         <image style="width: 300rpx;height:300rpx;" src="../../../../../images/mcht/chenggong_2.png"></image>
           </view>
            <view  class="weui-desc">进件申请已提交,请等待审核</view>
     </view>

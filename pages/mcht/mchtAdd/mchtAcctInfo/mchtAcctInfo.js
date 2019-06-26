@@ -68,7 +68,7 @@ Page({
     tempFilePaths: ''
   },
 
-  onLoad() {
+  onShow() {
     mchtInfo = wx.getStorageSync("mchtInfo");
     this.ctx = wx.createCameraContext();
     this.querySetlCycle();
