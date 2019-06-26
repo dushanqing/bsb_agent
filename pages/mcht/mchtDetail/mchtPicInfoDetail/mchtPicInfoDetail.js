@@ -108,19 +108,19 @@ Page({
     var dataset = e.target.dataset;
     var pageNum = dataset.text;
     if (pageNum === '1') {
-      wx.navigateTo({
+      wx.redirectTo({
         url: '../mchtBaseInfoDetail/mchtBaseInfoDetail',
       });
     } else if (pageNum === '2') {
-      wx.navigateTo({
+      wx.redirectTo({
         url: '../mchtAcctInfoDetail/mchtAcctInfoDetail',
       });
     } else if (pageNum === '3') {
-      wx.navigateTo({
+      wx.redirectTo({
         url: '../mchtPicInfoDetail/mchtPicInfoDetail',
       });
     } else if (pageNum === '4') {
-      wx.navigateTo({
+      wx.redirectTo({
         url: '../mchtProdListDetail/mchtProdListDetail',
       });
     } else {
