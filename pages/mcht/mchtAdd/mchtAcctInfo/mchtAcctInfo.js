@@ -67,6 +67,7 @@ Page({
     ocrSubFlag: false,
     btnDisabled: false,
   },
+  
 
   onLoad() {
     mchtInfo = wx.getStorageSync("mchtInfo");
@@ -708,6 +709,11 @@ Page({
             if (that.checkFiled(e)) {
               wx.navigateTo({
                 url: '../mchtPicInfo/mchtPicInfo',
+                success: function (res) {
+                  that.setData({
+                    btnDisabled: false
+                  })
+                }
               })
             }
           } else {
@@ -721,6 +727,11 @@ Page({
       } else {
         wx.navigateTo({
           url: '../mchtPicInfo/mchtPicInfo',
+          success: function (res){
+            that.setData({
+              btnDisabled: false
+            })
+          }
         })
       }
     } else {

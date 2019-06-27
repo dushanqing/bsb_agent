@@ -338,15 +338,20 @@ Page({
           }
         }
       }
-    } else if ("01" === mchtInfo.isXiaowei) {//小微商户
-      if (util.strIsEmpty(mchtInfo.sfzjMchtPicId)) {
-        util.showToast('请上传身份证件！');
-        return false;
+      if ("01" === mchtInfo.isXiaowei) { //小微商户
+        if (util.strIsEmpty(mchtInfo.sfzjMchtPicId)) {
+          util.showToast('请上传身份证件！');
+          return false;
+        }
       }
+      mchtInfo.threeToOne = threeToOne;
+      wx.setStorageSync("mchtInfo", mchtInfo);
+      return true;
+    } else {
+      return false;
     }
-    mchtInfo.threeToOne = threeToOne;
-    wx.setStorageSync("mchtInfo", mchtInfo);
-    return true;
+
+
   },
 
   // 电子信息页面 下一步
@@ -356,7 +361,6 @@ Page({
       btnDisabled: true
     })
     if (that.checkFiled(e)) {
-      console.log("---pic--");
       wx.redirectTo({
         url: '../mchtProdInfo/mchtProdInfo',
         success: function(res) {
