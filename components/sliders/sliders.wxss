@@ -34,7 +34,7 @@
   top: 0;
 }
 
-.operationBox image {
+.operationBox_image {
   width: 50%;
   height: 50%;
 }

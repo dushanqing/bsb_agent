@@ -3,7 +3,7 @@
   <view class='operationBgBox' style='left: {{ -(w) }}px; transform: {{ cssAnimation }}'>
     <text>{{ succeedMsg }}</text>
     <view class='operationBox' catchtouchmove='moveFun' catchtouchend='endFun'>
-      <image src='/components/images/line.png'></image>
+      <image class="operationBox_image" src='/components/images/line.png'></image>
     </view>
   </view>
 </view>
