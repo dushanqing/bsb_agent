@@ -322,7 +322,7 @@ Page({
 
 
   // 跳转页面
-  redirectTo(e) {
+  navigateTo(e) {
     const index = e.currentTarget.dataset.index;
     const path = e.currentTarget.dataset.path;
     wx.redirectTo({
