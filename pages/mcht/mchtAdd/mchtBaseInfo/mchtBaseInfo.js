@@ -723,7 +723,6 @@ Page({
     mchtInfo.longitude = longitude;
     mchtInfo.latitude = latitude;
     wx.setStorageSync("mchtInfo", mchtInfo);
-    //避免重复提交
     return true;
   },
 
@@ -743,7 +742,7 @@ Page({
         })
       } else {
         that.setData({
-          submitFlag: false
+          submitFlag: true
         })
       }
     }
