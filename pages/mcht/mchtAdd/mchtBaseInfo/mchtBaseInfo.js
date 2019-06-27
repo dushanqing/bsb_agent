@@ -540,7 +540,8 @@ Page({
         mchtNameFocus: true
       })
       return false;
-    } else {
+    }
+    if (util.strIsEmpty(mchtName)) {
       if (util.getLength(mchtName) > 200) {
         util.showToast('商户名称最大长度为66个汉字！');
         this.setData({
@@ -610,7 +611,8 @@ Page({
         mchtContAddrFocus: true
       })
       return false;
-    } else if (util.getLength(mchtContAddr) > 128) {
+    }
+    if (util.strIsNotEmpty(mchtContAddr) && util.getLength(mchtContAddr) > 128) {
       util.showToast('详细地址最大长度为42个汉字！');
       this.setData({
         mchtContAddrFocus: true
@@ -625,7 +627,8 @@ Page({
         mchtPersonNameFocus: true
       })
       return false;
-    } else {
+    }
+    if (util.strIsNotEmpty(mchtPersonName)) {
       if (util.getLength(mchtPersonName) > 32) {
         util.showToast('联系人最大长度为10个汉字！');
         this.setData({
@@ -642,7 +645,8 @@ Page({
         mchtPhoneFocus: true
       })
       return false;
-    } else {
+    }
+    if (util.strIsNotEmpty(mchtPhone)) {
       if (!reg.pattern.test(mchtPhone) && !reg.isPhone.test(mchtPhone)) {
         util.showToast('联系电话格式不正确！');
         this.setData({
@@ -659,7 +663,8 @@ Page({
         mchtEmailFocus: true
       })
       return false;
-    } else {
+    }
+    if (util.strIsNotEmpty(mchtEmail)) {
       if (!reg.isEmail.test(mchtEmail)) {
         util.showToast('邮箱格式不正确！');
         this.setData({
@@ -675,7 +680,8 @@ Page({
         longitudeFocus: true
       })
       return false;
-    } else {
+    }
+    if (util.strIsNotEmpty(longitude)) {
       if (!reg.isLongitude.test(longitude)) {
         util.showToast('经度坐标输入有误！(经度范围-180.000000 ~ 180.000000)');
         this.setData({
@@ -691,7 +697,9 @@ Page({
         latitudeFocus: true
       })
       return false;
-    } else {
+    }
+
+    if (util.strIsNotEmpty(latitude)) {
       if (!reg.isLatitude.test(latitude)) {
         util.showToast('纬度坐标输入有误！(纬度范围-90.000000 ~ 90.000000)');
         this.setData({

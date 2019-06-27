@@ -588,7 +588,8 @@ Page({
     if (util.strIsEmpty(setlAcctNo)) {
       util.showToast('请输入银行账号！');
       return false;
-    } else {
+    } 
+    if (util.strIsNotEmpty(setlAcctNo)) {
       if (!reg.isNumber.test(setlAcctNo)) {
         util.showToast('银行账号格式不正确！');
         return false;
@@ -602,7 +603,9 @@ Page({
         setlAcctNameFocus: true
       })
       return false;
-    } else {
+    }
+
+    if (util.strIsNotEmpty(setlAcctName)) {
       if (util.getLength(setlAcctName) > 128) {
         util.showToast('开户名称最大长度为42个汉字！');
         this.setData({
@@ -619,7 +622,9 @@ Page({
         setlCertNoFocus: true
       })
       return false;
-    } else {
+    }
+
+    if (util.strIsNotEmpty(setlCertNo)) {
       if (!reg.isSetlCertNo.test(setlCertNo)) {
         util.showToast('证件号码格式不正确！');
         this.setData({
@@ -639,18 +644,17 @@ Page({
           setlPhoneFocus: true
         })
         return false;
-      } else {
-        if (!reg.pattern.test(setlPhone)) {
-          util.showToast('手机号格式不正确！');
-          this.setData({
-            setlPhoneFocus: true
-          })
-          return false;
-        }
       }
-
     }
-
+    if (util.strIsNotEmpty(setlPhone)) {
+      if (!reg.pattern.test(setlPhone)) {
+        util.showToast('手机号格式不正确！');
+        this.setData({
+          setlPhoneFocus: true
+        })
+        return false;
+      }
+    }
     var startDate = util.trim(e.detail.value.startDate);
     var conTerm = util.trim(this.data.conTerm[e.detail.value.conTerm].conTermId);
     var setlCertType = this.data.setlCertType[e.detail.value.setlCertType].setlCertTypeId;
@@ -719,7 +723,7 @@ Page({
           url: '../mchtPicInfo/mchtPicInfo',
         })
       }
-    }else{
+    } else {
       that.setData({
         btnDisabled: false
       })
