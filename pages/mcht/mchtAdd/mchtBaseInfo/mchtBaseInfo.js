@@ -251,40 +251,42 @@ Page({
 
   //经度
   blurLongitude: function(e) {
-    var longitude = util.trim(e.detail.value);
-    if (util.strIsNotEmpty(longitude)) {
-      longitude = util.toKeepSixDecimals(longitude);
-      this.setData({
-        longitude: longitude
-      });
-      mchtInfo.longitude = longitude;
-      wx.setStorageSync("mchtInfo", mchtInfo);
-    } else{
-      this.setData({
-        longitude: ""
-      });
-      mchtInfo.longitude = longitude;
-      wx.setStorageSync("mchtInfo", mchtInfo);
-    }
+    mchtInfo.longitude = util.trim(e.detail.value);
+    wx.setStorageSync("mchtInfo", mchtInfo);
+    // if (util.strIsNotEmpty(longitude)) {
+    //   if (!reg.isLongitude.test(longitude)) {
+    //     util.showToast('经度坐标输入有误！(经度范围-180.000000 ~ 180.000000)');
+    //     return;
+    //   }
+    //   longitude = util.toKeepSixDecimals(longitude);
+    //   this.setData({
+    //     longitude: longitude
+    //   });
+    // } else{
+    //   this.setData({
+    //     longitude: ""
+    //   });
+    // }
   },
 
   //维度
   blurLatitude: function(e) {
-    var latitude = util.trim(e.detail.value);
-    if (util.strIsNotEmpty(latitude)) {
-      latitude = util.toKeepSixDecimals(latitude);
-    this.setData({
-      latitude: latitude
-    });
-    mchtInfo.latitude = latitude;
-    wx.setStorageSync("mchtInfo", mchtInfo);
-    }else{
-      this.setData({
-        latitude: ""
-      });
-      mchtInfo.latitude = latitude;
+      mchtInfo.latitude = util.trim(e.detail.value);
       wx.setStorageSync("mchtInfo", mchtInfo);
-    }
+    // if (util.strIsNotEmpty(latitude)) {
+    //   if (!reg.isLatitude.test(latitude)) {
+    //     util.showToast('纬度坐标输入有误！(纬度范围-90.000000 ~ 90.000000)');
+    //     return;
+    //   }
+    //   latitude = util.toKeepSixDecimals(latitude);
+    //   this.setData({
+    //     latitude: latitude
+    //   });
+    // }else{
+    //   this.setData({
+    //     latitude: ""
+    //   });
+    // }
   },
 
   bindArea(e) {
@@ -294,9 +296,14 @@ Page({
   },
 
   bindMchtBigType(e) {
-    var mchtLevId = this.data.mchtLev[mchtInfo.mchtLevIndex].mchtLevId;
+    var mchtLevId, storeId;
+    if (util.strIsNotEmpty(mchtInfo) && util.strIsNotEmpty(mchtInfo.mchtLevIndex)){
+      mchtLevId= this.data.mchtLev[mchtInfo.mchtLevIndex].mchtLevId;
+    }
     if ("01" === mchtLevId ){
-      var storeId  = this.data.stores[mchtInfo.storesIndex].storesId;
+      if (util.strIsNotEmpty(mchtInfo.storesIndex)) {
+       storeId  = this.data.stores[mchtInfo.storesIndex].storesId;
+      }
       if ("01" === storeId){
         return;
       }
@@ -744,6 +751,7 @@ Page({
         })
         return false;
       }
+      longitude = util.toKeepSixDecimals(longitude)
     }
     var latitude = util.trim(e.detail.value.latitude);
     if (util.strIsEmpty(latitude)) {
@@ -762,6 +770,7 @@ Page({
         })
         return false;
       }
+      latitude = util.toKeepSixDecimals(latitude)
     }
     mchtInfo.mchtName = mchtName;
     mchtInfo.mchtSimpleName = mchtSimpleName;
