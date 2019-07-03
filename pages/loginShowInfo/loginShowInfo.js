@@ -27,7 +27,6 @@ Page({
       method: 'POST'
     });
     info.then(res => {
-      console.log(res);
       if (res.resCode != 'S') {
         util.showToast('获取用户信息失败')
         return;
@@ -51,7 +50,6 @@ Page({
       method: 'POST'
     });
     resBody.then(res => {
-      console.log(res);
       if (res.resCode != 'S') {
         util.showToast('获取统计信息失败')
         return;
