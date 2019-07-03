@@ -109,7 +109,7 @@ function strIsEmpty(str) {
 function trim(str) { 
   return str.replace(/(^\s*)|(\s*$)/g, "");
 }
-
+/**保留两位有效数字 */
 function toKeepTwoDecimals(value) {
   var result = (value * 100 / 100).toFixed(3);
   if ("NaN" === result){
@@ -119,6 +119,15 @@ function toKeepTwoDecimals(value) {
   result = result.substring(0, result.lastIndexOf('.') + 3);
   return result;
 }
+/**保留六位有效数字 */
+function toKeepSixDecimals(value) {
+  value = value + "";
+  value = value.substring(0, value.indexOf(".") + 7);
+  value = (value * 100 / 100).toFixed(7);
+  value = value.substring(0, value.lastIndexOf('.') + 7);
+  return value;
+}
+
 
 function buttonClicked(self) {
   self.setData({
@@ -159,6 +168,7 @@ module.exports = {
   trim: trim,
   wxPromisify: wxPromisify,
   toKeepTwoDecimals: toKeepTwoDecimals,
+  toKeepSixDecimals:toKeepSixDecimals,
   formatStringyyyyMMddToyyyy_MM_dd: formatStringyyyyMMddToyyyy_MM_dd,
   formatTimeyyy_MM_dd: formatTimeyyy_MM_dd,
   buttonClicked: buttonClicked
