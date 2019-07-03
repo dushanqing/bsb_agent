@@ -26,12 +26,13 @@ Page({
     }, 
     {
       mchtStatId: "01",
-      mchtStatName: "冻结"
+      mchtStatName: "冻结",
+      picFlag:"/images/u917.png",
     },
     {
       mchtStatId: "02",
       mchtStatName: "注销",
-      picFlag: "/images/u917.png", 
+      picFlag: "/images/u917.png",
     },
     {
       mchtStatId: "03",
@@ -41,13 +42,13 @@ Page({
     {
       mchtStatId: "04",
       mchtStatName: "修改待审核",
-      picFlag: "/images/u936.png",  
+      picFlag: "/images/u936.png", 
 
     },
     {
       mchtStatId: "05",
       mchtStatName: "冻结待审核",
-      picFlag: "/images/u936.png",  
+      picFlag: "/images/u936.png", 
 
     },
     {
