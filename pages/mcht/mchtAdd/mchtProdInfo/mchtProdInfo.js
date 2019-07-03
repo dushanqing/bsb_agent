@@ -409,8 +409,9 @@ Page({
   },
   // 提交审核
   baseFormSubmit(e) {
-    this.setData({ btnDisabled: true })
-      if (this.checkFiled(e)) {
+    var that = this;
+    that.setData({ btnDisabled: true })
+    if (that.checkFiled(e)) {
         const resBody = http.request({
           url: 'saveMerchant.do',
           data: {
@@ -433,7 +434,7 @@ Page({
             });
           } else { //失败
             util.showToast(resMessage);
-            this.setData({ btnDisabled: false })
+            that.setData({ btnDisabled: false })
           }
         })
       } else {

@@ -76,7 +76,7 @@
         </view>
       </view>
       <!--行业类别 -->
-      <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{ mchtBigType }}" wx:key=""  wx:for-item="item" data-path="../detail/mchtBigType/mchtBigType" data-index="{{ index }}" bindtap="navigateTo">
+      <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{ mchtBigType }}" wx:key=""  wx:for-item="item" data-index="{{ index }}"  bindtap="bindMchtBigType">
         <view class="weui-label">行业类别</view>
         <view class="weui-cell__bd">
           <view>{{item.custName}}</view>
@@ -97,7 +97,7 @@
         </view>
       </view>
       <!-- 所属地区 -->
-      <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{ area }}" wx:key="" data-path="../detail/mchtArea/province/province" data-index="{{ index }}" bindtap="navigateTo">
+      <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{ area }}" wx:key=""  data-index="{{ index }}" bindtap="bindArea">
         <view class="weui-label">所属地区</view>
         <view class="weui-cell__bd">
           <view name>{{ item.proName }}{{ item.ctName }}{{ item.quName }}</view>
@@ -115,7 +115,7 @@
           <view class="weui-label">详细地址</view>
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" name="mchtContAddr"  value="{{mchtContAddr}}" maxlength="128" />
+          <input class="weui-input" name="mchtContAddr"  value="{{mchtContAddr}}" maxlength="128" bindblur='blurMchtContAddr' />
         </view>
         <view>
           <image id="mchtContAddr" src="/images/iconfont-addr.png" data-longitude="{{location.longitude}}" data-latitude="{{location.latitude}}" bindtap="openLocation" />
@@ -159,10 +159,10 @@
       </view>
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
-          <view class="weui-label">维度</view>
+          <view class="weui-label">纬度</view>
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" name="latitude" value="{{latitude}}"   maxlength="60" placeholder="请输入维度" bindblur="blurLatitude" focus="{{latitudeFocus}}" />
+          <input class="weui-input" name="latitude" value="{{latitude}}"   maxlength="60" placeholder="请输入纬度" bindblur="blurLatitude" focus="{{latitudeFocus}}" />
         </view>
       </view>
     </view>

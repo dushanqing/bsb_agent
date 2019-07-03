@@ -173,7 +173,6 @@ Page({
   },
 
   //获取结算周期
-  //
   querySetlCycle: function() {
     var that = this;
     const resBody = http.request({
@@ -296,7 +295,7 @@ Page({
    * 银行账号
    */
   blurSetlAcctNo: function(e) {
-    mchtInfo.setlAcctNo = e.detail.value;
+    mchtInfo.setlAcctNo = util.trim(e.detail.value);
     wx.setStorageSync("mchtInfo", mchtInfo);
   },
   /**
@@ -312,7 +311,7 @@ Page({
    * 账户证件号码
    */
   blurSetlCertNo: function(e) {
-    mchtInfo.setlCertNo = e.detail.value;
+    mchtInfo.setlCertNo = util.trim(e.detail.value);
     wx.setStorageSync("mchtInfo", mchtInfo);
   },
 
@@ -390,7 +389,7 @@ Page({
 
   // 开户名称
   blurSetlAcctName: function(e) {
-    var setlAcctName = e.detail.value;
+    var setlAcctName = util.trim(e.detail.value);
     if (util.strIsNotEmpty(setlAcctName)) {
       mchtInfo.setlAcctName = setlAcctName;
       wx.setStorageSync("mchtInfo", mchtInfo);
@@ -398,7 +397,7 @@ Page({
   },
   //手机号
   blurSetlPhone: function(e) {
-    var setlPhone = e.detail.value;
+    var setlPhone = util.trim(e.detail.value);
     if (util.strIsNotEmpty(setlPhone)) {
       mchtInfo.setlPhone = setlPhone;
       wx.setStorageSync("mchtInfo", mchtInfo);
@@ -476,7 +475,6 @@ Page({
     this.setData({
       ocrSubFlag: true,
     });
-    console.log("--------ocr-----------------");
     var ocrUrl = that.data.url;
     that.upload_file(ocrUrl);
     that.setData({
@@ -684,7 +682,6 @@ Page({
       btnDisabled: true
     })
     if (that.checkFiled(e)) {
-      console.log("----acct----------");
       if ("0" === mchtInfo.setlAcctType) {
         const resBody = http.request({
           url: 'checkBankAccount.do',
@@ -702,12 +699,12 @@ Page({
           method: 'POST'
         });
         resBody.then(res => {
-          const resCode = res.resCode;
-          const resMessage = res.resMessage;
+          const respCode = res.respCode;
+          const respMsg = res.respMsg;
           //成功
-          if ("0000" === resCode) {
+          if ("0000" === respCode) {
             if (that.checkFiled(e)) {
-              wx.navigateTo({
+              wx.redirectTo({
                 url: '../mchtPicInfo/mchtPicInfo',
                 success: function (res) {
                   that.setData({
@@ -715,17 +712,20 @@ Page({
                   })
                 }
               })
+            } else {
+              that.setData({
+                btnDisabled: false
+              })
             }
           } else {
             util.showToast(res.resMessage);
             that.setData({
               btnDisabled: false
             })
-            return false;
           }
         })
       } else {
-        wx.navigateTo({
+        wx.redirectTo({
           url: '../mchtPicInfo/mchtPicInfo',
           success: function (res){
             that.setData({

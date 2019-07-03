@@ -41,7 +41,6 @@ Page({
         return;
       }
       //成功
-      //如果所属商户为null,所属商户不可选
        cgList = res.cgList;
       that.setData({
         cgList: cgList

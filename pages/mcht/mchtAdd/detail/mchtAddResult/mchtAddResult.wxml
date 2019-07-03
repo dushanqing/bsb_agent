@@ -1,13 +1,13 @@
 <view class="page">
-    <view  class="weui-result" >
-       <view  class="weui-img">
-         <image style="width: 300rpx;height:300rpx;" src="../../../../../images/mcht/chenggong_2.png"></image>
-          </view>
-           <view  class="weui-desc">进件申请已提交,请等待审核</view>
+  <view class="weui-result">
+    <view class="weui-img">
+      <image style="width: 300rpx;height:300rpx;" src="../../../../../images/mcht/chenggong_2.png"></image>
     </view>
-   
-    <view class="weui-btn-area ">
-      <button id="step-btn" class="weui-btn" type="primary" bindtap="mchtPicNextStep">完成</button>
-    </view>
-      
- </view>
+    <view class="mcht_success font">进件申请已提交,请等待审核</view>
+  </view>
+
+  <view class="weui-btn-area ">
+    <button id="step-btn" class="weui-btn" type="primary" bindtap="mchtPicNextStep">完成</button>
+  </view>
+
+</view>

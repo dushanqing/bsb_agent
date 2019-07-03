@@ -1,3 +1,10 @@
+@import "../../../style/mcht.wxss";
+
+page{
+   background-color: #fff;
+}
+
+
 .weui-result{
   flex-direction: column;
   display: flex;
@@ -10,6 +17,11 @@
 
 #step-btn {
   background-color: #F4761A;
+}
+
+.mcht_success{
+  font-size: 32rpx;
+  
 }
 
 
