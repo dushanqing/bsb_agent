@@ -92,19 +92,19 @@ Page({
     mchtInfo = wx.getStorageSync("mchtInfo");
     if (util.strIsNotEmpty(mchtInfo)) {
       this.showData();
-    }else{
+    } else {
       mchtInfo = new Object();
     }
     this.autoLocation(options); //自动获取地理位置
     //获取所属商户
     this.queryMomMerchantName();
-    
+
     // 获取所属地区（省市区）
     this.queryCity();
   },
 
   // 回显数据
-  showData: function () {
+  showData: function() {
     this.mchtInfo = wx.getStorageSync("mchtInfo");
     if (util.strIsNotEmpty(mchtInfo)) {
       if (util.strIsNotEmpty(mchtInfo.mchtName)) {
@@ -181,7 +181,7 @@ Page({
           mchtContAddr: mchtInfo.mchtContAddr
         });
       }
-    
+
       if (util.strIsNotEmpty(mchtInfo.mchtPersonName)) {
         this.setData({
           mchtPersonName: mchtInfo.mchtPersonName
@@ -236,9 +236,9 @@ Page({
   //联系电话
   blurMchtPhone: function(e) {
     mchtInfo.mchtPhone = util.trim(e.detail.value);
-      wx.setStorageSync("mchtInfo", mchtInfo);
+    wx.setStorageSync("mchtInfo", mchtInfo);
   },
-  blurMchtContAddr:function(e){
+  blurMchtContAddr: function(e) {
     mchtInfo.mchtContAddr = util.trim(e.detail.value);
     wx.setStorageSync("mchtInfo", mchtInfo);
   },
@@ -271,8 +271,8 @@ Page({
 
   //维度
   blurLatitude: function(e) {
-      mchtInfo.latitude = util.trim(e.detail.value);
-      wx.setStorageSync("mchtInfo", mchtInfo);
+    mchtInfo.latitude = util.trim(e.detail.value);
+    wx.setStorageSync("mchtInfo", mchtInfo);
     // if (util.strIsNotEmpty(latitude)) {
     //   if (!reg.isLatitude.test(latitude)) {
     //     util.showToast('纬度坐标输入有误！(纬度范围-90.000000 ~ 90.000000)');
@@ -297,14 +297,14 @@ Page({
 
   bindMchtBigType(e) {
     var mchtLevId, storeId;
-    if (util.strIsNotEmpty(mchtInfo) && util.strIsNotEmpty(mchtInfo.mchtLevIndex)){
-      mchtLevId= this.data.mchtLev[mchtInfo.mchtLevIndex].mchtLevId;
+    if (util.strIsNotEmpty(mchtInfo) && util.strIsNotEmpty(mchtInfo.mchtLevIndex)) {
+      mchtLevId = this.data.mchtLev[mchtInfo.mchtLevIndex].mchtLevId;
     }
-    if ("01" === mchtLevId ){
+    if ("01" === mchtLevId) {
       if (util.strIsNotEmpty(mchtInfo.storesIndex)) {
-       storeId  = this.data.stores[mchtInfo.storesIndex].storesId;
+        storeId = this.data.stores[mchtInfo.storesIndex].storesId;
       }
-      if ("01" === storeId){
+      if ("01" === storeId) {
         return;
       }
     }
@@ -381,32 +381,32 @@ Page({
     this.setData({
       mchtMngNoIndex: e.detail.value,
     });
-   var mchtMngNo = this.data.mchtMngNo[e.detail.value].mchtId;
+    var mchtMngNo = this.data.mchtMngNo[e.detail.value].mchtId;
     console.log();
-      const resBody = http.request({
-        url: 'queryAgencyInfo.do',
-        data: {
-          body: {
-            mchtId: mchtMngNo
-          }
-        },
-        method: 'POST'
-      });
-      resBody.then(res => {
-        const resCode = res.resCode;
-        const resMessage = res.resMessage;
-        //失败
-        if ('S' != resCode) {
-          util.showToast(resMessage);
-          return;
+    const resBody = http.request({
+      url: 'queryAgencyInfo.do',
+      data: {
+        body: {
+          mchtId: mchtMngNo
         }
-        //成功
-        var arr = new Array();
-        arr.push(res.cgList[0]);
-        wx.setStorageSync('mchtBigType', arr);
-        this.onShow();
-      })
-    },
+      },
+      method: 'POST'
+    });
+    resBody.then(res => {
+      const resCode = res.resCode;
+      const resMessage = res.resMessage;
+      //失败
+      if ('S' != resCode) {
+        util.showToast(resMessage);
+        return;
+      }
+      //成功
+      var arr = new Array();
+      arr.push(res.cgList[0]);
+      wx.setStorageSync('mchtBigType', arr);
+      this.onShow();
+    })
+  },
 
   /**
    * 自动获取位置 yangjx 20190506
@@ -435,7 +435,7 @@ Page({
       qqmapsdk.reverseGeocoder({
         success: function(res) {
           var mchtContAddr, longitude, latitude;
-          if (util.strIsNotEmpty(mchtInfo)){
+          if (util.strIsNotEmpty(mchtInfo)) {
             if (util.strIsNotEmpty(mchtInfo.mchtContAddr)) {
               mchtContAddr = mchtInfo.mchtContAddr;
             } else {
@@ -453,19 +453,19 @@ Page({
               latitude = res.result.location.lat;
               latitude = util.toKeepSixDecimals(latitude);
             }
-          }else{
+          } else {
             mchtContAddr = res.result.address;
             longitude = res.result.location.lng;
             longitude = util.toKeepSixDecimals(longitude);
             latitude = res.result.location.lat;
             latitude = util.toKeepSixDecimals(latitude);
-          }    
+          }
           that.setData({
             mchtContAddr: mchtContAddr,
             longitude: longitude,
             latitude: latitude,
-          }); 
-         
+          });
+
         },
         fail: function(res) {},
         complete: function(res) {}
@@ -578,7 +578,7 @@ Page({
    *  系统码值：01-连锁商户， 02-普通商户
    */
   bindMchtLevChange: function(e) {
-   
+
     this.setData({
       mchtLevIndex: e.detail.value
     })

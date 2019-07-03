@@ -682,7 +682,6 @@ Page({
       btnDisabled: true
     })
     if (that.checkFiled(e)) {
-      if ("0" === mchtInfo.setlAcctType) {
         const resBody = http.request({
           url: 'checkBankAccount.do',
           data: {
@@ -701,9 +700,18 @@ Page({
         resBody.then(res => {
           const respCode = res.respCode;
           const respMsg = res.respMsg;
-          //成功
-          if ("0000" === respCode) {
-            if (that.checkFiled(e)) {
+          if ("1" === mchtInfo.setlAcctType && "1" === mchtInfo.userType ) {
+            wx.redirectTo({
+              url: '../mchtPicInfo/mchtPicInfo',
+              success: function (res) {
+                that.setData({
+                  btnDisabled: false
+                })
+              }
+            })
+          } else{
+            //成功
+            if ("0000" === respCode) {
               wx.redirectTo({
                 url: '../mchtPicInfo/mchtPicInfo',
                 success: function (res) {
@@ -713,27 +721,13 @@ Page({
                 }
               })
             } else {
+              util.showToast(res.resMessage);
               that.setData({
                 btnDisabled: false
               })
             }
-          } else {
-            util.showToast(res.resMessage);
-            that.setData({
-              btnDisabled: false
-            })
           }
         })
-      } else {
-        wx.redirectTo({
-          url: '../mchtPicInfo/mchtPicInfo',
-          success: function (res){
-            that.setData({
-              btnDisabled: false
-            })
-          }
-        })
-      }
     } else {
       that.setData({
         btnDisabled: false
