@@ -2,7 +2,7 @@ const app = getApp();
 var util = require("../../../../utils/util.js");
 import { HTTP } from '../../../../utils/http.js';
 const http = new HTTP();
-var areaArr = new Array();
+var areaArr;
 
 Page({
   bindCallMchtPhone: function(e) {
@@ -14,6 +14,7 @@ Page({
 
   onLoad(options) {
     this.selectRejectInfo(options);
+    areaArr = new Array();
   },
 
   selectRejectInfo: function(options) {

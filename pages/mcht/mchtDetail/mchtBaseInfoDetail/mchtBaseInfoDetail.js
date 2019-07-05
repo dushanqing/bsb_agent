@@ -2,12 +2,13 @@ const app = getApp();
 var util = require("../../../../utils/util.js");
 import { HTTP } from '../../../../utils/http.js';
 const http = new HTTP();
-var mchtDeatil = new Object();
+var mchtDeatil;
 var mchtBigType = "";
 Page({
   data: {
   },
   onLoad(options) {
+    mchtDeatil = new Object();
     this.showData(options);
   },
 
@@ -90,7 +91,7 @@ packData:function(res){
       mchtMngNoHidden = true;
     } else if ("01" === isStore) {
       isStore = "是";
-      mchtMngNo = mcht.mchtMngNo,
+      mchtMngNo = mcht.mchtMngName,
       storeHidden = false;
       mchtMngNoHidden = false;
     }
