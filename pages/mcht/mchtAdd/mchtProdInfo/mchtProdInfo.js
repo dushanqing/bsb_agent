@@ -21,12 +21,16 @@ Page({
     limitYear: "0.00",
     modalHidden: true,
     btnDisabled:false,
+    moveFlag:false,
   },
 
   onShow() {
     mchtInfo = wx.getStorageSync("mchtInfo");
     this.queryProductNameByUserId();
     this.showData();
+    this.setData({
+      moveFlag:false
+    })
   },
 
   showData: function() {
@@ -235,7 +239,8 @@ Page({
     }
     this.setData({
       checkboxItems: checkboxItems,
-      modalHidden: false
+      modalHidden: false,
+      moveFlag:true
     });
   },
 
@@ -260,6 +265,7 @@ Page({
   //取消
   modalCancel: function() {
     this.setData({
+      moveFlag:false,
       modalHidden: true
     });
   },
@@ -290,6 +296,7 @@ Page({
     wx.setStorageSync("mchtInfo", mchtInfo);
   }
   this.setData({
+      moveFlag:false,
       modalHidden: true
   });
   },

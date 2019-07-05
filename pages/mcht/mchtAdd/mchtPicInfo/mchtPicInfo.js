@@ -107,7 +107,6 @@ Page({
   },
 
   upload_file: function(imgFlag) {
-    console.log("---pic-img-----");
     var that = this;
     let sessionId = wx.getStorageSync('sessionId');
     var filePath = that.data.tempFilePaths;
@@ -161,6 +160,7 @@ Page({
         if ('swdj' == imgFlag) {
           if ('0000' == result.respCode) {
             that.setData({
+
               swdj: filePath,
               modalHidden: true
             });
@@ -220,7 +220,7 @@ Page({
     })
   },
 
-  chooseImage: function(imgFlag) {
+  chooseImage: function (imgFlag, imgTitle) {
     var that = this;
     wx.getSystemInfo({
       success: function(res) {
@@ -234,9 +234,9 @@ Page({
           itemList: itemList,
           success: function(res) {
             if (res.tapIndex == 0) {
-              that.chooseWxImage('album', imgFlag)
+              that.chooseWxImage('album', imgFlag, imgTitle);
             } else if (res.tapIndex == 1) {
-              that.chooseWxImage('camera', imgFlag)
+              that.chooseWxImage('camera', imgFlag, imgTitle);
             } else if (res.tapIndex == 2) {
               //取消操作
             }
@@ -246,7 +246,7 @@ Page({
     })
   },
 
-  chooseWxImage: function(type, imgFlag) {
+  chooseWxImage: function (type, imgFlag, imgTitle) {
     var that = this;
     wx.chooseImage({
       sizeType: ['original', 'compressed'],
@@ -258,6 +258,7 @@ Page({
           that.setData({
             modalHidden: false,
             imgFlag: imgFlag,
+            imgTitle: imgTitle,
             tempFilePaths: res.tempFilePaths[0],
           })
         } else {
@@ -268,19 +269,19 @@ Page({
   },
 
   bindYyzzImg: function() {
-    this.chooseImage("yyzz");
+    this.chooseImage("yyzz", "营业执照");
   },
   bindZzjgImg: function() {
-    this.chooseImage("zzjg");
+    this.chooseImage("zzjg", "组织结构代码证");
   },
   bindSwdjImg: function() {
-    this.chooseImage("swdj");
+    this.chooseImage("swdj", "税务登记证");
   },
   bindSfzjImg: function() {
-    this.chooseImage("sfzj");
+    this.chooseImage("sfzj", "身份证正/反面");
   },
   bindShxyImg: function() {
-    this.chooseImage("shxy");
+    this.chooseImage("shxy","商户协议");
   },
 
   /**

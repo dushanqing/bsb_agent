@@ -1,6 +1,6 @@
 <include src="../../common/step-nav.wxml" />
   <form bindsubmit="baseFormSubmit">
-<view class="page__bd">
+<view class="page__bd" catchtouchmove="{{moveFlag}}">
   <view class="weui-cells weui-cells_after-title">
     <view class="weui-cell weui-cell_input" bindtap="bindCheckProd">
       <view class="weui-cell__hd_prod">
@@ -107,8 +107,8 @@
   <show-modal title="可用产品(复选)" hidden="{{modalHidden}}" bindconfirm="modalConfirm" bindcancel="modalCancel" confirmText="确认">
     <view class="weui-cells weui-cells_after-title">
     </view>
-    <checkbox-group bindchange="checkboxChange" name="prodId">
       <scroll-view scroll-y style="height: 700rpx;">
+    <checkbox-group bindchange="checkboxChange" name="prodId">
         <label class="weui-cell weui-check__label" wx:for="{{checkboxItems}}" wx:key="prodId">
           <checkbox class="weui-check" value="{{item.prodId}}"  checked="{{item.prodChecked}}" />
           <view class="weui-cell__hd weui-check__hd_in-checkbox">
@@ -117,8 +117,8 @@
           </view>
           <view class="weui-cell__bd" style="color:black">{{item.productName}}</view>
         </label>
-      </scroll-view>
     </checkbox-group>
+      </scroll-view>
   </show-modal>
   <view class="weui-btn-area">
     <button class="weui-btn" id="step-btn" type="primary" disabled='{{btnDisabled}}' form-type="submit">提交审核</button>
