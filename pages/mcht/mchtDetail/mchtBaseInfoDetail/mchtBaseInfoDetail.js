@@ -3,7 +3,6 @@ var util = require("../../../../utils/util.js");
 import { HTTP } from '../../../../utils/http.js';
 const http = new HTTP();
 var mchtDeatil;
-var mchtBigType = "";
 Page({
   data: {
   },
@@ -180,7 +179,6 @@ packData:function(res){
       if (cgList.length > 0) {
         cgList.forEach(function (item, index) {
           if (mchtBigType === item.custNo) {
-            mchtBigType = item.custName;
             that.setData({
               mchtBigType: item.custName
             })

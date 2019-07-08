@@ -2,8 +2,6 @@ const app = getApp();
 var util = require("../../../../utils/util.js");
 import { HTTP } from '../../../../utils/http.js';
 const http = new HTTP();
-var areaArr;
-
 Page({
   bindCallMchtPhone: function(e) {
     const path = e.currentTarget.dataset.path
@@ -14,7 +12,6 @@ Page({
 
   onLoad(options) {
     this.selectRejectInfo(options);
-    areaArr = new Array();
   },
 
   selectRejectInfo: function(options) {
