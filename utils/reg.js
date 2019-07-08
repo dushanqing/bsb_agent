@@ -26,7 +26,8 @@ var isSetlAcctInstitute = /^[0-9]{12}$/;//联行号最长为12位
 var isSetlCertNo = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;//证件号码18位
 var isNumber = /^[0-9]*$/ //验证数字
 var isLongitude = /^(\-|\+)?(((\d|[1-9]\d|1[0-7]\d|0{1,3})\.\d{0,6})|(\d|[1-9]\d|1[0-7]\d|0{1,3})|180\.0{1,6}|180)$/;
-var isLatitude = /^(\-|\+)?([1-8]?\d{1}\.\d{0,6}|90\.0{1,6}|[1-8]?\d{1}|90)$/
+var isLatitude = /^(\-|\+)?([1-8]?\d{1}\.\d{0,6}|90\.0{1,6}|[1-8]?\d{1}|90)$/;
+var isChEngNum =/[`'<>&\(\)/\\\+;%\|\$\*\^]+/;
 
 module.exports = {
   isLicnNo: isLicnNo,
@@ -48,5 +49,6 @@ module.exports = {
   isSetlCertNo: isSetlCertNo,
   isNumber: isNumber,
   isLongitude: isLongitude,
-  isLatitude: isLatitude
+  isLatitude: isLatitude,
+  isChEngNum: isChEngNum
 }
