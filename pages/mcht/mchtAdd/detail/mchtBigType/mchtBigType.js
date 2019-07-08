@@ -2,7 +2,6 @@ const app = getApp();
 import { HTTP } from '../../../../../utils/http.js';
 const http = new HTTP();
 var util = require("../../../../../utils/util.js");
-var cgList;
 Page({
   data: {
     cgList: [],
@@ -13,14 +12,8 @@ Page({
 
   showData: function(){
     var that = this;
-    if (util.strIsEmpty(cgList)) {
-      //获取行业类别
-      this.queryAgencyInfo();
-    } else {
-      that.setData({
-        cgList: cgList
-      });
-    }
+    //获取行业类别
+    this.queryAgencyInfo();
   },
   queryAgencyInfo: function () {
     var that = this;
@@ -41,7 +34,7 @@ Page({
         return;
       }
       //成功
-       cgList = res.cgList;
+       let cgList = res.cgList;
       that.setData({
         cgList: cgList
       });

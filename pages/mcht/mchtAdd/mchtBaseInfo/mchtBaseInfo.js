@@ -47,6 +47,10 @@ Page({
       storesName: "是"
     }],
     storesHidden: true,
+    mchtMngNo: [{
+      mchtId: "",
+      mchtName: ""
+    }],
 
     //所属地区
     area: [{
@@ -84,7 +88,9 @@ Page({
     })
     //获取行业类别
     this.queryAgencyInfo();
+    this.queryMomMerchantName();
   },
+
 
   onLoad: function(options) {
     mchtInfo = wx.getStorageSync("mchtInfo");
@@ -94,9 +100,6 @@ Page({
       mchtInfo = new Object();
     }
     this.autoLocation(options); //自动获取地理位置
-    //获取所属商户
-    this.queryMomMerchantName();
-
     // 获取所属地区（省市区）
     this.queryCity();
   },
@@ -311,6 +314,15 @@ Page({
     });
   },
 
+  //所属商户
+  bindMchtMngNo(e) {
+    wx.redirectTo({
+      url: '../detail/mchtMngNo/mchtMngNo'
+    });
+  },
+
+
+
   //是否小微商户  yangjx  20190510
   bindXiaoweiChange: function(e) {
     mchtInfo.xiaoweiIndex = e.detail.value;
@@ -343,68 +355,25 @@ Page({
 
   //获取所属商户
   queryMomMerchantName: function() {
-    var that = this;
-    const resBody = http.request({
-      url: 'queryMomMerchantName.do',
-      data: {
-        body: {}
-      },
-      method: 'POST'
-    });
-    resBody.then(res => {
-      const resCode = res.resCode;
-      const resMessage = res.resMessage;
-      //session 过期处理 按照首次登录处理
-      //失败
-      if (resCode != 'S') {
-        util.showToast(resMessage);
-        return;
+    let that = this;
+    let mchtMngNo = wx.getStorageSync('mchtMngNo');
+    let mchtLevId, storeId;
+    if (util.strIsNotEmpty(mchtMngNo) && util.strIsNotEmpty(mchtInfo) && util.strIsNotEmpty(mchtInfo.mchtLevIndex)) {
+      mchtLevId = this.data.mchtLev[mchtInfo.mchtLevIndex].mchtLevId;
+    }
+    if ("01" === mchtLevId) {
+      if (util.strIsNotEmpty(mchtInfo.storesIndex)) {
+        storeId = this.data.stores[mchtInfo.storesIndex].storesId;
       }
-      //成功
-     let mchtMngNoList = res.empList;
-      //如果所属商户为null,所属商户不可选
-      that.setData({
-        mchtMngNo: mchtMngNoList
-      });
-    })
+      if ("01" === storeId) {
+        that.setData({
+          mchtMngNo: mchtMngNo
+        })
+      }
+    }
   },
 
-  /**
-   *  所属商户
-   */
-  bindMchtMngNoChange: function(e) {
-    var value = e.detail.value;
-    mchtInfo.mchtMngNoIndex = e.detail.value;
-    wx.setStorageSync("mchtInfo", mchtInfo);
-    this.setData({
-      mchtMngNoIndex: e.detail.value,
-    });
-    var mchtMngNo = this.data.mchtMngNo[e.detail.value].mchtId;
-    console.log();
-    const resBody = http.request({
-      url: 'queryAgencyInfo.do',
-      data: {
-        body: {
-          mchtId: mchtMngNo
-        }
-      },
-      method: 'POST'
-    });
-    resBody.then(res => {
-      const resCode = res.resCode;
-      const resMessage = res.resMessage;
-      //失败
-      if ('S' != resCode) {
-        util.showToast(resMessage);
-        return;
-      }
-      //成功
-      var arr = new Array();
-      arr.push(res.cgList[0]);
-      wx.setStorageSync('mchtBigType', arr);
-      this.onShow();
-    })
-  },
+
 
   /**
    * 自动获取位置 yangjx 20190506
@@ -500,20 +469,22 @@ Page({
       this.setData({
         mchtMngNoHidden: false,
         mchtMngNo: this.data.mchtMngNo,
-        mchtMngNoIndex: "",
       })
     }
     if ("02" === this.data.stores[e.detail.value].storesId) {
       this.setData({
         mchtMngNoHidden: true,
-        mchtMngNo: "",
-        mchtMngNoIndex: "",
+        mchtMngNo: [{
+          mchtId: "",
+          mchtName: ""
+        }],
         mchtBigType: [{
           custName: "",
           custNo: ""
         }],
       })
-      wx.setStorageSync("mchtBigType", this.data.mchtBigType)
+      wx.setStorageSync("mchtMngNo", this.data.mchtMngNo);
+      wx.setStorageSync("mchtBigType", this.data.mchtBigType);
     }
     mchtInfo.storesIndex = e.detail.value;
     wx.setStorageSync("mchtInfo", mchtInfo);
@@ -537,8 +508,10 @@ Page({
         stores: "",
         storesIndex: "",
         mchtMngNoHidden: true,
-        mchtMngNo: "",
-        mchtMngNoIndex: "",
+        mchtMngNo: [{
+          mchtId: "",
+          mchtName: ""
+        }],
         mchtBigType: [{
           custName: "",
           custNo: ""
@@ -558,15 +531,18 @@ Page({
         storesHidden: false,
         storesIndex: 0,
         mchtMngNoHidden: true,
-        mchtMngNo: "",
-        mchtMngNoIndex: "",
+        mchtMngNo: [{
+          mchtId: "",
+          mchtName: ""
+        }],
         mchtBigType: [{
           custName: "",
           custNo: ""
         }],
       })
     }
-    wx.setStorageSync("mchtBigType", this.data.mchtBigType)
+    wx.setStorageSync("mchtMngNo", this.data.mchtMngNo);
+    wx.setStorageSync("mchtBigType", this.data.mchtBigType);
     mchtInfo.mchtLevIndex = e.detail.value;
     wx.setStorageSync("mchtInfo", mchtInfo);
   },
@@ -596,12 +572,12 @@ Page({
       })
       return false;
     }
-    if (reg.isChEngNum.test(mchtName)){
+    if (reg.isChEngNum.test(mchtName)) {
       util.showToast('商户名称格式不正确！');
       return false;
     }
 
-    if (util.strIsEmpty(mchtName)) {
+    if (util.strIsNotEmpty(mchtName)) {
       if (util.getLength(mchtName) > 200) {
         util.showToast('商户名称最大长度为66个汉字！');
         this.setData({
@@ -646,20 +622,15 @@ Page({
       var isStore = this.data.stores[e.detail.value.stores].storesId;
       mchtInfo.isStore = isStore;
       if ("01" === isStore) {
-        var mchtMngNoValue = e.detail.value.mchtMngNo;
-        if (util.strIsEmpty(this.data.mchtMngNo) || util.strIsEmpty(mchtMngNoValue)) {
+        if (util.strIsEmpty(this.data.mchtMngNo) || util.strIsEmpty(this.data.mchtMngNo[0].mchtId)) {
           util.showToast('请选择所属商户！');
           return false;
         } else {
-          var mchtMngNo = this.data.mchtMngNo[e.detail.value.mchtMngNo].mchtId;
+          var mchtMngNo = this.data.mchtMngNo[0].mchtId;
           mchtInfo.mchtMngNo = mchtMngNo;
         }
       }
     }
-    // if (util.strIsEmpty(wx.getStorageSync("mchtBigType")) || util.strIsEmpty(wx.getStorageSync("mchtBigType")[0].custNo)) {
-    //   util.showToast('请选择行业类别！');
-    //   return false;
-    // }
 
     if (util.strIsEmpty(this.data.mchtBigType) || util.strIsEmpty(this.data.mchtBigType[0].custNo)) {
       util.showToast('请选择行业类别！');

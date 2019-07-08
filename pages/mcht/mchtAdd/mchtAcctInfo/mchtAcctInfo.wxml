@@ -52,8 +52,7 @@
           <view class="weui-label">开户网点</view>
         </view>
         <view class="weui-cell__bd__l">
-          <!-- <input class="weui-input" name="lianhangwangdian" value="{{lianhangwangdian}}" disabled="true" /> -->
-        <text class="weui-text" name="lianhangwangdian">{{lianhangwangdian}}</text>
+         <view  name="lianhangwangdian">{{lianhangwangdian}}</view> 
         </view>
       </view>
       <!-- 账户类型 -->

@@ -1,0 +1,12 @@
+<!-- 所属商户 -->
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-cells weui-cells_after-title">
+      <block wx:for="{{mchtMngNo}}" wx:key="" wx:for-item="item" >
+          <view class="weui-cell weui-cell_access" bindtap='bindMchtMngNo' id="{{item.mchtId}}" data-text="{{item.mchtName}}">
+            <view class="weui-cell__bd__d" >{{item.mchtName}}</view>
+          </view>
+      </block>
+    </view>
+  </view>
+</view>

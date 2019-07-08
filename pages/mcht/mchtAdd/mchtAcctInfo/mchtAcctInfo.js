@@ -103,6 +103,7 @@ Page({
           this.setData({
             setlAcctInstituteHidden: true
           });
+
         }
       }
       if (util.strIsNotEmpty(mchtInfo.setlAcctInstitute)) {
@@ -338,6 +339,7 @@ Page({
     if ("0" === setlAcctTypeId) {
       mchtInfo.setlAcctInstitute = "";
       mchtInfo.lianhangwangdian = "";
+      wx.setStorageSync("mchtInfo", mchtInfo);
       this.setData({
         setlAcctInstituteHidden: true,
         setlAcctInstitute: "",
@@ -705,16 +707,6 @@ Page({
         resBody.then(res => {
           const respCode = res.respCode;
           const respMsg = res.respMsg;
-          if ("1" === mchtInfo.setlAcctType && "1" === mchtInfo.userType ) {
-            wx.redirectTo({
-              url: '../mchtPicInfo/mchtPicInfo',
-              success: function (res) {
-                that.setData({
-                  btnDisabled: false
-                })
-              }
-            })
-          } else{
             //成功
             if ("0000" === respCode) {
               wx.redirectTo({
@@ -731,7 +723,6 @@ Page({
                 btnDisabled: false
               })
             }
-          }
         })
     } else {
       that.setData({
