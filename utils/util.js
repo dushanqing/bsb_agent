@@ -106,8 +106,12 @@ function strIsEmpty(str) {
 }
 
 //删除左右两端的空格
-function trim(str) { 
-  return str.replace(/(^\s*)|(\s*$)/g, "");
+function trim(str) {
+  if (this.strIsNotEmpty(str)){
+    return str.replace(/(^\s*)|(\s*$)/g, "");
+  }else {
+    return str;
+  }
 }
 /**保留两位有效数字 */
 function toKeepTwoDecimals(value) {
