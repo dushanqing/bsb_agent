@@ -25,7 +25,7 @@ App({
             "Content-Type": "application/json"
           },
           method: "POST",
-          url: 'https://ydsd.bsb.com.cn/ifsp-gateway/agent/exchangeOpenIdBycode.do',
+          url: 'https://test1.bsb.com.cn/ifsp-gateway/agent/exchangeOpenIdBycode.do',
           data:{
             head:{
             },
