@@ -9,9 +9,7 @@ const http = new HTTP();
 var QQMapWX = require("../../../../utils/qqmap-wx-jssdk.min.js");
 let keys = "SGXBZ-6X3K6-NYLSF-MALZD-QC6PK-BABOS";
 var qqmapsdk;
-var mchtMngNoList;
 var mchtInfo;
-
 Page({
   data: {
     mchtName: "",
@@ -363,7 +361,7 @@ Page({
         return;
       }
       //成功
-      mchtMngNoList = res.empList;
+     let mchtMngNoList = res.empList;
       //如果所属商户为null,所属商户不可选
       that.setData({
         mchtMngNo: mchtMngNoList
@@ -497,11 +495,11 @@ Page({
 
   //根据是否门店显示所属商户
   stores_onSelect: function(e) {
-
+    console.log("this.data.mchtMngNo:" + this.data.mchtMngNo);
     if ("01" === this.data.stores[e.detail.value].storesId) {
       this.setData({
         mchtMngNoHidden: false,
-        mchtMngNo: mchtMngNoList,
+        mchtMngNo: this.data.mchtMngNo,
         mchtMngNoIndex: "",
       })
     }
@@ -598,6 +596,11 @@ Page({
       })
       return false;
     }
+    if (reg.isChEngNum.test(mchtName)){
+      util.showToast('商户名称格式不正确！');
+      return false;
+    }
+
     if (util.strIsEmpty(mchtName)) {
       if (util.getLength(mchtName) > 200) {
         util.showToast('商户名称最大长度为66个汉字！');
@@ -614,6 +617,10 @@ Page({
       this.setData({
         mchtSimpleNameFocus: true
       })
+      return false;
+    }
+    if (reg.isChEngNum.test(mchtSimpleName)) {
+      util.showToast('商户简称格式不正确！');
       return false;
     }
 
@@ -674,6 +681,10 @@ Page({
       })
       return false;
     }
+    if (reg.isChEngNum.test(mchtContAddr)) {
+      util.showToast('详细地址格式不正确！');
+      return false;
+    }
     if (util.strIsNotEmpty(mchtContAddr) && util.getLength(mchtContAddr) > 128) {
       util.showToast('详细地址最大长度为42个汉字！');
       this.setData({
@@ -688,6 +699,10 @@ Page({
       this.setData({
         mchtPersonNameFocus: true
       })
+      return false;
+    }
+    if (reg.isChEngNum.test(mchtPersonName)) {
+      util.showToast('联系人格式不正确！');
       return false;
     }
     if (util.strIsNotEmpty(mchtPersonName)) {
@@ -709,8 +724,8 @@ Page({
       return false;
     }
     if (util.strIsNotEmpty(mchtPhone)) {
-      if (!reg.pattern.test(mchtPhone) && !reg.isPhone.test(mchtPhone)) {
-        util.showToast('联系电话格式不正确！');
+      if (!reg.pattern.test(mchtPhone)) {
+        util.showToast('联系人手机号格式不正确！');
         this.setData({
           mchtPhoneFocus: true
         })

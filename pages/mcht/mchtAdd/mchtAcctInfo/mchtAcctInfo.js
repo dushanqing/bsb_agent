@@ -8,7 +8,7 @@ import {
   HTTP
 } from '../../../../utils/http.js';
 let http = new HTTP();
-var mchtInfo = wx.getStorageSync("mchtInfo");
+var mchtInfo;
 Page({
   data: {
     modalHidden: true,
@@ -574,7 +574,7 @@ Page({
       })
       return false;
     }
-    var lianhangwangdian = util.trim(e.detail.value.lianhangwangdian);
+    var lianhangwangdian = util.trim(this.data.lianhangwangdian);
     if ("1" === setlAcctType && util.strIsEmpty(lianhangwangdian)) {
       util.showToast('请输入正确的联行号！');
       this.setData({
@@ -601,6 +601,11 @@ Page({
       this.setData({
         setlAcctNameFocus: true
       })
+      return false;
+    }
+
+    if (reg.isChEngNum.test(setlAcctName)) {
+      util.showToast('开户名称格式不正确！');
       return false;
     }
 

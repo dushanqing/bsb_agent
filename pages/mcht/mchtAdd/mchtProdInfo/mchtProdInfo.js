@@ -5,7 +5,6 @@ import {
 } from '../../../../utils/http.js';
 let http = new HTTP();
 var mchtInfo;
-var saveFlag = true;
 Page({
   data: {
     checkboxItems: [],

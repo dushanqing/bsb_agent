@@ -3,8 +3,7 @@ var util = require("../../../../utils/util.js");
 import {
   config
 } from '../../../../config.js';
-var mchtInfo = wx.getStorageSync("mchtInfo"),
-  yyzz, zzjg, swdj, sfzj, shxy;
+var mchtInfo;
 Page({
   data: {
     threeToOne: [{
@@ -133,7 +132,6 @@ Page({
             mchtInfo.yyzzMchtPicId = fileList[0].downloadUrlCode;
             mchtInfo.yyzz = filePath;
             wx.setStorageSync("mchtInfo", mchtInfo);
-            wx.setStorageSync("yyzz", yyzz);
           } else {
             util.showToast(result.respMsg);
             that.setData({

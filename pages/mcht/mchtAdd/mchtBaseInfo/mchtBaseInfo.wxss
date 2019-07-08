@@ -19,3 +19,23 @@
   display: flex;
   align-items: center;
 }
+
+.weui-cell__bd__l {
+
+  font-family: 'Arial Normal', 'Arial';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 28rpx;
+
+  min-height: 2.58823529em;
+  /* line-height: 2.58823529em;
+  text-align: right;
+  margin-right: 5%;
+  font-size: 28rpx;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1; */
+}
+
+
+
