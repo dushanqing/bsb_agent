@@ -21,19 +21,25 @@ Page({
       method: 'POST'
     });
     resBody.then(res => {
-      const resCode = res.resCode;
-      const resMessage = res.resMessage;
+      const respCode = res.respCode;
+      const resMessage = res.respMsg;
       //失败
-      if (resCode != 'S') {
+      if (respCode != "0000") {
         util.showToast(resMessage);
         return;
       }
       //成功
       let mchtMngNoList = res.empList;
-      //如果所属商户为null,所属商户不可选
-      that.setData({
-        mchtMngNo: mchtMngNoList
-      });
+      if (util.strIsEmpty(mchtMngNoList)){
+        util.showToast("您还没有可选商户！");
+        return;
+      }else{
+        //如果所属商户为null,所属商户不可选
+        that.setData({
+          mchtMngNo: mchtMngNoList
+        });
+      }
+   
     })
   },
 
