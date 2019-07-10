@@ -606,7 +606,7 @@ Page({
       return false;
     }
 
-    if (reg.isChEngNum.test(setlAcctName)) {
+    if (!reg.isChEngNum.test(setlAcctName)) {
       util.showToast('开户名称格式不正确！');
       return false;
     }

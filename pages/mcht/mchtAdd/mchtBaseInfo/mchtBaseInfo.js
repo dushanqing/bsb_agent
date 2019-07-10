@@ -234,7 +234,7 @@ Page({
     wx.setStorageSync("mchtInfo", mchtInfo);
   },
 
-  //联系电话
+  //联系人手机号
   blurMchtPhone: function(e) {
     mchtInfo.mchtPhone = util.trim(e.detail.value);
     wx.setStorageSync("mchtInfo", mchtInfo);
@@ -572,7 +572,7 @@ Page({
       })
       return false;
     }
-    if (reg.isChEngNum.test(mchtName)) {
+    if (!reg.isChEngNum.test(mchtName)) {
       util.showToast('商户名称格式不正确！');
       return false;
     }
@@ -595,7 +595,7 @@ Page({
       })
       return false;
     }
-    if (reg.isChEngNum.test(mchtSimpleName)) {
+    if (!reg.isChEngNum.test(mchtSimpleName)) {
       util.showToast('商户简称格式不正确！');
       return false;
     }
@@ -652,7 +652,7 @@ Page({
       })
       return false;
     }
-    if (reg.isChEngNum.test(mchtContAddr)) {
+    if (!reg.isChEngNum.test(mchtContAddr)) {
       util.showToast('详细地址格式不正确！');
       return false;
     }
@@ -672,7 +672,7 @@ Page({
       })
       return false;
     }
-    if (reg.isChEngNum.test(mchtPersonName)) {
+    if (!reg.isChEngNum.test(mchtPersonName)) {
       util.showToast('联系人格式不正确！');
       return false;
     }
@@ -688,7 +688,7 @@ Page({
 
     var mchtPhone = util.trim(e.detail.value.mchtPhone);
     if (util.strIsEmpty(mchtPhone)) {
-      util.showToast('请输入联系电话！');
+      util.showToast('请输入联系人手机号！');
       this.setData({
         mchtPhoneFocus: true
       })
