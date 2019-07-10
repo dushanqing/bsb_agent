@@ -8,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    btnDisabled: false,
 
   },
 
@@ -115,9 +116,47 @@ Page({
 
   },
   bindMchtAdd: function(){
-    wx.navigateTo({
-      url: '../mcht/mchtAdd/mchtBaseInfo/mchtBaseInfo',
+    var that = this;
+    that.setData({
+      btnDisabled: true
     });
+    const resBody = http.request({
+      url: 'processMutex.do',
+      data: {
+        body: {
+          auditProcType: "00"
+        }
+      },
+      method: 'POST'
+    });
+    resBody.then(res => {
+      const respCode = res.respCode;
+      const respMsg = res.respMsg;
+      //成功
+      if ("0000" === respCode) {
+        wx.navigateTo({
+          url: '../mcht/mchtAdd/mchtBaseInfo/mchtBaseInfo',
+          success: function (res) {
+            that.setData({
+              btnDisabled: false
+            })
+          }
+        })
+      } else {
+        util.showToast(res.resMessage);
+        that.setData({
+          btnDisabled: false
+        })
+      }
+    })
+
+
+
+
+
+
+
+   
   },
 
   bindMchtList: function () {
