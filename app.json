@@ -27,6 +27,7 @@
     "pages/mcht/mchtAdd/detail/mchtArea/province/province",
     "pages/mcht/mchtAdd/detail/mchtArea/area/area",
     "pages/mcht/mchtAdd/detail/mchtBigType/mchtBigType",
+    "pages/mcht/mchtAdd/detail/mchtMngNo/mchtMngNo",
     "pages/mcht/mchtAdd/detail/mchtAddResult/mchtAddResult",
     "pages/logs/logs",
     "pages/more/more"
