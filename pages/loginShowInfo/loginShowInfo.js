@@ -143,7 +143,7 @@ Page({
           }
         })
       } else {
-        util.showToast(res.resMessage);
+        util.showToast(res.respMsg);
         that.setData({
           btnDisabled: false
         })
