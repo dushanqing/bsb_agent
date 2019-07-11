@@ -316,9 +316,37 @@ Page({
 
   //所属商户
   bindMchtMngNo(e) {
-    wx.redirectTo({
-      url: '../detail/mchtMngNo/mchtMngNo'
+    var that = this;
+    const resBody = http.request({
+      url: 'queryMomMerchantName.do',
+      data: {
+        body: {}
+      },
+      method: 'POST'
     });
+    resBody.then(res => {
+      const respCode = res.respCode;
+      const respMsg = res.respMsg;
+      //失败
+      if ("E" === res.resCode) {
+        util.showToast(res.resMessage);
+        return;
+      }
+      if (respCode != "0000") {
+        util.showToast(respMsg);
+        return;
+      }
+      //成功
+      let mchtMngNoList = res.empList;
+      if (util.strIsNotEmpty(mchtMngNoList)) {
+        wx.navigateTo({
+          url: '../detail/mchtMngNo/mchtMngNo?mchtMngNoList=' + mchtMngNoList
+        });
+      } else {
+        util.showToast("您还没有可选商户！");
+        return;
+      }
+    })
   },
 
 

@@ -130,11 +130,15 @@ Page({
       method: 'POST'
     });
     resBody.then(res => {
-      const resCode = res.resCode;
-      const resMessage = res.resMessage;
+      const respCode = res.respCode;
+      const respMsg = res.respMsg;
       //失败
-      if (resCode != 'S') {
-        util.showToast(resMessage);
+      if ("E" === res.resCode) {
+        util.showToast(res.resMessage);
+        return;
+      }
+      if (respCode != '0000') {
+        util.showToast(respMsg);
         return;
       }
       //成功

@@ -25,12 +25,16 @@ Page({
       method: 'POST'
     });
     resBody.then(res => {
-      const resCode = res.resCode;
-      const resMessage = res.resMessage;
+      const respCode = res.respCode;
+      const respMsg = res.respMsg;
      
       //失败
-      if ('S' != resCode ) {
-        util.showToast(resMessage);
+      if ("E" === res.resCode) {
+        util.showToast(res.resMessage);
+        return;
+      }
+      if ('0000' != respCode ) {
+        util.showToast(respMsg);
         return;
       }
       //成功

@@ -186,11 +186,15 @@ Page({
       method: 'POST'
     });
     resBody.then(res => {
-      const resCode = res.resCode;
-      const resMessage = res.resMessage;
+      const respCode = res.respCode;
+      const respMsg = res.respMsg;
       //失败
-      if ('S' != resCode) {
-        util.showToast(resMessage);
+      if ("E" === res.resCode) {
+        util.showToast(res.resMessage);
+        return;
+      }
+      if ('0000' != respCode) {
+        util.showToast(respMsg);
         return;
       }
       //成功
@@ -225,21 +229,20 @@ Page({
         method: 'POST'
       });
       resBody.then(res => {
-        const resCode = res.resCode;
-        const resMessage = res.resMessage;
-        //session 过期处理 按照首次登录处理
-        //失败
-        if ('S' != resCode) {
-          util.showToast(resMessage);
+        const respCode = res.respCode;
+        const respMsg = res.respMsg;
+        if ("E" === res.resCode) {
+          util.showToast(res.resMessage);
           return;
         }
-        //成功
-        var respCode = res.respCode;
         if ("0000" === respCode) {
           mchtInfo.lianhangwangdian = res.acctInstName;
           that.setData({
             lianhangwangdian: res.acctInstName
           });
+        }else{
+          util.showToast(respMsg);
+          return;
         }
       })
       wx.setStorageSync("mchtInfo", mchtInfo);
@@ -707,6 +710,13 @@ Page({
         resBody.then(res => {
           const respCode = res.respCode;
           const respMsg = res.respMsg;
+          if ("E" === res.resCode) {
+            util.showToast(res.resMessage);
+            that.setData({
+              btnDisabled: false
+            })
+            return;
+          }
             //成功
             if ("0000" === respCode) {
               wx.redirectTo({
@@ -718,16 +728,18 @@ Page({
                 }
               })
             } else {
-              util.showToast(res.resMessage);
+              util.showToast(respMsg);
               that.setData({
                 btnDisabled: false
               })
+              return;
             }
         })
     } else {
       that.setData({
         btnDisabled: false
       })
+      return;
     }
   }
 });

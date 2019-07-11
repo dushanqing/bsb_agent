@@ -6,41 +6,43 @@ Page({
   data: {
     mchtMngNo: [],
   },
-  onLoad: function () {
+  onLoad: function (options) {
     //获取所属商户
-    this.queryMomMerchantName();
+    this.queryMomMerchantName(options);
   },
 
-  queryMomMerchantName: function () {
+  queryMomMerchantName: function (options) {
     var that = this;
-    const resBody = http.request({
-      url: 'queryMomMerchantName.do',
-      data: {
-        body: {}
-      },
-      method: 'POST'
+    that.setData({
+      mchtMngNo: options.mchtMngNoList
     });
-    resBody.then(res => {
-      const respCode = res.respCode;
-      const resMessage = res.respMsg;
-      //失败
-      if (respCode != "0000") {
-        util.showToast(resMessage);
-        return;
-      }
-      //成功
-      let mchtMngNoList = res.empList;
-      if (util.strIsEmpty(mchtMngNoList)){
-        util.showToast("您还没有可选商户！");
-        return;
-      }else{
-        //如果所属商户为null,所属商户不可选
-        that.setData({
-          mchtMngNo: mchtMngNoList
-        });
-      }
-   
-    })
+    // const resBody = http.request({
+    //   url: 'queryMomMerchantName.do',
+    //   data: {
+    //     body: {}
+    //   },
+    //   method: 'POST'
+    // });
+    // resBody.then(res => {
+    //   const respCode = res.respCode;
+    //   const respMsg = res.respMsg;
+    //   //失败
+    //   if (respCode != "0000") {
+    //     util.showToast(respMsg);
+    //     return;
+    //   }
+    //   //成功
+    //   let mchtMngNoList = res.empList;
+    //   if (util.strIsEmpty(mchtMngNoList)){
+    //     util.showToast("您还没有可选商户！");
+    //     return;
+    //   }else{
+    //     //如果所属商户为null,所属商户不可选
+    //     that.setData({
+    //       mchtMngNo: mchtMngNoList
+    //     });
+    //   }
+    // })
   },
 
   bindMchtMngNo: function (e) {
@@ -62,10 +64,10 @@ Page({
     });
     resBody.then(res => {
       const resCode = res.resCode;
-      const resMessage = res.resMessage;
+      const respMsg = res.respMsg;
       //失败
       if ('S' != resCode) {
-        util.showToast(resMessage);
+        util.showToast(respMsg);
         return;
       }
       //成功

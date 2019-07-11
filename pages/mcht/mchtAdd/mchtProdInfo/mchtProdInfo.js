@@ -204,11 +204,15 @@ Page({
       method: 'POST'
     });
     resBody.then(res => {
-      const resCode = res.resCode;
-      const resMessage = res.resMessage;
+      const respCode = res.respCode;
+      const respMsg = res.respMsg;
       //失败
-      if ('S' != resCode) {
-        util.showToast(resMessage);
+      if ("E" === res.resCode) {
+        util.showToast(res.resMessage);
+        return;
+      }
+      if ('0000' != respCode) {
+        util.showToast(respMsg);
         return;
       }
       //成功
@@ -428,10 +432,14 @@ Page({
           method: 'POST'
         });
         resBody.then(res => {
-          const resCode = res.resCode;
-          const resMessage = res.resMessage;
+          const respCode = res.respCode;
+          const respMsg = res.respMsg;
           //成功
-          if ('S' === resCode) {
+          if ("E" === res.resCode) {
+            util.showToast(res.resMessage);
+            return;
+          }
+          if ('0000' === respCode) {
             wx.removeStorageSync('mchtInfo');
             wx.removeStorageSync('ctArr');
             wx.removeStorageSync('mchtBigType');
@@ -439,7 +447,7 @@ Page({
               url: "../detail/mchtAddResult/mchtAddResult",
             });
           } else { //失败
-            util.showToast(resMessage);
+            util.showToast(respMsg);
             that.setData({ btnDisabled: false })
           }
         })
