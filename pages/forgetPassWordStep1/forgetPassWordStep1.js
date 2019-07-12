@@ -74,7 +74,7 @@ Page({
       util.showToast('请输入营业执照号')
       return;
     }
-    if (!reg.isLicnNo.test(phoneNo)){
+    if (!reg.isLicnNo.test(mchtLicnNo)){
       util.showToast('营业执照号格式不正确')
       return;
     }
