@@ -133,6 +133,10 @@ Page({
       const respCode = res.respCode;
       const respMsg = res.respMsg;
       //成功
+      if ("E" === res.resCode) {
+        util.showToast(res.resMessage);
+        return;
+      }
       if ("0000" === respCode) {
         wx.navigateTo({
           url: '../mcht/mchtAdd/mchtBaseInfo/mchtBaseInfo',
