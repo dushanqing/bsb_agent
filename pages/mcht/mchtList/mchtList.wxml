@@ -22,7 +22,7 @@
 
 
 <!-- 商户列表 -->
-<scroll-view  scroll-y="true"  style = "height:100%" bindscrolltolower="searchScrollLower">
+<scroll-view  scroll-y="true"  style = "{{isIPX ? 'height:500px' : 'height:100%'}}"  bindscrolltolower="searchScrollLower">
 
 <view class="weui-cells weui-cells_after-title">
     <block wx:for="{{mchtListData}}" wx:key="" wx:for-item="item" id="mchtList">

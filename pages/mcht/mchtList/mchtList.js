@@ -81,8 +81,8 @@ Page({
     let mchtStat = { 
       mchtStat:that.data.mchtStat[0],
       mchtNameSearch:""
-      } 
-    this.setData({
+      }
+    that.setData({
       searchData: mchtStat,
       pageNo: 1,   //第一次加载，设置1  
       mchtListData: [],  //放置返回数据的数组,设为空  
@@ -90,10 +90,26 @@ Page({
       searchLoading: true,  //把"上拉加载"的变量设为true，显示  
       searchLoadingComplete: false //把“没有数据”设为false，隐藏  
     })
-    
-    this.fetchSearchList();
+    that.checkIsIPhoneX();
+    that.fetchSearchList();
 
   },
+  //判断手机机型是否是iPhone X
+  checkIsIPhoneX: function () {
+    const that = this
+    wx.getSystemInfo({
+      success: function (res) {
+        // 根据 model 进行判断
+        if (res.model.search('iPhone X') != -1) {
+          console.log("***************")
+          that.setData({
+            isIPX : true
+          })
+        }
+      }
+    })
+  },
+
 
   bindMchtStatChange: function(e) {
     this.setData({
@@ -110,7 +126,7 @@ Page({
     that.setData({
       searchFlag: true,
     })
-    this.setData({
+    that.setData({
       searchData: e.detail.value,
       pageNo: 1,   //第一次加载，设置1  
       mchtListData: [],  //放置返回数据的数组,设为空  
@@ -118,7 +134,7 @@ Page({
       searchLoading: true,  //把"上拉加载"的变量设为true，显示  
       searchLoadingComplete: false //把“没有数据”设为false，隐藏  
     })
-    this.fetchSearchList();
+    that.fetchSearchList();
   },
 
   //滚动到底部触发事件  
