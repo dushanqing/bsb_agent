@@ -340,7 +340,7 @@ Page({
       let mchtMngNoList = res.empList;
       if (util.strIsNotEmpty(mchtMngNoList)) {
         wx.navigateTo({
-          url: '../detail/mchtMngNo/mchtMngNo?mchtMngNoList=' + mchtMngNoList
+          url: '../detail/mchtMngNo/mchtMngNo?mchtMngNoList=' + JSON.stringify(mchtMngNoList)
         });
       } else {
         util.showToast("您还没有可选商户！");
