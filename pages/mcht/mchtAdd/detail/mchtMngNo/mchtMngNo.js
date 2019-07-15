@@ -12,9 +12,10 @@ Page({
   },
 
   queryMomMerchantName: function (options) {
-    var that = this;
+    let that = this;
+    let mchtMngNoList = JSON.parse(options.mchtMngNoList);
     that.setData({
-      mchtMngNo: options.mchtMngNoList
+      mchtMngNo: mchtMngNoList
     });
     // const resBody = http.request({
     //   url: 'queryMomMerchantName.do',
