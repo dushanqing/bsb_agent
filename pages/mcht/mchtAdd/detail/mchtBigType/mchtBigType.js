@@ -52,8 +52,8 @@ Page({
     mchtBigType.custName = e.currentTarget.dataset.text;
     arr.push(mchtBigType);
     wx.setStorageSync('mchtBigType', arr);
-    wx.navigateTo({
-      url: '../../mchtBaseInfo/mchtBaseInfo'
+    wx.navigateBack({
+      delta: 1
     })
   }
 })

@@ -51,8 +51,11 @@ Page({
     ctArr[0].quCode = e.currentTarget.id;
     ctArr[0].quName = e.currentTarget.dataset.text;
     wx.setStorageSync('ctArr', ctArr);
-    wx.navigateTo({
-      url: "../../../mchtBaseInfo/mchtBaseInfo"
+    // wx.navigateTo({
+    //   url: "../../../mchtBaseInfo/mchtBaseInfo"
+    // })
+    wx.navigateBack({
+      delta: 3
     })
   }
 })

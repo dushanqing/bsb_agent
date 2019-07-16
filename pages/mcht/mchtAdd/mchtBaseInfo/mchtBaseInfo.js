@@ -89,6 +89,8 @@ Page({
     //获取行业类别
     this.queryAgencyInfo();
     this.queryMomMerchantName();
+    // 获取所属地区（省市区）
+    this.queryCity();
   },
 
 
@@ -100,8 +102,7 @@ Page({
       mchtInfo = new Object();
     }
     this.autoLocation(options); //自动获取地理位置
-    // 获取所属地区（省市区）
-    this.queryCity();
+   
   },
 
   // 回显数据
@@ -291,7 +292,7 @@ Page({
   },
 
   bindArea(e) {
-    wx.redirectTo({
+    wx.navigateTo({
       url: '../detail/mchtArea/province/province'
     });
   },
@@ -309,7 +310,7 @@ Page({
         return;
       }
     }
-    wx.redirectTo({
+    wx.navigateTo({
       url: '../detail/mchtBigType/mchtBigType'
     });
   },

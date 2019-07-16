@@ -64,10 +64,14 @@ Page({
       method: 'POST'
     });
     resBody.then(res => {
-      const resCode = res.resCode;
+      const respCode = res.respCode;
       const respMsg = res.respMsg;
       //失败
-      if ('S' != resCode) {
+      if ("E" === res.resCode) {
+        util.showToast(res.resMessage);
+        return;
+      }
+      if ('0000' != respCode) {
         util.showToast(respMsg);
         return;
       }
@@ -75,8 +79,8 @@ Page({
       let arr = new Array();
       arr.push(res.cgList[0]);
       wx.setStorageSync('mchtBigType', arr);
-      wx.navigateTo({
-        url: '../../mchtBaseInfo/mchtBaseInfo'
+      wx.navigateBack({
+        delta: 1
       })
     })
    
