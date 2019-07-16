@@ -6,6 +6,7 @@ Page({
   data: {
     setlType: '',
   },
+
   onShow() {
     this.showData();
   },
