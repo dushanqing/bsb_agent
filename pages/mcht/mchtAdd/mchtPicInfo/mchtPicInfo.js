@@ -114,11 +114,9 @@ Page({
       url: url,
       filePath: filePath,
       name: "fileData",
-      formData: {
-        sessionId: sessionId
-      },
       header: {
         "content-type": "multipart/form-data",
+        'sessionId': sessionId
       },
       success: function(res) {
         var result = JSON.parse(res.data);
