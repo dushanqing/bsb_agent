@@ -497,6 +497,7 @@ Page({
       name: "file",
       header: {
         "content-type": "multipart/form-data",
+        'sessionId': sessionId
       },
       formData: {
         sessionId: sessionId
