@@ -28,6 +28,7 @@ App({
           url: 'https://test1.bsb.com.cn/ifsp-gateway/agent/exchangeOpenIdBycode.do',
           data:{
             head:{
+              'sessionId': 'sessionId'
             },
             body:{
               jscode: code
