@@ -499,9 +499,6 @@ Page({
         "content-type": "multipart/form-data",
         'sessionId': sessionId
       },
-      formData: {
-        sessionId: sessionId
-      },
       success: function(res) {
 
         var result = JSON.parse(res.data);
