@@ -52,10 +52,12 @@ Page({
   downloadFile: function (img, type) {
     var url = config.baseRestUrl
     var that = this;
+    let sessionId = wx.getStorageSync('sessionId');
     wx.downloadFile({
       url: url+'downloadFile/' + img,
       header: {
         "content-type": "multipart/form-data",
+        'sessionId': sessionId
       },
       success(res) {
         if ("yyzz" === type){
