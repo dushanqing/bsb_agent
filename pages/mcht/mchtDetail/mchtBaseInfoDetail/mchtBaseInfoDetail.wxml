@@ -34,6 +34,69 @@
             <text class="weui-text" name="mchtLicnNo">{{mchtLicnNo}}</text>
         </view>
       </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">营业执照有效期</view>
+        </view>
+        <view class="weui-cell__bd__d">
+            <text class="weui-text" name="mchtLicnExpDate">{{mchtLicnExpDate}}</text>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">注册资本金（万元）</view>
+        </view>
+        <view class="weui-cell__bd__d">
+            <text class="weui-text" name="mchtRegAmt">{{mchtRegAmt}}</text>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">法人姓名</view>
+        </view>
+        <view class="weui-cell__bd__d">
+            <text class="weui-text" name="mchtArtifName">{{mchtArtifName}}</text>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">法人证件类型</view>
+        </view>
+        <view class="weui-cell__bd__d">
+            <text class="weui-text" name="mchtArtifType">{{mchtArtifType}}</text>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">法人证件号码</view>
+        </view>
+        <view class="weui-cell__bd__d">
+            <text class="weui-text" name="mchtArtifId">{{mchtArtifId}}</text>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">法人证件有效期</view>
+        </view>
+        <view class="weui-cell__bd__d">
+            <text class="weui-text" name="mchtArtifExpDate">{{mchtArtifExpDate}}</text>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">法人手机号</view>
+        </view>
+        <view class="weui-cell__bd__d">
+            <text class="weui-text" name="mchtArtifPhone">{{mchtArtifPhone}}</text>
+        </view>
+      </view>
+
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
           <view class="weui-label">商户类型</view>
@@ -100,7 +163,7 @@
       </view>
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
-          <view class="weui-label">联系电话</view>
+          <view class="weui-label">联系手机号</view>
         </view>
         <view class="weui-cell__bd__d">
            <text class="weui-text" name="mchtPhone">{{mchtPhone}}</text>

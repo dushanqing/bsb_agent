@@ -68,7 +68,14 @@ packData:function(res){
     province = "",
     city = "",
     quyu = "",
-    mchtAreaNo = "";
+    mchtAreaNo = "",
+    mchtLicnExpDate ="",
+    mchtArtifName="",
+    mchtArtifType="",
+    mchtArtifId="",
+    mchtArtifExpDate="",
+    mchtArtifPhone="",
+    mchtRegAmt="";
   if (util.strIsNotEmpty(mchtBigType)) {
     that.queryAgencyInfo(mchtBigType);
   }
@@ -137,6 +144,59 @@ packData:function(res){
   if (util.strIsNotEmpty(res.quyu.ctName)) {
     quyu = res.quyu.ctName;
   }
+  if (util.strIsNotEmpty(mcht.mchtLicnExpDate)){
+    mchtLicnExpDate = mcht.mchtLicnExpDate;
+  }
+  if (util.strIsNotEmpty(mcht.mchtArtifName)) {
+    mchtArtifName = mcht.mchtArtifName;
+  }
+  if (util.strIsNotEmpty(mcht.mchtArtifType)) {
+    if ("10" === mcht.mchtArtifType){
+      mchtArtifType = "居民身份证"
+    }
+    if ("11" === mcht.mchtArtifType) {
+      mchtArtifType = "临时身份证"
+    }
+    if ("12" === mcht.mchtArtifType) {
+      mchtArtifType = "户口簿"
+    }
+    if ("13" === mcht.mchtArtifType) {
+      mchtArtifType = "军人或武警身份证"
+    }
+    if ("14" === mcht.mchtArtifType) {
+      mchtArtifType = "港澳台通行证"
+    }
+    if ("15" === mcht.mchtArtifType) {
+      mchtArtifType = "外国公民护照"
+    }
+    if ("16" === mcht.mchtArtifType) {
+      mchtArtifType = "外国人永久居住证"
+    }
+    if ("17" === mcht.mchtArtifType) {
+      mchtArtifType = "港澳台居民居住证"
+    }
+    if ("18" === mcht.mchtArtifType) {
+      mchtArtifType = "中国护照"
+    }
+    if ("19" === mcht.mchtArtifType) {
+      mchtArtifType = "边民出入境通行证"
+    }
+    if ("20" === mcht.mchtArtifType) {
+      mchtArtifType = "其他类个人身份有效证件"
+    }
+  }
+  if (util.strIsNotEmpty(mcht.mchtArtifId)) {
+    mchtArtifId = mcht.mchtArtifId;
+  }
+  if (util.strIsNotEmpty(mcht.mchtArtifExpDate)) {
+    mchtArtifExpDate = mcht.mchtArtifExpDate;
+  }
+  if (util.strIsNotEmpty(mcht.mchtArtifPhone)) {
+    mchtArtifPhone = mcht.mchtArtifPhone;
+  }
+  if (util.strIsNotEmpty(mcht.mchtRegAmt)) {
+    mchtRegAmt = mcht.mchtRegAmt;
+  }
   mchtAreaNo = province + city + quyu;
   that.setData({
     mchtName: mchtName,
@@ -156,6 +216,13 @@ packData:function(res){
     mchtEmail: mchtEmail,
     longitude: longitude,
     latitude: latitude,
+    mchtLicnExpDate: mchtLicnExpDate,
+    mchtArtifName: mchtArtifName,
+    mchtArtifType: mchtArtifType,
+    mchtArtifId: mchtArtifId,
+    mchtArtifExpDate: mchtArtifExpDate,
+    mchtArtifPhone: mchtArtifPhone,
+    mchtRegAmt: mchtRegAmt,
   })
 },
 
