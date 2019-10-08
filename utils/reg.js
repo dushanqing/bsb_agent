@@ -15,7 +15,8 @@ var pattern = /^\d{11}$/;
 var isAmt12 = /^([1-9][\d]{0,9}|[1-9][\d]{0,2}(\,[\d]{3})*|0)(\.[\d]{1,2})?$/;//最大长度12位，最多包含两位小数，支持带','格式，需和isAmtLength12匹配使用
 var isAmtLength12 = /^([\d]{0,10})(\.[\d]{1,2})?$/;//去除','，最大长度12位，最多包含两位小数
 var isAmt20 = /^([1-9][\d]{0,17}|[1-9][\d]{0,2}(\,[\d]{3})*|0)(\.[\d]{1,2})?$/;//最大长度20位，最多包含两位小数，支持带','格式，需和isAmtLength20匹配使用
-var isAmtLength20 = /^([\d]{0,18})(\.[\d]{1,2})?$/;//去除','，最大长度20位，最多包含两位小数
+var isAmtLength20 = /^([\d]{0,18})(\.[\d]{1,2})?$/;//去除','，最大长度20位，最多包含两位小数 
+var isAmt18 = /^([1-9][\d]{0,14}|[1-9][\d]{0,2}(\,[\d]{3})*|0)(\.[\d]{1,2})?$/;
 /**验证字符串长度*/
 var isDesc42 = /^\S{1,42}$/;//最大长度42位
 var isDesc21 = /^\S{1,21}$/;//最大长度21位
@@ -28,6 +29,7 @@ var isNumber = /^[0-9]*$/ //验证数字
 var isLongitude = /^(\-|\+)?(((\d|[1-9]\d|1[0-7]\d|0{1,3})\.\d{0,6})|(\d|[1-9]\d|1[0-7]\d|0{1,3})|180\.0{1,6}|180)$/;
 var isLatitude = /^(\-|\+)?([1-8]?\d{1}\.\d{0,6}|90\.0{1,6}|[1-8]?\d{1}|90)$/;
 var isChEngNum =/^[A-Za-z0-9\u4E00-\u9FA5/\.\-（）、]*$/;
+var isEightFigure = /^\d{8}$/;
 
 module.exports = {
   isLicnNo: isLicnNo,
@@ -50,5 +52,7 @@ module.exports = {
   isNumber: isNumber,
   isLongitude: isLongitude,
   isLatitude: isLatitude,
-  isChEngNum: isChEngNum
+  isChEngNum: isChEngNum,
+  isEightFigure: isEightFigure,
+  isAmt18: isAmt18
 }
