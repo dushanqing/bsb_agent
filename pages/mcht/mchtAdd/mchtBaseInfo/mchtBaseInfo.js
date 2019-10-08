@@ -80,6 +80,45 @@ Page({
     }],
     mchtTypeIndex: 0,
     submitFlag: undefined,
+
+    // 法定代表人证件类型
+    mchtArtifType: [
+      {
+        mchtArtifTypeId: "10",
+        mchtArtifTypeName: "居民身份证"
+      }, {
+        mchtArtifTypeId: "11",
+          mchtArtifTypeName: "临时身份证"
+      }, {
+          mchtArtifTypeId: "12",
+          mchtArtifTypeName: "户口簿"
+      }, {
+          mchtArtifTypeId: "13",
+          mchtArtifTypeName: "军人或武警身份证"
+      }, {
+        mchtArtifTypeId: "14",
+        mchtArtifTypeName: "港澳台通行证"
+      }, {
+        mchtArtifTypeId: "15",
+        mchtArtifTypeName: "外国公民护照"
+      }, {
+        mchtArtifTypeId: "16",
+        mchtArtifTypeName: "外国人永久居住证"
+      }, {
+        mchtArtifTypeId: "17",
+        mchtArtifTypeName: "港澳台居民居住证"
+      }, {
+        mchtArtifTypeId: "18",
+        mchtArtifTypeName: "中国护照"
+      }, {
+        mchtArtifTypeId: "19",
+        mchtArtifTypeName: "边民出入境通行证"
+      }, {
+        mchtArtifTypeId: "20",
+        mchtArtifTypeName: "其他类个人身份有效证件"
+      },
+    ],
+    mchtArtifTypeIndex:0
   },
 
   onShow: function() {
@@ -209,6 +248,49 @@ Page({
           latitude: mchtInfo.latitude
         });
       }
+      //营业执照有效期
+      if (util.strIsNotEmpty(mchtInfo.mchtLicnExpDate)){
+        this.setData({
+          mchtLicnExpDate: mchtInfo.mchtLicnExpDate
+        });
+      }
+      //注册资本金（万元）
+      if (util.strIsNotEmpty(mchtInfo.mchtRegAmt)) {
+        this.setData({
+          mchtRegAmt: mchtInfo.mchtRegAmt
+        });
+      }
+      //法人姓名
+      if (util.strIsNotEmpty(mchtInfo.mchtArtifName)) {
+        this.setData({
+          mchtArtifName: mchtInfo.mchtArtifName
+        });
+      }
+      //法人证件类型
+      if (util.strIsNotEmpty(mchtInfo.mchtArtifTypeIndex)) {
+        this.setData({
+          mchtArtifTypeIndex: mchtInfo.mchtArtifTypeIndex
+        });
+      }
+      //法人证件号码
+      if (util.strIsNotEmpty(mchtInfo.mchtArtifId)) {
+        this.setData({
+          mchtArtifId: mchtInfo.mchtArtifId
+        });
+      }
+      //法人证件有效期
+      if (util.strIsNotEmpty(mchtInfo.mchtArtifExpDate)) {
+        this.setData({
+          mchtArtifExpDate: mchtInfo.mchtArtifExpDate
+        });
+      }
+      //法人手机号
+      if (util.strIsNotEmpty(mchtInfo.mchtArtifPhone)) {
+        this.setData({
+          mchtArtifPhone: mchtInfo.mchtArtifPhone
+        });
+      }
+ 
     }
   },
 
@@ -592,6 +674,72 @@ Page({
     return;
   },
 
+  /**
+   * 营业执照有效期
+   */
+  blurMchtLicnExpDate: function (e) {
+    mchtInfo.mchtLicnExpDate = util.trim(e.detail.value);
+    wx.setStorageSync("mchtInfo", mchtInfo);
+  },
+
+
+  /**
+   * 法人姓名信息保存
+   */
+  blurMchtArtifName: function (e) {
+    mchtInfo.mchtArtifName = util.trim(e.detail.value);
+    wx.setStorageSync("mchtInfo", mchtInfo);
+  },
+
+  /**
+   * 法人证件类型
+   */
+  bindMchtArtifTypeChange: function (e) {
+    mchtInfo.mchtArtifTypeIndex = e.detail.value;
+    wx.setStorageSync("mchtInfo", mchtInfo);
+    this.setData({
+      mchtArtifTypeIndex: e.detail.value
+    });
+  },
+
+/**
+ * 法人证件号码
+ */
+  blurMchtArtifId: function (e) {
+    mchtInfo.mchtArtifId = util.trim(e.detail.value);
+    wx.setStorageSync("mchtInfo", mchtInfo);
+  },
+
+  /**
+   * 法人证件有效期
+   */
+  blurMchtArtifExpDate: function (e) {
+    mchtInfo.mchtArtifExpDate = util.trim(e.detail.value);
+    wx.setStorageSync("mchtInfo", mchtInfo);
+  },
+
+  /**
+   * 法人手机号
+   */
+  blurMchtArtifPhone: function (e) {
+    mchtInfo.mchtArtifPhone = util.trim(e.detail.value);
+    wx.setStorageSync("mchtInfo", mchtInfo);
+  },
+
+  /**
+   * 注册资本金（万元）
+   */
+  blurMchtRegAmt: function (e) {
+    mchtInfo.mchtRegAmt = util.toKeepTwoDecimals(util.trim(e.detail.value));
+    wx.setStorageSync("mchtInfo", mchtInfo);
+  },
+
+
+
+
+  /**
+   *  基本信息校验
+   */
   checkFiled: function(e) {
     var mchtName = util.trim(e.detail.value.mchtName);
     if (util.strIsEmpty(mchtName)) {
@@ -645,6 +793,122 @@ Page({
       })
       return false;
     }
+
+    //营业执照有效期
+    var mchtLicnExpDate = util.trim(e.detail.value.mchtLicnExpDate);
+    if (util.strIsEmpty(mchtLicnExpDate)) {
+      util.showToast('请输入营业执照有效期！');
+      this.setData({
+        mchtLicnExpDateFocus: true
+      })
+      return false;
+    }
+    if (!reg.isEightFigure.test(mchtLicnExpDate)){
+      util.showToast('营业执照有效期格式不正确(8位的数字)！');
+      this.setData({
+        mchtLicnExpDateFocus: true
+      })
+      return false;
+    }
+    //注册资本金（万元）
+    var mchtRegAmt = util.trim(e.detail.value.mchtRegAmt);
+
+    if (util.strIsEmpty(mchtRegAmt)) {
+      util.showToast('请输入注册资本金！');
+      this.setData({
+        mchtRegAmtFocus: true
+      })
+      return false;
+    }
+    if (!reg.isAmt18.test(mchtRegAmt)) {
+      util.showToast('注册资本金(万元)格式不正确(最大长度18位,包含两位小数)');
+      this.setData({
+        mchtRegAmtFocus: true
+      })
+      return false;
+    }
+    mchtRegAmt = util.toKeepTwoDecimals(mchtRegAmt);
+    //法人姓名校验
+    var mchtArtifName = util.trim(e.detail.value.mchtArtifName);
+    if (util.strIsEmpty(mchtArtifName)) {
+      util.showToast('请输入法人姓名！');
+      this.setData({
+        mchtArtifNameFocus: true
+      })
+      return false;
+    }
+    if (!reg.isChEngNum.test(mchtArtifName)) {
+      util.showToast('法人姓名格式不正确！');
+      return false;
+    }
+
+    if (util.strIsNotEmpty(mchtArtifName)) {
+      if (util.getLength(mchtArtifName) > 32) {
+        util.showToast('法人姓名格式不正确！');
+        this.setData({
+          mchtArtifNameFocus: true
+        })
+        return false;
+      }
+    }
+
+    //法人证件号码
+    var mchtArtifId = util.trim(e.detail.value.mchtArtifId);
+    if (util.strIsEmpty(mchtArtifId)) {
+      util.showToast('请输入法人证件号码！');
+      this.setData({
+        mchtArtifIdFocus: true
+      })
+      return false;
+    }
+
+    if (util.strIsNotEmpty(mchtArtifId)) {
+      if (!reg.isSetlCertNo.test(mchtArtifId)) {
+        util.showToast('法人证件号码格式不正确(长度为15位或18位)！');
+        this.setData({
+          mchtArtifIdFocus: true
+        })
+        return false;
+      }
+    }
+
+    //法人证件有效期
+    var mchtArtifExpDate = util.trim(e.detail.value.mchtArtifExpDate);
+    if (util.strIsEmpty(mchtArtifExpDate)) {
+      util.showToast('请输入法人证件有效期！');
+      this.setData({
+        mchtArtifExpDateFocus: true
+      })
+      return false;
+    }
+    if (!reg.isEightFigure.test(mchtArtifExpDate)) {
+      util.showToast('法人证件有效期格式不正确(8位的数字)！');
+      this.setData({
+        mchtArtifExpDateFocus: true
+      })
+      return false;
+    }
+    //法人手机号
+    var mchtArtifPhone = util.trim(e.detail.value.mchtArtifPhone);
+    if (util.strIsEmpty(mchtArtifPhone)) {
+      util.showToast('请输入法人手机号！');
+      this.setData({
+        mchtArtifPhoneFocus: true
+      })
+      return false;
+    }
+    
+    if (util.strIsNotEmpty(mchtArtifPhone)) {
+      if (!reg.pattern.test(mchtArtifPhone)) {
+        util.showToast('手机号格式不正确(必须输入11位长度的合法手机号)！');
+        this.setData({
+          mchtArtifPhoneFocus: true
+        })
+        return false;
+      }
+    }    
+    //法人证件类型
+    var mchtArtifTypeId = this.data.mchtArtifType[e.detail.value.mchtArtifType].mchtArtifTypeId;
 
     var mchtLev = this.data.mchtLev[e.detail.value.mchtLev].mchtLevId;
     if ("01" === mchtLev) {
@@ -791,6 +1055,15 @@ Page({
     mchtInfo.mchtSimpleName = mchtSimpleName;
     mchtInfo.isXiaowei = isXiaowei;
     mchtInfo.mchtLicnNo = mchtLicnNo;
+
+    mchtInfo.mchtLicnExpDate = mchtLicnExpDate;
+    mchtInfo.mchtArtifName = mchtArtifName;
+    mchtInfo.mchtArtifType = mchtArtifTypeId;
+    mchtInfo.mchtArtifId = mchtArtifId;
+    mchtInfo.mchtArtifExpDate = mchtArtifExpDate;
+    mchtInfo.mchtArtifPhone = mchtArtifPhone;
+    mchtInfo.mchtRegAmt = mchtRegAmt;
+
     mchtInfo.mchtLev = mchtLev;
     mchtInfo.mchtBigType = custNo;
     mchtInfo.mchtType = mchtType;

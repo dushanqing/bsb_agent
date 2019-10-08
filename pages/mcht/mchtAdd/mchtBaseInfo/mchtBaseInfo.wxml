@@ -41,7 +41,71 @@
             <input class="weui-input" name="mchtLicnNo" value="{{mchtLicnNo}}" bindblur="blurMchtLicnNo" maxlength="64" focus="{{mchtLicnNoFocus}}" placeholder="请输入营业执照号码" />
           </view>
         </view>
-
+        <!-- 营业执照有效期 -->
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">营业执照有效期</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" type="number" name="mchtLicnExpDate" value="{{mchtLicnExpDate}}" bindblur="blurMchtLicnExpDate" maxlength="8" focus="{{mchtLicnExpDateFocus}}" placeholder="请输入营业执照有效期" />
+          </view>
+        </view>
+        <!-- 注册资本金（万元） mchtRegAmt -->
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">注册资本金（万元）</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" type="digit" name="mchtRegAmt" value="{{mchtRegAmt}}" maxlength="18" bindblur="blurMchtRegAmt" focus="{{mchtRegAmtFocus}}" placeholder="请输入注册资本金（万元）" />
+          </view>
+        </view>
+         <!-- 法人姓名 mchtArtifName -->
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">法人姓名</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" name="mchtArtifName" value="{{mchtArtifName}}" focus="{{mchtArtifNameFocus}}" maxlength="32" bindblur="blurMchtArtifName" placeholder="请输入法人姓名" />
+          </view>
+        </view>
+        <!-- 法人证件类型 mchtArtifType -->
+        <view class="weui-cell weui-cell_select">
+          <view class="weui-cell__hd weui-cell__hd_in-select-after">
+            <view class="weui-label">法人证件类型</view>
+          </view>
+          <view class="weui-cell__bd ">
+            <picker bindchange="bindMchtArtifTypeChange" name="mchtArtifType" range="{{mchtArtifType}}" value="{{mchtArtifTypeIndex}}" range-key="mchtArtifTypeName">
+              <view class="weui-select weui-select_in-select-after">{{mchtArtifType[mchtArtifTypeIndex].mchtArtifTypeName}}</view>
+            </picker>
+          </view>
+        </view>
+        <!--法人证件号码 mchtArtifId-->
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">法人证件号码</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" name="mchtArtifId" value="{{mchtArtifId}}" maxlength="18" bindblur="blurMchtArtifId" focus="{{mchtArtifIdFocus}}" placeholder="请输入法人证件号码" />
+          </view>
+        </view>
+        <!-- 法人证件有效期 mchtArtifExpDate -->
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">法人证件有效期</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" type="number" name="mchtArtifExpDate" value="{{mchtArtifExpDate}}" maxlength="8" bindblur="blurMchtArtifExpDate" focus="{{mchtArtifExpDateFocus}}" placeholder="请输入法人证件有效期" />
+          </view>
+        </view>
+        <!-- 法人手机号 mchtArtifPhone -->
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">法人手机号</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" type="number" name="mchtArtifPhone" value="{{mchtArtifPhone}}" maxlength="11" bindblur="blurMchtArtifPhone" focus="{{mchtArtifPhoneFocus}}" placeholder="请输入法人手机号" />
+          </view>
+        </view>
         <!-- 商户类型 -->
         <view class="weui-cell weui-cell_select">
           <view class="weui-cell__hd weui-cell__hd_in-select-after">
@@ -150,7 +214,7 @@
             <input class="weui-input" name="mchtEmail" value="{{mchtEmail}}" maxlength="60" bindblur="blurMchtEmail" focus="{{mchtEmailFocus}}" placeholder="请输入邮箱" />
           </view>
         </view>
-        <!-- 邮箱 -->
+        <!-- 经度 -->
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
             <view class="weui-label">经度</view>
