@@ -796,38 +796,29 @@ Page({
 
     //营业执照有效期
     var mchtLicnExpDate = util.trim(e.detail.value.mchtLicnExpDate);
-    if (util.strIsEmpty(mchtLicnExpDate)) {
-      util.showToast('请输入营业执照有效期！');
-      this.setData({
-        mchtLicnExpDateFocus: true
-      })
-      return false;
+    if (util.strIsNotEmpty(mchtLicnExpDate)) {
+      if (!reg.isEightFigure.test(mchtLicnExpDate)) {
+        util.showToast('营业执照有效期格式不正确(8位的数字)！');
+        this.setData({
+          mchtLicnExpDateFocus: true
+        })
+        return false;
+      }
     }
-    if (!reg.isEightFigure.test(mchtLicnExpDate)){
-      util.showToast('营业执照有效期格式不正确(8位的数字)！');
-      this.setData({
-        mchtLicnExpDateFocus: true
-      })
-      return false;
-    }
+  
     //注册资本金（万元）
     var mchtRegAmt = util.trim(e.detail.value.mchtRegAmt);
-
-    if (util.strIsEmpty(mchtRegAmt)) {
-      util.showToast('请输入注册资本金！');
-      this.setData({
-        mchtRegAmtFocus: true
-      })
-      return false;
+    if (util.strIsNotEmpty(mchtRegAmt)) {
+      if (!reg.isAmt18.test(mchtRegAmt)) {
+        util.showToast('注册资本金(万元)格式不正确(最大长度18位,包含两位小数)');
+        this.setData({
+          mchtRegAmtFocus: true
+        })
+        return false;
+      }
+      mchtRegAmt = util.toKeepTwoDecimals(mchtRegAmt);
     }
-    if (!reg.isAmt18.test(mchtRegAmt)) {
-      util.showToast('注册资本金(万元)格式不正确(最大长度18位,包含两位小数)');
-      this.setData({
-        mchtRegAmtFocus: true
-      })
-      return false;
-    }
-    mchtRegAmt = util.toKeepTwoDecimals(mchtRegAmt);
+   
     //法人姓名校验
     var mchtArtifName = util.trim(e.detail.value.mchtArtifName);
     if (util.strIsEmpty(mchtArtifName)) {
