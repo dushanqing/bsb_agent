@@ -110,15 +110,6 @@
           <image class="ocr" src="/images/u588.png" data-longitude="{{location.longitude}}" data-latitude="{{location.latitude}}" bindtap="bindsetlCertNoOcr" />
         </view>
       </view>
-      <!-- 法人 -->
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">法人</view>
-        </view>
-        <view class="weui-cell__bd">
-          <input class="weui-input" name="legalPersonName" value="{{legalPersonName}}" maxlength="32" placeholder="请输入法人" />
-        </view>
-      </view>
       <!-- 手机号 -->
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">

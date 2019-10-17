@@ -142,11 +142,11 @@ Page({
           setlCertNo: mchtInfo.setlCertNo
         });
       }
-      if (util.strIsNotEmpty(mchtInfo.legalPersonName)) {
-        this.setData({
-          legalPersonName: mchtInfo.legalPersonName
-        });
-      }
+      // if (util.strIsNotEmpty(mchtInfo.legalPersonName)) {
+      //   this.setData({
+      //     legalPersonName: mchtInfo.legalPersonName
+      //   });
+      // }
       if (util.strIsNotEmpty(mchtInfo.setlPhone)) {
         this.setData({
           setlPhone: mchtInfo.setlPhone
@@ -522,16 +522,16 @@ Page({
           if ('0000' === result.respCode) {
             that.setData({
               setlCertNo: result.infoNumber,
-              legalPersonName: result.infoName,
+              // legalPersonName: result.infoName,
               modalHidden: true
             });
             mchtInfo.setlCertNo = result.infoNumber;
-            mchtInfo.legalPersonName = result.infoName;
+            // mchtInfo.legalPersonName = result.infoName;
             wx.setStorageSync("mchtInfo", mchtInfo);
           } else {
             that.setData({
               setlCertNo: "",
-              legalPersonName: "",
+              // legalPersonName: "",
               modalHidden: true
             });
             util.showToast(result.respMsg);
@@ -640,7 +640,7 @@ Page({
         return false;
       }
     }
-    var legalPersonName = util.trim(e.detail.value.legalPersonName);
+    // var legalPersonName = util.trim(e.detail.value.legalPersonName);
     var userType = this.data.userType[e.detail.value.userType].userTypeId;
     var setlPhone = util.trim(e.detail.value.setlPhone);
 
@@ -675,7 +675,7 @@ Page({
     mchtInfo.setlAcctName = setlAcctName;
     mchtInfo.setlCertType = setlCertType;
     mchtInfo.setlCertNo = setlCertNo;
-    mchtInfo.legalPersonName = legalPersonName;
+    // mchtInfo.legalPersonName = legalPersonName;
     mchtInfo.setlPhone = setlPhone;
     mchtInfo.startDate = startDate;
     mchtInfo.conTerm = conTerm;
