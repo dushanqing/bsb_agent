@@ -25,7 +25,7 @@ Page({
         setlAcctNo = '',
         setlAcctName = '',
         setlCertNo = '',
-        legalPersonName = '',
+        // legalPersonName = '',
         userType,
         setlCertType,
         setlMobile = '', 
@@ -72,9 +72,9 @@ Page({
         if ('01' == contr.setlCertType) {
           setlCertType = '身份证';
         }
-        if (util.strIsNotEmpty(mcht.mchtPersonName)) {
-          legalPersonName = mcht.mchtPersonName;
-        }
+        // if (util.strIsNotEmpty(mcht.mchtPersonName)) {
+        //   legalPersonName = mcht.mchtPersonName;
+        // }
         if (util.strIsNotEmpty(contr.setlMobile)) {
           setlMobile = contr.setlMobile;
         }
@@ -107,7 +107,7 @@ Page({
           setlAcctName: setlAcctName,
           setlCertType: setlCertType,
           setlCertNo: setlCertNo,
-          legalPersonName: legalPersonName,
+          // legalPersonName: legalPersonName,
           setlMobile: setlMobile,
           startDate: startDate,
           conTerm: conTerm
