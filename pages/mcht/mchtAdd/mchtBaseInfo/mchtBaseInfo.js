@@ -816,7 +816,7 @@ Page({
         })
         return false;
       }
-      mchtRegAmt = util.toKeepTwoDecimals(mchtRegAmt);
+      mchtRegAmt = util.toKeepTwoDecimalsNotFixed(mchtRegAmt);
     }
    
     //法人姓名校验
