@@ -131,7 +131,27 @@ function toKeepSixDecimals(value) {
   value = value.substring(0, value.lastIndexOf('.') + 7);
   return value;
 }
-
+/**保留两位有效数字(解决边界值) */
+function toKeepTwoDecimalsNotFixed(value) {
+  value = value.replace(/[^\d.]/g, "");//把非数字的都替换掉，只保留数字和.
+  value = value.replace(/^\./g, "");//保证第一个为数字，而不是。
+  value = value.replace(/\.{2,}/g, ".");//保证只出现一个.
+  value = value.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");//保证.只出现一次
+  value = value.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3');//只能输入两个小数
+  var num = value.split(".");
+  if (num.length == 1) {
+    if (value == "") {
+      value = "0.00";
+    } else {
+      value = value + ".00";
+    }
+  } else if (num.length > 1) {
+    if (num[1].length < 2) {
+      value = value + "0";
+    }
+  }
+  return value;
+}
 
 function buttonClicked(self) {
   self.setData({
@@ -175,7 +195,8 @@ module.exports = {
   toKeepSixDecimals:toKeepSixDecimals,
   formatStringyyyyMMddToyyyy_MM_dd: formatStringyyyyMMddToyyyy_MM_dd,
   formatTimeyyy_MM_dd: formatTimeyyy_MM_dd,
-  buttonClicked: buttonClicked
+  buttonClicked: buttonClicked,
+  toKeepTwoDecimalsNotFixed
 }
 
 
