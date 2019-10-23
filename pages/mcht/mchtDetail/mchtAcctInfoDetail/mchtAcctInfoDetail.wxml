@@ -81,6 +81,9 @@
         <text class="weui-text" name="setlCertType">{{setlCertType}}</text>
       </view>
     </view>
+
+    <view class="divLine" hidden="{{isHide}}"></view>
+
     <view class="weui-cell weui-cell_input">
       <view class="weui-cell__hd">
         <view class="weui-label">账户证件号码</view>

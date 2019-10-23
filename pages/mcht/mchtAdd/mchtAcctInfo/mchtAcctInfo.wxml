@@ -87,6 +87,9 @@
           <input class="weui-input" name="setlAcctName" value="{{setlAcctName}}" maxlength="128" placeholder="请输入开户名称"  bindblur="blurSetlAcctName" />
         </view>
       </view>
+      
+      <view class="divLine" hidden="{{isHide}}"></view>
+
       <!-- 账户证件类型 -->
       <view class="weui-cell weui-cell_select">
         <view class="weui-cell__hd weui-cell__hd_in-select-after">

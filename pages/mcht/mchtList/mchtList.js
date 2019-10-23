@@ -101,7 +101,6 @@ Page({
       success: function (res) {
         // 根据 model 进行判断
         if (res.model.search('iPhone X') != -1) {
-          console.log("***************")
           that.setData({
             isIPX : true
           })

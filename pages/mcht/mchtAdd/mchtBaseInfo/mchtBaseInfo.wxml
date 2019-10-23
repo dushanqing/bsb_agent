@@ -88,6 +88,9 @@
             <input class="weui-input" name="mchtArtifId" value="{{mchtArtifId}}" maxlength="18" bindblur="blurMchtArtifId" focus="{{mchtArtifIdFocus}}" placeholder="请输入法人证件号码" />
           </view>
         </view>
+        
+        <view class="divLine" hidden="{{isHide}}"></view>
+
         <!-- 法人证件有效期 mchtArtifExpDate -->
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">

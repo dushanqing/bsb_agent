@@ -9,6 +9,16 @@ Page({
 
   onShow() {
     this.showData();
+    //判断手机机型是否是iPhone8P
+    if (util.checkIsIphone8plus()) {
+      this.setData({
+        isHide: false
+      })
+    } else {
+      this.setData({
+        isHide: true
+      })
+    }
   },
   showData: function() {
     var that = this;

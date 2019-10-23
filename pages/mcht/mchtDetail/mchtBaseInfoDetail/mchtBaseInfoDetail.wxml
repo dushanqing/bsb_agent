@@ -79,6 +79,8 @@
         </view>
       </view>
 
+      <view class="divLine" hidden="{{isHide}}"></view>
+
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
           <view class="weui-label">法人证件有效期</view>

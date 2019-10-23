@@ -179,7 +179,20 @@ const wxPromisify = fn => {
     })
   }
 }
-
+//判断手机机型是否是iPhone8P
+function checkIsIphone8plus() {
+  const that = this
+  var flag = false;
+  wx.getSystemInfo({
+    success: function (res) {
+      // 根据 model 进行判断
+      if (res.model.search('iPhone 8 Plus') != -1) {
+        flag =true; 
+      }
+    }
+  })
+  return flag;
+}
 module.exports = {
   formatTime: formatTime,
   showLoading: showLoading,
@@ -196,7 +209,8 @@ module.exports = {
   formatStringyyyyMMddToyyyy_MM_dd: formatStringyyyyMMddToyyyy_MM_dd,
   formatTimeyyy_MM_dd: formatTimeyyy_MM_dd,
   buttonClicked: buttonClicked,
-  toKeepTwoDecimalsNotFixed
+  toKeepTwoDecimalsNotFixed,
+  checkIsIphone8plus
 }
 
 

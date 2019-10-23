@@ -70,6 +70,16 @@ Page({
   
 
   onLoad() {
+    //判断手机机型是否是iPhone8P
+    if (util.checkIsIphone8plus()) {
+      this.setData({
+        isHide: false
+      })
+    } else {
+      this.setData({
+        isHide: true
+      })
+    }
     mchtInfo = wx.getStorageSync("mchtInfo");
     this.ctx = wx.createCameraContext();
     this.querySetlCycle();
