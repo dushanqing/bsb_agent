@@ -207,7 +207,7 @@
           <view class="weui-cell__bd">
             <input class="weui-input" name="mchtPhone" value="{{mchtPhone}}" maxlength="32" bindblur="blurMchtPhone" focus="{{mchtPhoneFocus}}" placeholder="请输入联系人手机号" />
           </view>
-        </view>
+        </view>        
         <!-- 邮箱 -->
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
@@ -217,6 +217,9 @@
             <input class="weui-input" name="mchtEmail" value="{{mchtEmail}}" maxlength="60" bindblur="blurMchtEmail" focus="{{mchtEmailFocus}}" placeholder="请输入邮箱" />
           </view>
         </view>
+        
+        <view class="divLine" hidden="{{isHide}}"></view>
+
         <!-- 经度 -->
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">

@@ -155,7 +155,10 @@
            <text class="weui-text" name="mchtContAddr">{{mchtContAddr}}</text>
         </view>
       </view>
-       <view class="weui-cell weui-cell_input">
+      
+      <view class="divLine" hidden="{{isHide}}"></view>
+
+      <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
           <view class="weui-label">联系人</view>
         </view>
@@ -179,7 +182,7 @@
           <text class="weui-text" name="mchtEmail">{{mchtEmail}}</text>
         </view>
       </view>
-        <view class="weui-cell weui-cell_input">
+      <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
           <view class="weui-label">经度</view>
         </view>
@@ -187,7 +190,7 @@
           <text class="weui-text" name="longitude">{{longitude}}</text>
         </view>
       </view>
-        <view class="weui-cell weui-cell_input">
+      <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
           <view class="weui-label">纬度</view>
         </view>
