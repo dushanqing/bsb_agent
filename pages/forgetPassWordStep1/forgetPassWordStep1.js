@@ -14,8 +14,10 @@ Page({
     currentTime: 61, //倒计时
     disabled: true, //按钮是否禁用
     loading: false,
-    loginStep1: true,
-    loginStep2: true,
+    loginStep1: true, //未登录显示登录选择页面
+    loginStep2: true, //登录过显示短信验证页面
+    userBank: true, //行内用户登陆了页面
+    userAgent: true,//行外用户登录页面
     submitFlag: false, //避免重复提交
     capFlag: false,//图形验证码
 
@@ -58,24 +60,42 @@ Page({
 
   },
   /** 
+   * 行内登录
+   */
+  userBankLogin: function(){
+    var that = this;
+    that.setData({
+      userBank: false,
+      userAgent: true, 
+      loginStep1: true,
+    });
+    wx.setStorageSync('isOrgLoginFlag', '01');
+
+  },
+  /**
+   * 行外登录
+   */
+  userAgentLogin: function(){
+    var that = this;
+    that.setData({
+      userBank: true, 
+      userAgent: false,
+      loginStep1: true,
+    });
+    wx.setStorageSync('isOrgLoginFlag', '02');
+  },
+  
+  /** 
    * onStep1登录商户信息(客户经理编号,营业执照号,手机号) 
    */
   onStep1: function (e) {
     var that = this;
     let sessionId = wx.getStorageSync("sessionId");
+    let isOrgLoginFlag = wx.getStorageSync("isOrgLoginFlag");
     let userNo = e.detail.value.userName;
-    let mchtLicnNo = e.detail.value.mchtLicnNo;
     let phoneNo = e.detail.value.telPhone;
     if (util.strIsEmpty(userNo)) {
       util.showToast('请输入账号')
-      return;
-    }
-    if (util.strIsEmpty(mchtLicnNo)) {
-      util.showToast('请输入营业执照号')
-      return;
-    }
-    if (!reg.isLicnNo.test(mchtLicnNo)){
-      util.showToast('营业执照号格式不正确')
       return;
     }
     if (util.strIsEmpty(phoneNo)) {
@@ -86,6 +106,20 @@ Page({
       util.showToast('手机号格式不正确')
       return;
     }
+    let mchtLicnNo = '';
+    //行外特殊验证 营业执照号
+    if (isOrgLoginFlag=='02'){
+      mchtLicnNo =  e.detail.value.mchtLicnNo;
+      if (util.strIsEmpty(mchtLicnNo)) {
+        util.showToast('请输入营业执照号')
+        return;
+      }
+      if (!reg.isLicnNo.test(mchtLicnNo)) {
+        util.showToast('营业执照号格式不正确')
+        return;
+      }
+    }
+    
     const resBody = http.request({
       url: 'checkLoginInfo.do',
       data: {
@@ -93,6 +127,7 @@ Page({
           userNo: util.trim(userNo),
           mchtLicnNo: util.trim(mchtLicnNo),
           phoneNo: util.trim(phoneNo),
+          isOrgLoginFlag: isOrgLoginFlag,
         }
       },
       method: 'POST'
@@ -107,19 +142,28 @@ Page({
         return;
       };
 
-      //数据放入本地缓存
+      //数据放入本地缓存登录过后使用
       wx.setStorageSync('userNo', userNo)
-      wx.setStorageSync('mchtLicnNo', mchtLicnNo)
       wx.setStorageSync('phoneNo', phoneNo)
+      if (isOrgLoginFlag == '02'){
+        wx.setStorageSync('mchtLicnNo', mchtLicnNo)
+      }
       //数据验证成功,显示step2页面
-      that.setData({
-        phoneNo: phoneNo,
-        userNo: userNo,
-        mchtLicnNo: mchtLicnNo,
-        loginStep1: true,
-        loginStep2: false
-      });
-    
+      if (isOrgLoginFlag == '01'){
+        that.setData({
+          phoneNo: phoneNo,
+          userBank: true,
+          loginStep2: false
+        });
+      }
+      if (isOrgLoginFlag == '02'){
+        that.setData({
+          phoneNo: phoneNo,
+          userAgent: true,
+          loginStep2: false
+        });
+      }
+
     });
   },
 
@@ -185,7 +229,8 @@ Page({
         body: {
           msgToken: that.data.msgToken,
           phoneNo: wx.getStorageSync('phoneNo'),
-          userNo: wx.getStorageSync('userNo')
+          userNo: wx.getStorageSync('userNo'),
+          isOrgLoginFlag: wx.getStorageSync("isOrgLoginFlag")
         }
       },
       method: 'POST'
@@ -294,6 +339,7 @@ Page({
           mchtLicnNo: wx.getStorageSync('mchtLicnNo'),
           taskId: that.data.taskId,
           vrfyCode: vrfyCode,
+          isOrgLoginFlag: wx.getStorageSync("isOrgLoginFlag"),
           reqSsn: that.data.reqSsn
         }
       },

@@ -139,6 +139,24 @@
            <text class="weui-text" name="mchtType">{{mchtType}}</text>
         </view>
       </view>
+       <!-- 行内:客户经理编号,客户经理姓名 -->
+        <view class="weui-cell weui-cell_input" hidden="{{isOrgLoginFlag=='01'?false:true}}">
+          <view class="weui-cell__hd">
+            <view class="weui-label">客户经理编号</view>
+          </view>
+          <view class="weui-cell__bd__d">
+            <text class="weui-text" name="busAmrNo">{{busAmrNo}}</text>
+          </view>
+        </view>
+
+        <view class="weui-cell weui-cell_input" hidden="{{isOrgLoginFlag=='01'?false:true}}">
+          <view class="weui-cell__hd">
+            <view class="weui-label">客户经理姓名</view>
+          </view>
+          <view class="weui-cell__bd__d">
+            <text class="weui-text" name="busAmrName">{{busAmrName}}</text>
+          </view>
+        </view>
        <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
           <view class="weui-label">所属地区</view>
@@ -168,7 +186,7 @@
       </view>
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
-          <view class="weui-label">联系手机号</view>
+          <view class="weui-label">联系电话</view>
         </view>
         <view class="weui-cell__bd__d">
            <text class="weui-text" name="mchtPhone">{{mchtPhone}}</text>

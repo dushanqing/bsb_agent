@@ -58,7 +58,8 @@ Page({
       url: 'queryAgencyInfo.do',
       data: {
         body: {
-          mchtId: mchtMngId
+          mchtId: mchtMngId,
+          isOrgLoginFlag: wx.getStorageSync("isOrgLoginFlag")
         }
       },
       method: 'POST'

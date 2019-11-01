@@ -165,6 +165,24 @@
             </picker>
           </view>
         </view>
+        <!-- 行内:客户经理编号,客户经理姓名 -->
+        <view class="weui-cell weui-cell_input" hidden="{{isOrgLoginFlag=='01'?false:true}}">
+          <view class="weui-cell__hd">
+            <view class="weui-label">客户经理编号</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" name="busAmrNo" maxlength="20" focus="{{busAmrNoFocus}}" bindblur="blurBusAmrNo" placeholder="请输客户经理编号" value="{{busAmrNo}}" />
+          </view>
+        </view>
+
+        <view class="weui-cell weui-cell_input" hidden="{{isOrgLoginFlag=='01'?false:true}}">
+          <view class="weui-cell__hd">
+            <view class="weui-label">客户经理姓名</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" name="busAmrName" maxlength="32" focus="{{busAmrNameFocus}}" bindblur="blurBusAmrName" placeholder="请输客户经理姓名" value="{{busAmrName}}" />
+          </view>
+        </view>
         <!-- 所属地区 -->
         <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{ area }}" wx:key="" data-index="{{ index }}" bindtap="bindArea">
           <view class="weui-label">所属地区</view>

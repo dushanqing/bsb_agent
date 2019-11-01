@@ -80,7 +80,6 @@ Page({
     }],
     mchtTypeIndex: 0,
     submitFlag: undefined,
-
     // 法定代表人证件类型
     mchtArtifType: [
       {
@@ -123,7 +122,8 @@ Page({
 
   onShow: function() {
     this.setData({
-      submitFlag: true
+      submitFlag: true,
+      isOrgLoginFlag: wx.getStorageSync("isOrgLoginFlag"),
     })
     //获取行业类别
     this.queryAgencyInfo();
@@ -299,7 +299,18 @@ Page({
           mchtArtifPhone: mchtInfo.mchtArtifPhone
         });
       }
- 
+      
+      //添加客户经理编号与客户经理姓名回显 add by dsq 20191010
+      if (util.strIsNotEmpty(mchtInfo.busAmrNo)) {
+        this.setData({
+          busAmrNo: mchtInfo.busAmrNo
+        });
+      }
+      if (util.strIsNotEmpty(mchtInfo.busAmrName)) {
+        this.setData({
+          busAmrName: mchtInfo.busAmrName
+        });
+      }
     }
   },
 
@@ -380,6 +391,16 @@ Page({
     //     latitude: ""
     //   });
     // }
+  },
+  //客户经理编号
+  blurBusAmrNo: function (e) {
+    mchtInfo.busAmrNo = util.trim(e.detail.value);
+    wx.setStorageSync("mchtInfo", mchtInfo);
+  },
+  //客户经理名称
+  blurBusAmrName: function (e) {
+    mchtInfo.busAmrName = util.trim(e.detail.value);
+    wx.setStorageSync("mchtInfo", mchtInfo);
   },
 
   bindArea(e) {
@@ -909,7 +930,30 @@ Page({
     }    
     //法人证件类型
     var mchtArtifTypeId = this.data.mchtArtifType[e.detail.value.mchtArtifType].mchtArtifTypeId;
+    
+    //添加客户经理编号与客户经理姓名校验 add by dsq 20191010
+    var busAmrNo = util.trim(e.detail.value.busAmrNo);
+    var busAmrName = util.trim(e.detail.value.busAmrName);
 
+    if (util.strIsNotEmpty(busAmrNo)) {
+      if (util.strIsEmpty(busAmrName)){
+        util.showToast('请输入客户经理姓名!');
+        this.setData({
+          busAmrNameFocus: true
+        })
+        return false;
+      }
+    }
+    
+    if (util.strIsNotEmpty(busAmrName)) {
+      if (util.strIsEmpty(busAmrNo)){
+        util.showToast('请输入客户经理编号!');
+        this.setData({
+          busAmrNoFocus: true
+        })
+        return false;
+      }
+    }
     var mchtLev = this.data.mchtLev[e.detail.value.mchtLev].mchtLevId;
     if ("01" === mchtLev) {
       var isStore = this.data.stores[e.detail.value.stores].storesId;

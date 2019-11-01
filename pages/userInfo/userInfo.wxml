@@ -5,7 +5,7 @@
     <view class='count-text font'>
       <view class="count-text_hd">角色</view>
       <view class="count-text_bd">
-        <text>客户经理</text>
+        <text>{{isOrgLoginFlag=="01"?"行内操作员":"客户经理"}}</text>
       </view>
     </view>
     <view class='count-text font'>

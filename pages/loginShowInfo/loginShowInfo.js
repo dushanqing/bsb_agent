@@ -23,7 +23,9 @@ Page({
     const info = http.request({
       url: 'getAgentInfo.do',
       data: {
-        body: {}
+        body: {
+          isOrgLoginFlag: wx.getStorageSync("isOrgLoginFlag")
+        }
       },
       method: 'POST'
     });
@@ -36,6 +38,7 @@ Page({
         agname: res.agname,
         userNm: res.userNm,
         phoneNo: res.phoneNo,
+        isOrgLoginFlag: wx.getStorageSync("isOrgLoginFlag"),
       })
       that.getCountData();
     })
@@ -124,7 +127,8 @@ Page({
       url: 'processMutex.do',
       data: {
         body: {
-          auditProcType: "00"
+          auditProcType: "00",
+          isOrgLoginFlag: wx.getStorageSync("isOrgLoginFlag"),
         }
       },
       method: 'POST'

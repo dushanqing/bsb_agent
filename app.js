@@ -25,13 +25,15 @@ App({
             "Content-Type": "application/json"
           },
           method: "POST",
-          url: 'https://test1.bsb.com.cn/ifsp-gateway/agent/exchangeOpenIdBycode.do',
+	        //url: 'http://ydsd.bsb.com.cn/ifsp-gateway/agent/exchangeOpenIdBycode.do',
+            url: 'https://test1.bsb.com.cn/ifsp-gateway/agent/exchangeOpenIdBycode.do',
           data:{
             head:{
               'sessionId': 'sessionId'
             },
             body:{
-              jscode: code
+              jscode: code,
+              isOrgLoginFlag : '01'
             }
           },
           success:function(res){
@@ -49,7 +51,7 @@ App({
               loginFlag = false;
               util.showToast("系统异常");
             } else {
-              wx.setStorageSync('sessionId', sessionId)
+              wx.setStorageSync('sessionId', sessionId);
             }
             let rsaPubKey = res.data.head.rsaPubKey;
             if (util.strIsEmpty(rsaPubKey)) {
@@ -61,51 +63,47 @@ App({
 
             //用户已经登录获取用户信息
             if (loginFlag){
+              let isOrgLoginFlag = res.data.body.isOrgLoginFlag;
               let userId = res.data.body.userId;
               let userNo = res.data.body.userNo;
               let phoneNo = res.data.body.phoneNo;
               let mchtLicnNo = res.data.body.mchtLicnNo
-              if (util.strIsEmpty(userId) || util.strIsEmpty(userNo) || util.strIsEmpty(phoneNo) || util.strIsEmpty(mchtLicnNo)) {
-                loginFlag = false;
-                util.showToast("系统异常");
-                return;
-              } else {
-                wx.setStorageSync('userId', userId);
-                wx.setStorageSync('userNo', userNo);
-                wx.setStorageSync('phoneNo', phoneNo);
-                wx.setStorageSync('mchtLicnNo', mchtLicnNo);
+              //行内登录验证返回信息
+              if (isOrgLoginFlag == '01'){
+                if (util.strIsEmpty(userId) ||  util.strIsEmpty(phoneNo)) {
+                  loginFlag = false;
+                  util.showToast("系统异常");
+                  return;
+                } else {
+                  wx.setStorageSync('userId', userId);
+                  wx.setStorageSync('userNo', userId);
+                  wx.setStorageSync('phoneNo', phoneNo);
+                  wx.setStorageSync('isOrgLoginFlag', isOrgLoginFlag);
+                }
+              }
+              //行外登录验证返回信息
+              if (isOrgLoginFlag == '02'){
+                if (util.strIsEmpty(userId) || util.strIsEmpty(userNo) || util.strIsEmpty(phoneNo) ||     util.strIsEmpty(mchtLicnNo)) {
+                  loginFlag = false;
+                  util.showToast("系统异常");
+                  return;
+                } else {
+                  wx.setStorageSync('userId', userId);
+                  wx.setStorageSync('userNo', userNo);
+                  wx.setStorageSync('phoneNo', phoneNo);
+                  wx.setStorageSync('mchtLicnNo', mchtLicnNo);
+                  wx.setStorageSync('isOrgLoginFlag', isOrgLoginFlag);
+                }
               }
             }
-            
             //回调传参,onLoad使用
-            if(that.loginCallback){
+            if (that.loginCallback) {
               that.loginCallback(loginFlag);
             }
-
           }
-        })
+        });
       }
     })
-    // 获取用户信息
-    // wx.getSetting({
-    //   success: res => {
-    //     if (res.authSetting['scope.userInfo']) {
-    //       // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-    //       wx.getUserInfo({
-    //         success: res => {
-    //           // 可以将 res 发送给后台解码出 unionId
-    //           this.globalData.userInfo = res.userInfo
-
-    //           // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-    //           // 所以此处加入 callback 以防止这种情况
-    //           if (this.userInfoReadyCallback) {
-    //             this.userInfoReadyCallback(res)
-    //           }
-    //         }
-    //       })
-    //     }
-    //   }
-    // })
   },
 
 

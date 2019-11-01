@@ -31,10 +31,13 @@ Page({
   onShow: function () {
     var that = this;
     let userId = wx.getStorageInfoSync('userId');
+    let isOrgLoginFlag = wx.getStorageSync("isOrgLoginFlag");
     const resBody = http.request({
       url: 'getAgentInfo.do',
       data: {
-        body: {}
+        body: {
+          isOrgLoginFlag: isOrgLoginFlag
+        }
       },
       method: 'POST'
     });
@@ -47,6 +50,7 @@ Page({
         agname: res.agname,
         userNm: res.userNm,
         phoneNo: res.phoneNo,
+        isOrgLoginFlag: isOrgLoginFlag,
       })
     })
   },

@@ -9,7 +9,7 @@ Page({
     mchtListData: [],//返回数据
     pageNo: 1,//搜索开始页
     pageSize:10,//每页展示数据
-    searchLoading: false, //"上拉加载"的变量，默认false，隐藏  
+    searchLoading: false, //"上拉加载"的变量，默认false，隐藏
     searchLoadingComplete: false, //“没有数据”的变量，默认false，隐藏  
     searchFlag:false,
     isFromSearch: true,   // 用于判断searchSongList数组是不是空数组，默认true，空的数组
@@ -173,6 +173,8 @@ Page({
           mchtSimpleName: that.data.searchData.mchtNameSearch,
           mchtStat: mchtStatId == '100' ? '' : mchtStatId,
           pageNo: that.data.pageNo.toString(),
+          isOrgLoginFlag: wx.getStorageSync("isOrgLoginFlag")
+
         }
       },
       method: 'POST'

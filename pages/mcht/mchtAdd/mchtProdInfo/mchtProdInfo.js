@@ -199,7 +199,9 @@ Page({
     const resBody = http.request({
       url: 'selectProductNameByUserId.do',
       data: {
-        body: {}
+        body: {
+          isOrgLoginFlag: wx.getStorageSync("isOrgLoginFlag")
+        }
       },
       method: 'POST'
     });
@@ -426,7 +428,9 @@ Page({
           url: 'saveMerchant.do',
           data: {
             body: {
-              mchtInfo: JSON.stringify(mchtInfo)
+              mchtInfo: JSON.stringify(mchtInfo),
+              isOrgLoginFlag: wx.getStorageSync("isOrgLoginFlag")
+
             }
           },
           method: 'POST'

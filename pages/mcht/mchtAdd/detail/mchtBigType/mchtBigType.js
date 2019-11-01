@@ -20,7 +20,9 @@ Page({
     const resBody = http.request({
       url: 'queryAgencyInfo.do',
       data: {
-        body: {}
+        body: {
+          isOrgLoginFlag:wx.getStorageSync("isOrgLoginFlag")
+        }
       },
       method: 'POST'
     });

@@ -3,7 +3,7 @@
   <image class="title-image" src="/images/bsb/bsb.png"></image>
   </view>
   <view class="title-item">
-    <text>{{agname}}</text>
+    <text hidden="{{isOrgLoginFlag=='01'?true:false}}">{{agname}}</text>
     <text>{{userNm}}</text>
   </view>
 </view>

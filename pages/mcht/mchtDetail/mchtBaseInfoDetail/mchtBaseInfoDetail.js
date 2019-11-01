@@ -87,7 +87,9 @@ packData:function(res){
     mchtArtifId="",
     mchtArtifExpDate="",
     mchtArtifPhone="",
-    mchtRegAmt="";
+    mchtRegAmt="",
+    busAmrNo = "",
+    busAmrName = "";
   if (util.strIsNotEmpty(mchtBigType)) {
     that.queryAgencyInfo(mchtBigType);
   }
@@ -209,6 +211,12 @@ packData:function(res){
   if (util.strIsNotEmpty(mcht.mchtRegAmt)) {
     mchtRegAmt = mcht.mchtRegAmt;
   }
+    if (util.strIsNotEmpty(mcht.busAmrNo)){
+    busAmrNo = mcht.busAmrNo;
+  }
+  if (util.strIsNotEmpty(mcht.busAmrName)) {
+    busAmrName = mcht.busAmrName;
+  }
   mchtAreaNo = province + city + quyu;
   that.setData({
     mchtName: mchtName,
@@ -235,6 +243,9 @@ packData:function(res){
     mchtArtifExpDate: mchtArtifExpDate,
     mchtArtifPhone: mchtArtifPhone,
     mchtRegAmt: mchtRegAmt,
+    busAmrNo: busAmrNo,
+    busAmrName: busAmrName,
+    isOrgLoginFlag: wx.getStorageSync("isOrgLoginFlag"),
   })
 },
 
@@ -244,7 +255,9 @@ packData:function(res){
     const resBody = http.request({
       url: 'queryAgencyInfo.do',
       data: {
-        body: {}
+        body: {
+          isOrgLoginFlag: wx.getStorageSync("isOrgLoginFlag")
+        }
       },
       method: 'POST'
     });
