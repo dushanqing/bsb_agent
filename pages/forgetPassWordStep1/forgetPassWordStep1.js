@@ -133,9 +133,9 @@ Page({
       method: 'POST'
     });
     resBody.then(res => {
-      const resCode = res.resCode
-      const resMessage = res.resMessage
-
+      const resCode = res.resCode;
+      const resMessage = res.resMessage;
+      const userId = res.userId;
       //验证请求状态不是成功直接暴露异常
       if (resCode != 'S') {
         util.showToast(resMessage)
@@ -145,6 +145,7 @@ Page({
       //数据放入本地缓存登录过后使用
       wx.setStorageSync('userNo', userNo)
       wx.setStorageSync('phoneNo', phoneNo)
+      wx.setStorageSync('userId', userId);
       if (isOrgLoginFlag == '02'){
         wx.setStorageSync('mchtLicnNo', mchtLicnNo)
       }
@@ -230,6 +231,7 @@ Page({
           msgToken: that.data.msgToken,
           phoneNo: wx.getStorageSync('phoneNo'),
           userNo: wx.getStorageSync('userNo'),
+          userId: wx.getStorageSync('userId'),
           isOrgLoginFlag: wx.getStorageSync("isOrgLoginFlag")
         }
       },
@@ -340,7 +342,8 @@ Page({
           taskId: that.data.taskId,
           vrfyCode: vrfyCode,
           isOrgLoginFlag: wx.getStorageSync("isOrgLoginFlag"),
-          reqSsn: that.data.reqSsn
+          reqSsn: that.data.reqSsn,
+          userId: wx.getStorageSync('userId'),
         }
       },
       method: 'POST'
