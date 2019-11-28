@@ -141,7 +141,6 @@ Page({
         util.showToast(resMessage)
         return;
       };
-
       //数据放入本地缓存登录过后使用
       wx.setStorageSync('userNo', userNo)
       wx.setStorageSync('phoneNo', phoneNo)
@@ -262,6 +261,12 @@ Page({
         });
         return;
       }
+      if (resCode == '0040'){
+        util.showToast("该用户已禁用");
+        that.selectComponent("#test").onUpdate();
+        that.data.capFlag = false;
+        return;
+      }
 
       //验证请求状态不是成功直接暴露异常
       if (resCode != 'S') {
@@ -364,7 +369,7 @@ Page({
 
       //用户验证身份失败 跳转到登录首页
       if (resCode == '0026') {
-        util.showToast("用户营业执照更改,请重新登录");
+        util.showToast("用户身份验证失败");
         //用户未登录
         that.setData({
           loginStep1: false,
