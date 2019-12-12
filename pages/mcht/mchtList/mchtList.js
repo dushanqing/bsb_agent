@@ -182,24 +182,17 @@ Page({
 
     //封装返回参数
     resbody.then(res =>{
-
+    
       that.setData({
         searchFlag: false,
       })
-      //session 过期处理 按照首次登录处理
-      // if (res.resCode == 'REQ1015') {
-      //   app.onLaunch();
-      //   wx.redirectTo({
-      //     url: "/pages/forgetPassWordStep1/forgetPassWordStep1",
-      //   })
-      //   return;
-      // }
-
       //验证请求状态不是成功直接暴露异常
       if (res.resCode != 'S') {
         util.showToast(res.resMessage)
         return;
       }
+      var totalCnt = res.totalCnt;//数据总条数
+
       var mchtList = [];
       let empList = res.empList;
       if (!util.strIsEmpty(empList)) {
@@ -229,7 +222,7 @@ Page({
             mchtStatId: mchtStatId,
             searchLoading: true   //把"上拉加载"的变量设为ture，显示  
           })
-        if (empList.length<10){
+        if (empList.length < 10 || (that.data.pageNo * that.data.pageSize == totalCnt)){
           that.setData({
             searchLoadingComplete: true, //把“没有数据”设为true，显示  
             searchLoading: false  //把"上拉加载"的变量设为false，隐藏  
