@@ -26,7 +26,8 @@ App({
           },
           method: "POST",
 	        //url: 'http://ydsd.bsb.com.cn/ifsp-gateway/agent/exchangeOpenIdBycode.do',
-          url: 'https://test1.bsb.com.cn/ifsp-gateway/agent/exchangeOpenIdBycode.do',
+          //url: 'https://test1.bsb.com.cn/ifsp-gateway/agent/exchangeOpenIdBycode.do',
+            url: 'https://mtp.bsb.com.cn/ifsp-gateway/agent/exchangeOpenIdBycode.do',
           data:{
             head:{
               'sessionId': 'sessionId'
